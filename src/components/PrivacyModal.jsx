@@ -1,7 +1,9 @@
 import React from 'react';
+import useSettingsStore from '../store/settingsStore';
 import { X, ShieldCheck } from 'lucide-react';
 
 export default function PrivacyModal({ isOpen, onClose }) {
+  const { phone, email } = useSettingsStore();
   if (!isOpen) return null;
 
   return (
@@ -47,7 +49,7 @@ export default function PrivacyModal({ isOpen, onClose }) {
 
           <div>
             <h4 className="font-bold text-slate-900">5. Contact Information</h4>
-            <p>For any inquiries or grievances, contact our grievance officer at <strong>citytourcabs8@gmail.com</strong> or call <strong>+91 7021001921</strong>.</p>
+            <p>For any inquiries or grievances, contact our grievance officer at <strong>{email}</strong> or call <strong>+91 {phone}</strong>.</p>
           </div>
         </div>
 

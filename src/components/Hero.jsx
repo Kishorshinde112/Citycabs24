@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useSettingsStore from '../store/settingsStore';
 import { 
   MapPin, Calendar, Clock, Car, Users, ArrowRight, 
   Sparkles, ShieldCheck, Star, Phone, MessageCircle, CheckCircle2,
@@ -8,6 +9,7 @@ import { TOURS_DATA } from '../data/toursData';
 import { FLEET_DATA } from '../data/fleetData';
 
 export default function Hero({ onSelectTour, onOpenBookModal }) {
+  const { phone } = useSettingsStore();
   const [bookingType, setBookingType] = useState('outstation'); // 'outstation', 'local', 'tour'
   const [tripType, setTripType] = useState('one-way'); // 'one-way', 'round-trip'
   const [pickupCity, setPickupCity] = useState('Mumbai (Anywhere / Airport)');
@@ -28,7 +30,7 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
 
   const handleQuickBookWhatsApp = (e) => {
     e.preventDefault();
-    let msg = `*🚖 CityTourCabs Booking Inquiry*\n\n`;
+    let msg = `*🚖 CityCabs24 Booking Inquiry*\n\n`;
     if (bookingType === 'outstation') {
       msg += `📍 *Trip Type:* Outstation (${tripType === 'one-way' ? 'One Way' : 'Round Trip'})\n`;
       msg += `🚗 *Pickup:* ${pickupCity}\n`;
@@ -53,7 +55,7 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
     msg += `\n*Please share best rate & confirm availability.*`;
 
     const encoded = encodeURIComponent(msg);
-    window.open(`https://wa.me/917021001921?text=${encoded}`, '_blank');
+    window.open(`https://wa.me/91${phone}?text=${encoded}`, '_blank');
   };
 
   return (
@@ -61,7 +63,7 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
       
       {/* Background Glows & Patterns */}
       <div className="absolute inset-0 dark-hero-pattern opacity-40 pointer-events-none"></div>
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
       <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -71,14 +73,14 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
           <div className="lg:col-span-6 space-y-6 text-center lg:text-left">
             
             {/* Top Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs sm:text-sm font-semibold backdrop-blur-md">
-              <Sparkles className="w-4 h-4 text-amber-400" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs sm:text-sm font-semibold backdrop-blur-md">
+              <Sparkles className="w-4 h-4 text-indigo-400" />
               <span>Drivers Who Act As Your Personal Tour Guides</span>
             </div>
 
             {/* Main Headline */}
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-black tracking-tight leading-[1.15] text-white">
-              Explore Mumbai & Beyond With <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-200">Premium Guided Cabs</span>
+              Explore Mumbai & Beyond With <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-indigo-300 to-blue-200">Premium Guided Cabs</span>
             </h1>
 
             {/* Subheading */}
@@ -97,7 +99,7 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
               </div>
 
               <div className="flex items-center gap-2 text-left bg-slate-800/60 p-2.5 rounded-xl border border-slate-700/60">
-                <ShieldCheck className="w-5 h-5 text-amber-400 shrink-0" />
+                <ShieldCheck className="w-5 h-5 text-indigo-400 shrink-0" />
                 <div>
                   <div className="text-xs font-bold text-white">Verified Drivers</div>
                   <div className="text-[10px] text-slate-400">10+ yrs experience</div>
@@ -116,7 +118,7 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
             {/* Social Proof Badges */}
             <div className="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs text-slate-300">
               <div className="flex items-center gap-1.5 bg-slate-800/80 px-3 py-1.5 rounded-full border border-slate-700">
-                <div className="flex text-amber-400">
+                <div className="flex text-indigo-400">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="w-3.5 h-3.5 fill-current" />
                   ))}
@@ -138,7 +140,7 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
             <div className="bg-white rounded-3xl p-5 sm:p-7 shadow-2xl text-slate-900 border border-slate-100 relative">
               
               {/* Top Accent Ribbon */}
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-500 to-amber-600 text-white font-bold text-xs px-4 py-1 rounded-full shadow-md uppercase tracking-wider flex items-center gap-1.5">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white font-bold text-xs px-4 py-1 rounded-full shadow-md uppercase tracking-wider flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Instant Fare Quote & Booking</span>
               </div>
@@ -191,7 +193,7 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
                       name="tripType"
                       checked={tripType === 'one-way'}
                       onChange={() => setTripType('one-way')}
-                      className="text-amber-500 focus:ring-amber-400"
+                      className="text-indigo-500 focus:ring-indigo-400"
                     />
                     <span>One Way Drop</span>
                   </label>
@@ -201,7 +203,7 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
                       name="tripType"
                       checked={tripType === 'round-trip'}
                       onChange={() => setTripType('round-trip')}
-                      className="text-amber-500 focus:ring-amber-400"
+                      className="text-indigo-500 focus:ring-indigo-400"
                     />
                     <span>Round Trip (Multi-Day)</span>
                   </label>
@@ -224,7 +226,7 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
                         value={pickupCity}
                         onChange={(e) => setPickupCity(e.target.value)}
                         placeholder="e.g. Mumbai Airport, Dadar, Thane"
-                        className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition"
+                        className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition"
                         required
                       />
                     </div>
@@ -239,7 +241,7 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
                         value={dropCity}
                         onChange={(e) => setDropCity(e.target.value)}
                         placeholder="e.g. Pune, Lonavala, Shirdi, Goa"
-                        className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition"
+                        className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition"
                         required
                       />
                     </div>
@@ -259,20 +261,20 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
                         value={pickupCity}
                         onChange={(e) => setPickupCity(e.target.value)}
                         placeholder="e.g. Andheri, Dadar, Bandra, Thane"
-                        className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition"
+                        className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition"
                         required
                       />
                     </div>
 
                     <div>
                       <label className="block text-xs font-bold text-slate-700 mb-1 flex items-center gap-1">
-                        <Clock className="w-3.5 h-3.5 text-amber-500" />
+                        <Clock className="w-3.5 h-3.5 text-indigo-500" />
                         Rental Duration / Package
                       </label>
                       <select
                         value={localPackage}
                         onChange={(e) => setLocalPackage(e.target.value)}
-                        className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition bg-white"
+                        className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-white"
                       >
                         <option value="8 hrs / 80 Km (Full Day)">8 hrs / 80 Km (Full Day)</option>
                         <option value="10 hrs / 100 Km (Extended)">10 hrs / 100 Km (Extended)</option>
@@ -288,13 +290,13 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
                   <div className="grid sm:grid-cols-2 gap-3">
                     <div>
                       <label className="block text-xs font-bold text-slate-700 mb-1 flex items-center gap-1">
-                        <Award className="w-3.5 h-3.5 text-amber-500" />
+                        <Award className="w-3.5 h-3.5 text-indigo-500" />
                         Select Tour Package
                       </label>
                       <select
                         value={selectedTourId}
                         onChange={(e) => setSelectedTourId(e.target.value)}
-                        className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition bg-white font-medium"
+                        className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-white font-medium"
                       >
                         {TOURS_DATA.map((t) => (
                           <option key={t.id} value={t.id}>
@@ -314,7 +316,7 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
                         value={pickupCity}
                         onChange={(e) => setPickupCity(e.target.value)}
                         placeholder="Mumbai / Thane / Navi Mumbai / Pune"
-                        className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition"
+                        className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition"
                         required
                       />
                     </div>
@@ -332,7 +334,7 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
                       type="date"
                       value={pickupDate}
                       onChange={(e) => setPickupDate(e.target.value)}
-                      className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition"
+                      className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition"
                       required
                     />
                   </div>
@@ -345,7 +347,7 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
                     <select
                       value={pickupTime}
                       onChange={(e) => setPickupTime(e.target.value)}
-                      className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition bg-white"
+                      className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-white"
                     >
                       <option value="05:00 AM">05:00 AM (Early Morning)</option>
                       <option value="06:00 AM">06:00 AM</option>
@@ -364,13 +366,13 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1 flex items-center gap-1">
-                      <Car className="w-3.5 h-3.5 text-amber-500" />
+                      <Car className="w-3.5 h-3.5 text-indigo-500" />
                       Vehicle Preference
                     </label>
                     <select
                       value={carType}
                       onChange={(e) => setCarType(e.target.value)}
-                      className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition bg-white font-medium"
+                      className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-white font-medium"
                     >
                       <option value="WagonR (Hatchback 4+1)">WagonR (Hatchback 4+1)</option>
                       <option value="Swift Dzire (Sedan 4+1)">Swift Dzire (Sedan 4+1)</option>
@@ -391,7 +393,7 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
                       value={customerPhone}
                       onChange={(e) => setCustomerPhone(e.target.value)}
                       placeholder="10-digit mobile number"
-                      className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition"
+                      className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition"
                     />
                   </div>
                 </div>
@@ -409,17 +411,17 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
 
                   <div className="grid grid-cols-2 gap-2">
                     <a
-                      href="tel:+917021001921"
+                      href={`tel:+91${phone}`}
                       className="py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition text-center"
                     >
-                      <Phone className="w-3.5 h-3.5 text-amber-400" />
-                      <span>Call +91 7021001921</span>
+                      <Phone className="w-3.5 h-3.5 text-indigo-400" />
+                      <span>Call +91 {phone}</span>
                     </a>
 
                     <button
                       type="button"
                       onClick={() => onOpenBookModal({ bookingType, tripType, pickupCity, dropCity, carType, pickupDate })}
-                      className="py-2.5 px-3 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 font-bold text-xs flex items-center justify-center gap-1 transition text-center"
+                      className="py-2.5 px-3 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-800 border border-indigo-200 font-bold text-xs flex items-center justify-center gap-1 transition text-center"
                     >
                       <span>Custom Inquiry Form</span>
                     </button>

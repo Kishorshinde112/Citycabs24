@@ -13,7 +13,7 @@ export const FAQ_DATA = [
   },
   {
     question: "How do I book and what are the payment options?",
-    answer: "You can book directly via our Instant WhatsApp booking button, call us at +91 7021001921, or fill the online booking form. We accept UPI (GPay, PhonePe, Paytm), Bank IMPS/NEFT, and Cash. No huge advance required for local rides."
+    answer: "You can book directly via our Instant WhatsApp booking button, call us at +91 9833309061, or fill the online booking form. We accept UPI (GPay, PhonePe, Paytm), Bank IMPS/NEFT, and Cash. No huge advance required for local rides."
   },
   {
     question: "What is the cancellation policy?",

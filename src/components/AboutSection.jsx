@@ -1,7 +1,9 @@
 import React from 'react';
+import useSettingsStore from '../store/settingsStore';
 import { Sparkles, Check, Car, PhoneCall, ShieldCheck, HeartHandshake, Compass } from 'lucide-react';
 
 export default function AboutSection({ onOpenBookModal }) {
+  const { phone } = useSettingsStore();
   return (
     <section id="about" className="py-16 sm:py-24 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -10,22 +12,22 @@ export default function AboutSection({ onOpenBookModal }) {
           
           {/* Left: Content */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider">
-              <Compass className="w-3.5 h-3.5 text-amber-600" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-100 text-indigo-900 text-xs font-bold uppercase tracking-wider">
+              <Compass className="w-3.5 h-3.5 text-indigo-600" />
               <span>Our Story & Mission</span>
             </div>
 
             <h2 className="text-3xl sm:text-4xl font-display font-black tracking-tight text-slate-900 leading-tight">
-              Personal Connection Over <span className="text-amber-600">App Confusion</span>
+              Personal Connection Over <span className="text-indigo-600">App Confusion</span>
             </h2>
 
             <p className="text-slate-600 text-base leading-relaxed">
-              At <strong>CityTourCabs</strong>, we believe travel should be joyful, dependable, and personalized. In a world full of impersonal ride-hailing apps with sudden surge prices and canceling drivers, we stand for classic hospitality, guaranteed vehicle quality, and driver-guides who treat you like family.
+              At <strong>CityCabs24</strong>, we believe travel should be joyful, dependable, and personalized. In a world full of impersonal ride-hailing apps with sudden surge prices and canceling drivers, we stand for classic hospitality, guaranteed vehicle quality, and driver-guides who treat you like family.
             </p>
 
             <div className="space-y-3 pt-2">
               <div className="flex items-start gap-3 bg-slate-50 p-3.5 rounded-2xl border border-slate-100">
-                <div className="w-8 h-8 rounded-xl bg-amber-500 text-slate-950 font-bold flex items-center justify-center shrink-0 text-sm">
+                <div className="w-8 h-8 rounded-xl bg-indigo-500 text-slate-950 font-bold flex items-center justify-center shrink-0 text-sm">
                   1
                 </div>
                 <div>
@@ -63,7 +65,7 @@ export default function AboutSection({ onOpenBookModal }) {
 
             <div className="pt-4 flex flex-wrap items-center gap-4">
               <a
-                href="https://wa.me/917021001921?text=Hi%20CityTourCabs,%20I%20would%20like%20to%20know%20more%20about%20your%20services."
+                href={`https://wa.me/91${phone}?text=Hi%20CityCabs24,%20I%20would%20like%20to%20know%20more%20about%20your%20services.`}
                 target="_blank"
                 rel="noreferrer"
                 className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md transition flex items-center gap-2"
@@ -72,11 +74,11 @@ export default function AboutSection({ onOpenBookModal }) {
               </a>
 
               <a
-                href="tel:+917021001921"
+                href={`tel:+91${phone}`}
                 className="px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-md transition flex items-center gap-2"
               >
-                <PhoneCall className="w-4 h-4 text-amber-400" />
-                <span>+91 7021001921</span>
+                <PhoneCall className="w-4 h-4 text-indigo-400" />
+                <span>+91 {phone}</span>
               </a>
             </div>
 
@@ -87,15 +89,15 @@ export default function AboutSection({ onOpenBookModal }) {
             <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 p-8 rounded-3xl text-white shadow-2xl border border-slate-700 relative overflow-hidden space-y-6">
               
               {/* Glow Accent */}
-              <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/10 rounded-full blur-2xl"></div>
+              <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-500/10 rounded-full blur-2xl"></div>
 
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-xl">
+                <div className="w-12 h-12 rounded-2xl bg-indigo-500 text-slate-950 flex items-center justify-center font-bold text-xl">
                   🚖
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg font-display">CityTourCabs Promise</h3>
-                  <p className="text-xs text-amber-300">Fast. Safe. Affordable. Always at your doorstep.</p>
+                  <h3 className="font-bold text-lg font-display">CityCabs24 Promise</h3>
+                  <p className="text-xs text-indigo-300">Fast. Safe. Affordable. Always at your doorstep.</p>
                 </div>
               </div>
 
@@ -123,7 +125,7 @@ export default function AboutSection({ onOpenBookModal }) {
               </div>
 
               <div className="bg-slate-800/80 p-4 rounded-2xl border border-slate-700 text-center">
-                <div className="text-amber-400 font-display font-black text-2xl">
+                <div className="text-indigo-400 font-display font-black text-2xl">
                   12,500+ Trips
                 </div>
                 <div className="text-xs text-slate-400 mt-0.5">
@@ -133,7 +135,7 @@ export default function AboutSection({ onOpenBookModal }) {
 
               <button
                 onClick={() => onOpenBookModal()}
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-black text-sm shadow-lg transition"
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-slate-950 font-black text-sm shadow-lg transition"
               >
                 Plan Your Journey Now
               </button>

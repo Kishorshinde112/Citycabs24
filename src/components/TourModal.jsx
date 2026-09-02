@@ -1,19 +1,21 @@
 import React from 'react';
+import useSettingsStore from '../store/settingsStore';
 import { 
   X, MapPin, Calendar, Clock, Car, Check, AlertCircle, 
   Phone, MessageCircle, Star, Sparkles, Shield, ChevronRight
 } from 'lucide-react';
 
 export default function TourModal({ tour, onClose, onBookClick }) {
+  const { phone } = useSettingsStore();
   if (!tour) return null;
 
   const handleWhatsAppBooking = () => {
-    const text = `*🚖 CityTourCabs - Tour Booking Request*\n\n` +
+    const text = `*🚖 CityCabs24 - Tour Booking Request*\n\n` +
       `*Package:* ${tour.title}\n` +
       `*Duration:* ${tour.duration}\n` +
       `*Starting Fare:* ${tour.startingPrice}\n\n` +
       `Hello, I would like to inquire about booking the *${tour.title}* package. Please share available car options and best discounted rate.`;
-    window.open(`https://wa.me/917021001921?text=${encodeURIComponent(text)}`, '_blank');
+    window.open(`https://wa.me/91${phone}?text=${encodeURIComponent(text)}`, '_blank');
   };
 
   return (
@@ -40,11 +42,11 @@ export default function TourModal({ tour, onClose, onBookClick }) {
           
           <div className="absolute bottom-4 left-4 right-4 text-white">
             <div className="flex flex-wrap items-center gap-2 mb-2">
-              <span className="px-2.5 py-1 rounded-full bg-amber-500 text-slate-950 font-bold text-xs">
+              <span className="px-2.5 py-1 rounded-full bg-indigo-500 text-slate-950 font-bold text-xs">
                 {tour.category}
               </span>
               <span className="px-2.5 py-1 rounded-full bg-white/20 backdrop-blur-md text-white font-semibold text-xs flex items-center gap-1">
-                <Clock className="w-3.5 h-3.5 text-amber-300" />
+                <Clock className="w-3.5 h-3.5 text-indigo-300" />
                 {tour.duration}
               </span>
               <span className="px-2.5 py-1 rounded-full bg-emerald-500/80 backdrop-blur-md text-white font-semibold text-xs flex items-center gap-1">
@@ -56,7 +58,7 @@ export default function TourModal({ tour, onClose, onBookClick }) {
             <h2 className="text-2xl sm:text-3xl font-display font-black tracking-tight leading-tight">
               {tour.title}
             </h2>
-            <p className="text-amber-300 text-xs sm:text-sm font-medium mt-1">
+            <p className="text-indigo-300 text-xs sm:text-sm font-medium mt-1">
               ✨ {tour.tagline}
             </p>
           </div>
@@ -66,8 +68,8 @@ export default function TourModal({ tour, onClose, onBookClick }) {
         <div className="p-5 sm:p-7 max-h-[60vh] overflow-y-auto space-y-6">
           
           {/* Driver Guide Banner */}
-          <div className="flex items-center gap-3 bg-amber-50 border border-amber-200 p-3.5 rounded-2xl">
-            <div className="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 shadow-md">
+          <div className="flex items-center gap-3 bg-indigo-50 border border-indigo-200 p-3.5 rounded-2xl">
+            <div className="w-10 h-10 rounded-xl bg-indigo-500 text-white flex items-center justify-center shrink-0 shadow-md">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
@@ -99,7 +101,7 @@ export default function TourModal({ tour, onClose, onBookClick }) {
                   <div key={idx} className="bg-slate-50 border border-slate-200 p-3 rounded-2xl text-center">
                     <div className="text-xs font-bold text-slate-800">{pkg.name}</div>
                     <div className="text-xs text-slate-500 mt-0.5">{pkg.duration}</div>
-                    <div className="text-amber-600 font-black text-sm mt-1">{pkg.price}</div>
+                    <div className="text-indigo-600 font-black text-sm mt-1">{pkg.price}</div>
                   </div>
                 ))}
               </div>
@@ -158,7 +160,7 @@ export default function TourModal({ tour, onClose, onBookClick }) {
           {/* Vehicle Options */}
           <div>
             <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400 mb-2 flex items-center gap-1.5">
-              <Car className="w-4 h-4 text-amber-500" />
+              <Car className="w-4 h-4 text-indigo-500" />
               Available Vehicles for This Tour
             </h3>
             <div className="flex flex-wrap gap-2">
@@ -193,10 +195,10 @@ export default function TourModal({ tour, onClose, onBookClick }) {
 
           <div className="flex items-center gap-2.5 w-full sm:w-auto">
             <a
-              href="tel:+917021001921"
+              href={`tel:+91${phone}`}
               className="py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition"
             >
-              <Phone className="w-4 h-4 text-amber-400" />
+              <Phone className="w-4 h-4 text-indigo-400" />
               <span>Call Us</span>
             </a>
 

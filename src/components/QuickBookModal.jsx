@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import useSettingsStore from '../store/settingsStore';
 import { X, MessageCircle, Phone, Sparkles, CheckCircle2, Send, Car, Calendar, MapPin } from 'lucide-react';
 
 export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
+  const { phone } = useSettingsStore();
   if (!isOpen) return null;
 
   const [formData, setFormData] = useState({
@@ -20,7 +22,7 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
     e.preventDefault();
     setDone(true);
 
-    const msg = `*🚖 CityTourCabs - Quick Ride Request*\n\n` +
+    const msg = `*🚖 CityCabs24 - Quick Ride Request*\n\n` +
       `*Name:* ${formData.name}\n` +
       `*Phone:* ${formData.phone}\n` +
       `*Pickup:* ${formData.pickup}\n` +
@@ -31,7 +33,7 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
       `Please provide instant rate and assign driver.`;
 
     setTimeout(() => {
-      window.open(`https://wa.me/917021001921?text=${encodeURIComponent(msg)}`, '_blank');
+      window.open(`https://wa.me/91${phone}?text=${encodeURIComponent(msg)}`, '_blank');
       onClose();
     }, 1000);
   };
@@ -48,7 +50,7 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
           <X className="w-5 h-5" />
         </button>
 
-        <div className="flex items-center gap-2 text-amber-600 font-bold text-xs uppercase tracking-wider mb-1">
+        <div className="flex items-center gap-2 text-indigo-600 font-bold text-xs uppercase tracking-wider mb-1">
           <Sparkles className="w-4 h-4" />
           <span>Fast Booking Desk</span>
         </div>
@@ -77,7 +79,7 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
                   placeholder="Full Name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-200 focus:border-amber-500 outline-none"
+                  className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-200 focus:border-indigo-500 outline-none"
                 />
               </div>
 
@@ -89,7 +91,7 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
                   placeholder="Mobile Number"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-200 focus:border-amber-500 outline-none"
+                  className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-200 focus:border-indigo-500 outline-none"
                 />
               </div>
             </div>
@@ -103,7 +105,7 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
                   placeholder="e.g. Mumbai Airport / Dadar"
                   value={formData.pickup}
                   onChange={(e) => setFormData({ ...formData, pickup: e.target.value })}
-                  className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-200 focus:border-amber-500 outline-none"
+                  className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-200 focus:border-indigo-500 outline-none"
                 />
               </div>
 
@@ -115,7 +117,7 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
                   placeholder="e.g. Pune, Lonavala"
                   value={formData.drop}
                   onChange={(e) => setFormData({ ...formData, drop: e.target.value })}
-                  className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-200 focus:border-amber-500 outline-none"
+                  className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-200 focus:border-indigo-500 outline-none"
                 />
               </div>
             </div>
@@ -127,7 +129,7 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
                   type="date"
                   value={formData.date}
                   onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                  className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-200 focus:border-amber-500 outline-none"
+                  className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-200 focus:border-indigo-500 outline-none"
                 />
               </div>
 
@@ -136,7 +138,7 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
                 <select
                   value={formData.carType}
                   onChange={(e) => setFormData({ ...formData, carType: e.target.value })}
-                  className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-200 focus:border-amber-500 outline-none bg-white"
+                  className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-200 focus:border-indigo-500 outline-none bg-white"
                 >
                   <option value="Swift Dzire (Sedan 4+1)">Swift Dzire (Sedan 4+1)</option>
                   <option value="Maruti WagonR (Hatchback 4+1)">Maruti WagonR (Hatchback 4+1)</option>
@@ -157,8 +159,8 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
             </button>
 
             <div className="text-center pt-2">
-              <a href="tel:+917021001921" className="text-xs font-bold text-slate-600 hover:text-amber-600">
-                Or call directly: +91 7021001921
+              <a href={`tel:+91${phone}`} className="text-xs font-bold text-slate-600 hover:text-indigo-600">
+                Or call directly: +91 {phone}
               </a>
             </div>
           </form>

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import useSettingsStore from '../store/settingsStore';
 import { 
   Phone, Mail, MapPin, MessageCircle, Send, CheckCircle2, 
   Clock, Shield, Sparkles, Calendar, Car 
 } from 'lucide-react';
 
 export default function BookingContactForm() {
+  const { phone, email } = useSettingsStore();
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -23,7 +25,7 @@ export default function BookingContactForm() {
     setSubmitted(true);
 
     // Also trigger WhatsApp message for instantaneous conversion
-    const text = `*🚖 CityTourCabs - Website Booking Inquiry*\n\n` +
+    const text = `*🚖 CityCabs24 - Website Booking Inquiry*\n\n` +
       `*Name:* ${formData.name}\n` +
       `*Phone:* ${formData.phone}\n` +
       `*Email:* ${formData.email || 'N/A'}\n` +
@@ -36,7 +38,7 @@ export default function BookingContactForm() {
       `Please share availability and confirmed quotation.`;
 
     setTimeout(() => {
-      window.open(`https://wa.me/917021001921?text=${encodeURIComponent(text)}`, '_blank');
+      window.open(`https://wa.me/91${phone}?text=${encodeURIComponent(text)}`, '_blank');
     }, 800);
   };
 
@@ -46,13 +48,13 @@ export default function BookingContactForm() {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider mb-3">
-            <Mail className="w-3.5 h-3.5 text-amber-600" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-100 text-indigo-900 text-xs font-bold uppercase tracking-wider mb-3">
+            <Mail className="w-3.5 h-3.5 text-indigo-600" />
             <span>Get In Touch</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-display font-black tracking-tight text-slate-900">
-            Book Your Cab or <span className="text-amber-600">Contact Us</span>
+            Book Your Cab or <span className="text-indigo-600">Contact Us</span>
           </h2>
 
           <p className="text-slate-600 text-sm sm:text-base mt-3">
@@ -68,7 +70,7 @@ export default function BookingContactForm() {
             {/* Quick Contact Card */}
             <div className="bg-slate-900 rounded-3xl p-7 text-white shadow-xl border border-slate-800 space-y-6">
               <h3 className="text-2xl font-bold font-display text-white">
-                CityTourCabs Head Desk
+                CityCabs24 Head Desk
               </h3>
               <p className="text-slate-400 text-xs sm:text-sm">
                 Serving all of Mumbai, Thane, Navi Mumbai, Pune, Nashik, and major Maharashtra tourist circuits.
@@ -76,15 +78,15 @@ export default function BookingContactForm() {
 
               <div className="space-y-4 pt-2">
                 <a
-                  href="tel:+917021001921"
+                  href={`tel:+91${phone}`}
                   className="flex items-center gap-3.5 p-3 rounded-2xl bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 transition group"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0">
                     <Phone className="w-5 h-5" />
                   </div>
                   <div>
                     <div className="text-[11px] text-slate-400">Primary Hotline (24/7)</div>
-                    <div className="font-bold text-sm text-white group-hover:text-amber-400 transition">+91 7021001921</div>
+                    <div className="font-bold text-sm text-white group-hover:text-indigo-400 transition">+91 {phone}</div>
                   </div>
                 </a>
 
@@ -97,12 +99,12 @@ export default function BookingContactForm() {
                   </div>
                   <div>
                     <div className="text-[11px] text-slate-400">Secondary Booking Line</div>
-                    <div className="font-bold text-sm text-white group-hover:text-amber-400 transition">+91 9967672660</div>
+                    <div className="font-bold text-sm text-white group-hover:text-indigo-400 transition">+91 9967672660</div>
                   </div>
                 </a>
 
                 <a
-                  href="https://wa.me/917021001921?text=Hi%20CityTourCabs,%20I%20want%20to%20inquire%20about%20a%20cab%20tour."
+                  href={`https://wa.me/91${phone}?text=Hi%20CityCabs24,%20I%20want%20to%20inquire%20about%20a%20cab%20tour.`}
                   target="_blank"
                   rel="noreferrer"
                   className="flex items-center gap-3.5 p-3 rounded-2xl bg-emerald-950/70 hover:bg-emerald-900/80 border border-emerald-800/60 transition group"
@@ -112,12 +114,12 @@ export default function BookingContactForm() {
                   </div>
                   <div>
                     <div className="text-[11px] text-emerald-300">WhatsApp Instant Desk</div>
-                    <div className="font-bold text-sm text-white group-hover:text-emerald-300 transition">+91 7021001921</div>
+                    <div className="font-bold text-sm text-white group-hover:text-emerald-300 transition">+91 {phone}</div>
                   </div>
                 </a>
 
                 <a
-                  href="mailto:citytourcabs8@gmail.com"
+                  href={`mailto:${email}`}
                   className="flex items-center gap-3.5 p-3 rounded-2xl bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 transition group"
                 >
                   <div className="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center shrink-0">
@@ -125,7 +127,7 @@ export default function BookingContactForm() {
                   </div>
                   <div>
                     <div className="text-[11px] text-slate-400">Email Support</div>
-                    <div className="font-bold text-sm text-white group-hover:text-amber-400 transition">citytourcabs8@gmail.com</div>
+                    <div className="font-bold text-sm text-white group-hover:text-indigo-400 transition">{email}</div>
                   </div>
                 </a>
 
@@ -143,9 +145,9 @@ export default function BookingContactForm() {
             </div>
 
             {/* Guarantee badge */}
-            <div className="bg-amber-50 rounded-2xl p-4 border border-amber-200 flex items-center gap-3">
-              <Sparkles className="w-6 h-6 text-amber-600 shrink-0" />
-              <p className="text-xs text-amber-900 font-medium">
+            <div className="bg-indigo-50 rounded-2xl p-4 border border-indigo-200 flex items-center gap-3">
+              <Sparkles className="w-6 h-6 text-indigo-600 shrink-0" />
+              <p className="text-xs text-indigo-900 font-medium">
                 <strong>Fastest Response:</strong> Over 95% of WhatsApp inquiries receive instant vehicle allocation within 5 minutes.
               </p>
             </div>
@@ -189,7 +191,7 @@ export default function BookingContactForm() {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="e.g. Ramesh Kulkarni"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 text-sm outline-none bg-white transition"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-sm outline-none bg-white transition"
                     />
                   </div>
 
@@ -201,7 +203,7 @@ export default function BookingContactForm() {
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="10-digit mobile number"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 text-sm outline-none bg-white transition"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-sm outline-none bg-white transition"
                     />
                   </div>
                 </div>
@@ -215,7 +217,7 @@ export default function BookingContactForm() {
                       value={formData.pickupLocation}
                       onChange={(e) => setFormData({ ...formData, pickupLocation: e.target.value })}
                       placeholder="e.g. Dadar, Andheri, Mumbai Airport T2"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 text-sm outline-none bg-white transition"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-sm outline-none bg-white transition"
                     />
                   </div>
 
@@ -227,7 +229,7 @@ export default function BookingContactForm() {
                       value={formData.destination}
                       onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
                       placeholder="e.g. Lonavala, Shirdi, Mumbai Darshan"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 text-sm outline-none bg-white transition"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-sm outline-none bg-white transition"
                     />
                   </div>
                 </div>
@@ -240,7 +242,7 @@ export default function BookingContactForm() {
                       required
                       value={formData.date}
                       onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                      className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 text-xs sm:text-sm outline-none bg-white transition"
+                      className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-xs sm:text-sm outline-none bg-white transition"
                     />
                   </div>
 
@@ -249,7 +251,7 @@ export default function BookingContactForm() {
                     <select
                       value={formData.carPreference}
                       onChange={(e) => setFormData({ ...formData, carPreference: e.target.value })}
-                      className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 text-xs sm:text-sm outline-none bg-white transition"
+                      className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-xs sm:text-sm outline-none bg-white transition"
                     >
                       <option value="Swift Dzire (Sedan)">Swift Dzire (Sedan)</option>
                       <option value="Maruti WagonR (Hatchback)">Maruti WagonR (Hatchback)</option>
@@ -268,7 +270,7 @@ export default function BookingContactForm() {
                       max="30"
                       value={formData.passengers}
                       onChange={(e) => setFormData({ ...formData, passengers: e.target.value })}
-                      className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 text-xs sm:text-sm outline-none bg-white transition"
+                      className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-xs sm:text-sm outline-none bg-white transition"
                     />
                   </div>
                 </div>
@@ -280,13 +282,13 @@ export default function BookingContactForm() {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="e.g. Need baby seat, senior citizen easy step-in, early 5 AM airport pickup..."
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 text-sm outline-none bg-white transition"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-sm outline-none bg-white transition"
                   ></textarea>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-amber-500/30 transition transform hover:-translate-y-0.5"
+                  className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-700 hover:from-indigo-600 hover:to-indigo-800 text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/30 transition transform hover:-translate-y-0.5"
                 >
                   <Send className="w-4 h-4" />
                   <span>Submit Inquiry & Connect on WhatsApp</span>

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import useSettingsStore from '../store/settingsStore';
 import { HelpCircle, ChevronDown, ChevronUp, MessageCircle, Phone } from 'lucide-react';
 import { FAQ_DATA } from '../data/faqData';
 
 export default function FaqSection() {
+  const { phone } = useSettingsStore();
   const [openIndex, setOpenIndex] = useState(0);
 
   const toggleFaq = (idx) => {
@@ -15,13 +17,13 @@ export default function FaqSection() {
         
         {/* Section Header */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider mb-3">
-            <HelpCircle className="w-3.5 h-3.5 text-amber-600" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-100 text-indigo-900 text-xs font-bold uppercase tracking-wider mb-3">
+            <HelpCircle className="w-3.5 h-3.5 text-indigo-600" />
             <span>Got Questions?</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-display font-black tracking-tight text-slate-900">
-            Frequently Asked <span className="text-amber-600">Questions</span>
+            Frequently Asked <span className="text-indigo-600">Questions</span>
           </h2>
 
           <p className="text-slate-600 text-sm sm:text-base mt-2">
@@ -41,16 +43,16 @@ export default function FaqSection() {
                 <button
                   type="button"
                   onClick={() => toggleFaq(idx)}
-                  className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-bold text-slate-900 text-sm sm:text-base hover:text-amber-600 transition"
+                  className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-bold text-slate-900 text-sm sm:text-base hover:text-indigo-600 transition"
                 >
                   <span className="flex items-center gap-2.5">
-                    <span className="w-6 h-6 rounded-full bg-amber-100 text-amber-800 text-xs font-bold flex items-center justify-center shrink-0">
+                    <span className="w-6 h-6 rounded-full bg-indigo-100 text-indigo-800 text-xs font-bold flex items-center justify-center shrink-0">
                       Q
                     </span>
                     {faq.question}
                   </span>
                   {isOpen ? (
-                    <ChevronUp className="w-5 h-5 text-amber-600 shrink-0" />
+                    <ChevronUp className="w-5 h-5 text-indigo-600 shrink-0" />
                   ) : (
                     <ChevronDown className="w-5 h-5 text-slate-400 shrink-0" />
                   )}
@@ -74,7 +76,7 @@ export default function FaqSection() {
           </div>
           <div className="flex items-center gap-2">
             <a
-              href="https://wa.me/917021001921?text=Hi%20CityTourCabs,%20I%20have%20a%20question%20regarding%20cab%20booking."
+              href={`https://wa.me/91${phone}?text=Hi%20CityCabs24,%20I%20have%20a%20question%20regarding%20cab%20booking.`}
               target="_blank"
               rel="noreferrer"
               className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 shadow"
@@ -83,10 +85,10 @@ export default function FaqSection() {
               <span>Ask on WhatsApp</span>
             </a>
             <a
-              href="tel:+917021001921"
+              href={`tel:+91${phone}`}
               className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center gap-1.5 shadow"
             >
-              <Phone className="w-3.5 h-3.5 text-amber-400" />
+              <Phone className="w-3.5 h-3.5 text-indigo-400" />
               <span>Call Helpline</span>
             </a>
           </div>

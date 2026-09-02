@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import useSettingsStore from '../store/settingsStore';
 import { Calculator, ArrowRight, Check, Info, MessageCircle, MapPin, Navigation } from 'lucide-react';
 import { POPULAR_ROUTES } from '../data/routesData';
 
 export default function FareCalculator() {
+  const { phone } = useSettingsStore();
   const [selectedRouteIndex, setSelectedRouteIndex] = useState(0);
   const [carClass, setCarClass] = useState('sedan'); // 'sedan', 'ertiga', 'crysta'
   const [tripType, setTripType] = useState('one-way');
@@ -26,13 +28,13 @@ export default function FareCalculator() {
   };
 
   const handleBookRouteWhatsApp = () => {
-    const text = `*🚖 CityTourCabs - Route Booking*\n\n` +
+    const text = `*🚖 CityCabs24 - Route Booking*\n\n` +
       `*Route:* ${currentRoute.from} ➔ ${currentRoute.to}\n` +
       `*Trip Type:* ${tripType === 'one-way' ? 'One Way Drop' : 'Round Trip'}\n` +
       `*Car Class:* ${carClass.toUpperCase()}\n` +
       `*Estimated Fare:* ${getEstimatedPrice()}\n\n` +
       `Please confirm driver availability and final all-inclusive fare.`;
-    window.open(`https://wa.me/917021001921?text=${encodeURIComponent(text)}`, '_blank');
+    window.open(`https://wa.me/91${phone}?text=${encodeURIComponent(text)}`, '_blank');
   };
 
   return (
@@ -41,13 +43,13 @@ export default function FareCalculator() {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold uppercase tracking-wider mb-3 border border-amber-500/30">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-bold uppercase tracking-wider mb-3 border border-indigo-500/30">
             <Calculator className="w-3.5 h-3.5" />
             <span>100% Transparent Billing</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-display font-black tracking-tight text-white">
-            Transparent <span className="text-amber-400">Fare Chart & Estimator</span>
+            Transparent <span className="text-indigo-400">Fare Chart & Estimator</span>
           </h2>
 
           <p className="text-slate-400 text-sm sm:text-base mt-3">
@@ -61,7 +63,7 @@ export default function FareCalculator() {
           <div className="lg:col-span-7 bg-slate-800/80 rounded-3xl p-5 sm:p-6 border border-slate-700/80 shadow-xl overflow-hidden">
             <h3 className="text-lg font-bold font-display text-white mb-4 flex items-center justify-between">
               <span>Popular Highway Routes</span>
-              <span className="text-xs text-amber-400 font-normal">Fixed One-Way Estimates</span>
+              <span className="text-xs text-indigo-400 font-normal">Fixed One-Way Estimates</span>
             </h3>
 
             <div className="overflow-x-auto">
@@ -81,17 +83,17 @@ export default function FareCalculator() {
                       key={idx}
                       onClick={() => setSelectedRouteIndex(idx)}
                       className={`hover:bg-slate-700/50 cursor-pointer transition ${
-                        selectedRouteIndex === idx ? 'bg-amber-500/15 font-bold' : ''
+                        selectedRouteIndex === idx ? 'bg-indigo-500/15 font-bold' : ''
                       }`}
                     >
                       <td className="py-3 pr-2 text-white">
                         <div className="flex items-center gap-1.5">
-                          <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                          <MapPin className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
                           <span>{r.from} ➔ {r.to}</span>
                         </div>
                       </td>
                       <td className="py-3 text-slate-400">{r.distance}</td>
-                      <td className="py-3 text-center text-amber-300 font-semibold">{r.sedanRate}</td>
+                      <td className="py-3 text-center text-indigo-300 font-semibold">{r.sedanRate}</td>
                       <td className="py-3 text-center text-emerald-400 font-semibold">{r.ertigaRate}</td>
                       <td className="py-3 text-center text-rose-300 font-semibold">{r.crystaRate}</td>
                     </tr>
@@ -102,7 +104,7 @@ export default function FareCalculator() {
 
             <div className="mt-4 pt-3 border-t border-slate-700/80 flex items-center justify-between text-xs text-slate-400">
               <span className="flex items-center gap-1">
-                <Info className="w-3.5 h-3.5 text-amber-400" />
+                <Info className="w-3.5 h-3.5 text-indigo-400" />
                 Toll & Parking at actual receipts
               </span>
               <span>Driver Allowance Included</span>
@@ -110,9 +112,9 @@ export default function FareCalculator() {
           </div>
 
           {/* Right: Interactive Route Fare Calculator */}
-          <div className="lg:col-span-5 bg-gradient-to-br from-slate-800 to-slate-850 rounded-3xl p-6 sm:p-7 border border-amber-500/30 shadow-2xl space-y-5">
+          <div className="lg:col-span-5 bg-gradient-to-br from-slate-800 to-slate-850 rounded-3xl p-6 sm:p-7 border border-indigo-500/30 shadow-2xl space-y-5">
             <div>
-              <span className="text-amber-400 text-xs font-bold uppercase tracking-wider block mb-1">
+              <span className="text-indigo-400 text-xs font-bold uppercase tracking-wider block mb-1">
                 Instant Fare Calculator
               </span>
               <h3 className="text-2xl font-bold font-display text-white">
@@ -130,7 +132,7 @@ export default function FareCalculator() {
                 onClick={() => setTripType('one-way')}
                 className={`py-2 text-xs font-bold rounded-xl transition ${
                   tripType === 'one-way'
-                    ? 'bg-amber-500 text-slate-950 shadow'
+                    ? 'bg-indigo-500 text-slate-950 shadow'
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
@@ -141,7 +143,7 @@ export default function FareCalculator() {
                 onClick={() => setTripType('round')}
                 className={`py-2 text-xs font-bold rounded-xl transition ${
                   tripType === 'round'
-                    ? 'bg-amber-500 text-slate-950 shadow'
+                    ? 'bg-indigo-500 text-slate-950 shadow'
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
@@ -160,11 +162,11 @@ export default function FareCalculator() {
                   onClick={() => setCarClass('sedan')}
                   className={`p-2.5 rounded-xl text-center border text-xs font-bold transition ${
                     carClass === 'sedan'
-                      ? 'bg-amber-500/20 border-amber-400 text-white'
+                      ? 'bg-indigo-500/20 border-indigo-400 text-white'
                       : 'bg-slate-900/60 border-slate-700 text-slate-400 hover:text-white'
                   }`}
                 >
-                  <div className="text-[11px] text-amber-400">Sedan</div>
+                  <div className="text-[11px] text-indigo-400">Sedan</div>
                   <div className="font-extrabold text-white text-xs mt-0.5">Dzire (4+1)</div>
                 </button>
 
@@ -173,7 +175,7 @@ export default function FareCalculator() {
                   onClick={() => setCarClass('ertiga')}
                   className={`p-2.5 rounded-xl text-center border text-xs font-bold transition ${
                     carClass === 'ertiga'
-                      ? 'bg-amber-500/20 border-amber-400 text-white'
+                      ? 'bg-indigo-500/20 border-indigo-400 text-white'
                       : 'bg-slate-900/60 border-slate-700 text-slate-400 hover:text-white'
                   }`}
                 >
@@ -186,7 +188,7 @@ export default function FareCalculator() {
                   onClick={() => setCarClass('crysta')}
                   className={`p-2.5 rounded-xl text-center border text-xs font-bold transition ${
                     carClass === 'crysta'
-                      ? 'bg-amber-500/20 border-amber-400 text-white'
+                      ? 'bg-indigo-500/20 border-indigo-400 text-white'
                       : 'bg-slate-900/60 border-slate-700 text-slate-400 hover:text-white'
                   }`}
                 >
@@ -199,7 +201,7 @@ export default function FareCalculator() {
             {/* Estimated Fare Display */}
             <div className="bg-slate-950/70 p-4 rounded-2xl border border-slate-700/80 text-center">
               <span className="text-xs text-slate-400">Estimated Total Fare</span>
-              <div className="text-3xl font-black text-amber-400 font-display mt-0.5">
+              <div className="text-3xl font-black text-indigo-400 font-display mt-0.5">
                 {getEstimatedPrice()}
               </div>
               <div className="flex justify-center gap-3 text-[11px] text-slate-400 mt-2">

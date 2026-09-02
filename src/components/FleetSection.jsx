@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useSettingsStore from '../store/settingsStore';
 import { 
   Car, Users, Briefcase, Snowflake, Fuel, CheckCircle, 
   ArrowRight, MessageCircle, Phone, Sparkles 
@@ -6,17 +7,18 @@ import {
 import { FLEET_DATA } from '../data/fleetData';
 
 export default function FleetSection({ onOpenBookModal }) {
+  const { phone } = useSettingsStore();
   const [activeCarId, setActiveCarId] = useState(FLEET_DATA[1].id); // Dzire default
 
   const activeCar = FLEET_DATA.find(c => c.id === activeCarId) || FLEET_DATA[0];
 
   const handleBookCarWhatsApp = (car) => {
-    const text = `*🚖 CityTourCabs - Car Booking Inquiry*\n\n` +
+    const text = `*🚖 CityCabs24 - Car Booking Inquiry*\n\n` +
       `*Vehicle Selected:* ${car.name} (${car.category})\n` +
       `*Seating:* ${car.seats}\n` +
       `*Rate:* ${car.ratePerKm}\n\n` +
       `Hello, I would like to book a *${car.name}* for our upcoming trip. Please share rate and availability.`;
-    window.open(`https://wa.me/917021001921?text=${encodeURIComponent(text)}`, '_blank');
+    window.open(`https://wa.me/91${phone}?text=${encodeURIComponent(text)}`, '_blank');
   };
 
   return (
@@ -31,7 +33,7 @@ export default function FleetSection({ onOpenBookModal }) {
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-display font-black tracking-tight text-slate-900">
-            Our Premium <span className="text-amber-600">Cab Fleet</span>
+            Our Premium <span className="text-indigo-600">Cab Fleet</span>
           </h2>
 
           <p className="text-slate-600 text-sm sm:text-base mt-3">
@@ -51,7 +53,7 @@ export default function FleetSection({ onOpenBookModal }) {
                   : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200/60'
               }`}
             >
-              <Car className={`w-4 h-4 ${activeCarId === car.id ? 'text-amber-400' : 'text-slate-500'}`} />
+              <Car className={`w-4 h-4 ${activeCarId === car.id ? 'text-indigo-400' : 'text-slate-500'}`} />
               <span>{car.name}</span>
             </button>
           ))}
@@ -71,7 +73,7 @@ export default function FleetSection({ onOpenBookModal }) {
                 />
                 
                 {/* Tag Badge */}
-                <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-amber-500 text-slate-950 font-black text-xs uppercase tracking-wider">
+                <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-indigo-500 text-slate-950 font-black text-xs uppercase tracking-wider">
                   {activeCar.tag}
                 </span>
 
@@ -81,7 +83,7 @@ export default function FleetSection({ onOpenBookModal }) {
               </div>
 
               <div className="mt-4 bg-slate-800/50 rounded-2xl p-3 border border-slate-700/60 text-xs text-slate-300 flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
+                <Sparkles className="w-4 h-4 text-indigo-400 shrink-0" />
                 <span><strong>Recommended For:</strong> {activeCar.bestFor}</span>
               </div>
             </div>
@@ -89,7 +91,7 @@ export default function FleetSection({ onOpenBookModal }) {
             {/* Right Specs & Rates */}
             <div className="lg:col-span-6 space-y-6">
               <div>
-                <div className="text-amber-400 text-xs font-bold uppercase tracking-wider">
+                <div className="text-indigo-400 text-xs font-bold uppercase tracking-wider">
                   {activeCar.category} Class
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-display font-black tracking-tight text-white mt-1">
@@ -104,7 +106,7 @@ export default function FleetSection({ onOpenBookModal }) {
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 <div className="bg-slate-800/80 p-3 rounded-2xl border border-slate-700/80">
                   <div className="flex items-center gap-1.5 text-slate-400 text-xs mb-1">
-                    <Users className="w-4 h-4 text-amber-400" />
+                    <Users className="w-4 h-4 text-indigo-400" />
                     <span>Capacity</span>
                   </div>
                   <div className="font-bold text-sm text-white">{activeCar.seats}</div>
@@ -144,7 +146,7 @@ export default function FleetSection({ onOpenBookModal }) {
               <div className="pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
                   <div className="text-xs text-slate-400">Outstation Rate</div>
-                  <div className="text-2xl font-black text-amber-400 font-display">
+                  <div className="text-2xl font-black text-indigo-400 font-display">
                     {activeCar.ratePerKm}
                     <span className="text-xs font-normal text-slate-400 ml-1.5">(Local: {activeCar.localFullDay.split('/')[0]})</span>
                   </div>
@@ -161,7 +163,7 @@ export default function FleetSection({ onOpenBookModal }) {
 
                   <button
                     onClick={() => onOpenBookModal({ carType: activeCar.name })}
-                    className="py-3 px-4 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-black transition shadow"
+                    className="py-3 px-4 rounded-xl bg-indigo-500 hover:bg-indigo-600 text-slate-950 text-xs font-black transition shadow"
                   >
                     Quick Quote
                   </button>
@@ -178,7 +180,7 @@ export default function FleetSection({ onOpenBookModal }) {
           {FLEET_DATA.map((car) => (
             <div
               key={car.id}
-              className="bg-slate-50 rounded-3xl p-5 border border-slate-200 hover:border-amber-400/50 hover:shadow-lg transition duration-300 flex flex-col justify-between"
+              className="bg-slate-50 rounded-3xl p-5 border border-slate-200 hover:border-indigo-400/50 hover:shadow-lg transition duration-300 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
@@ -213,7 +215,7 @@ export default function FleetSection({ onOpenBookModal }) {
 
                 <button
                   onClick={() => handleBookCarWhatsApp(car)}
-                  className="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-amber-600 text-white text-xs font-bold transition flex items-center gap-1"
+                  className="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white text-xs font-bold transition flex items-center gap-1"
                 >
                   <span>Book</span>
                   <ArrowRight className="w-3.5 h-3.5" />

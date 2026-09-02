@@ -9,7 +9,7 @@ export default function WhyChooseUs({ onOpenBookModal }) {
   const features = [
     {
       icon: Sparkles,
-      color: "text-amber-500 bg-amber-500/10 border-amber-500/20",
+      color: "text-indigo-500 bg-indigo-500/10 border-indigo-500/20",
       title: "Drivers Who Act As Tour Guides",
       description: "Our chauffeurs don't just steer the wheel — they share rich local history, recommend the best regional foods, and guide you to hidden photo spots.",
       badge: "Signature Feature"
@@ -63,7 +63,7 @@ export default function WhyChooseUs({ onOpenBookModal }) {
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-display font-black tracking-tight text-slate-900">
-            Why Thousands of Travellers <span className="text-amber-600">Trust Us</span>
+            Why Thousands of Travellers <span className="text-indigo-600">Trust Us</span>
           </h2>
 
           <p className="text-slate-600 text-sm sm:text-base mt-3">
@@ -90,7 +90,7 @@ export default function WhyChooseUs({ onOpenBookModal }) {
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-bold font-display text-slate-900 mb-2 group-hover:text-amber-600 transition">
+                  <h3 className="text-lg font-bold font-display text-slate-900 mb-2 group-hover:text-indigo-600 transition">
                     {feat.title}
                   </h3>
 
@@ -99,7 +99,7 @@ export default function WhyChooseUs({ onOpenBookModal }) {
                   </p>
                 </div>
 
-                <div className="mt-5 pt-3 border-t border-slate-100 flex items-center gap-1.5 text-xs font-bold text-amber-600">
+                <div className="mt-5 pt-3 border-t border-slate-100 flex items-center gap-1.5 text-xs font-bold text-indigo-600">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                   <span>Verified Standard</span>
                 </div>
@@ -113,7 +113,7 @@ export default function WhyChooseUs({ onOpenBookModal }) {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
             {STATS_DATA.map((st, idx) => (
               <div key={idx} className={`pt-4 lg:pt-0 ${idx > 0 ? 'lg:pl-6' : ''}`}>
-                <div className="text-3xl sm:text-4xl font-display font-black text-amber-400">
+                <div className="text-3xl sm:text-4xl font-display font-black text-indigo-400">
                   {st.value}
                 </div>
                 <div className="text-sm font-bold text-white mt-1">{st.label}</div>

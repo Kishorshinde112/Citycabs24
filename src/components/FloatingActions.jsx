@@ -1,7 +1,9 @@
 import React from 'react';
 import { Phone, MessageCircle, ArrowUp } from 'lucide-react';
+import useSettingsStore from '../store/settingsStore';
 
 export default function FloatingActions({ onOpenBookModal }) {
+  const { phone } = useSettingsStore();
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -22,19 +24,19 @@ export default function FloatingActions({ onOpenBookModal }) {
 
         {/* Call Now Button */}
         <a
-          href="tel:+917021001921"
+          href={`tel:+91${phone}`}
           className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white shadow-xl transition transform hover:scale-105 border border-slate-700 text-xs font-bold"
           aria-label="Call Helpline"
         >
-          <div className="w-6 h-6 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center animate-pulse">
+          <div className="w-6 h-6 rounded-full bg-indigo-500 text-slate-950 flex items-center justify-center animate-pulse">
             <Phone className="w-3.5 h-3.5" />
           </div>
-          <span>Call +91 7021001921</span>
+          <span>Call +91 {phone}</span>
         </a>
 
         {/* WhatsApp Pulse Floating Button */}
         <a
-          href="https://wa.me/917021001921?text=Hi%20CityTourCabs,%20I%20would%20like%20to%20book%20a%20cab%20tour."
+          href={`https://wa.me/91${phone}?text=Hi%20CityCabs24,%20I%20would%20like%20to%20book%20a%20cab%20tour.`}
           target="_blank"
           rel="noreferrer"
           className="group flex items-center gap-2.5 px-4 py-3 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-2xl transition transform hover:scale-105 border border-emerald-400/40 glow-green"
@@ -42,7 +44,7 @@ export default function FloatingActions({ onOpenBookModal }) {
         >
           <div className="relative">
             <MessageCircle className="w-6 h-6" />
-            <span className="absolute -top-1 -right-1 w-3 h-3 bg-amber-400 rounded-full animate-ping"></span>
+            <span className="absolute -top-1 -right-1 w-3 h-3 bg-indigo-400 rounded-full animate-ping"></span>
           </div>
           <div className="text-left leading-tight pr-1">
             <div className="text-[10px] uppercase font-bold text-emerald-200">Online Now</div>
@@ -54,15 +56,15 @@ export default function FloatingActions({ onOpenBookModal }) {
       {/* Mobile Sticky Bottom Floating Bar (High conversion) */}
       <div className="fixed bottom-0 inset-x-0 z-40 sm:hidden bg-white/95 backdrop-blur-md border-t border-slate-200 p-2.5 px-3 flex items-center gap-2 shadow-2xl">
         <a
-          href="tel:+917021001921"
+          href={`tel:+91${phone}`}
           className="flex-1 py-3 px-2 rounded-xl bg-slate-900 text-white font-black text-xs flex items-center justify-center gap-1.5 shadow"
         >
-          <Phone className="w-4 h-4 text-amber-400" />
+          <Phone className="w-4 h-4 text-indigo-400" />
           <span>Call Driver Desk</span>
         </a>
 
         <a
-          href="https://wa.me/917021001921?text=Hi%20CityTourCabs,%20I%20want%20to%20book%20a%20cab."
+          href={`https://wa.me/91${phone}?text=Hi%20CityCabs24,%20I%20want%20to%20book%20a%20cab.`}
           target="_blank"
           rel="noreferrer"
           className="flex-1 py-3 px-2 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-700 text-white font-black text-xs flex items-center justify-center gap-1.5 shadow"
@@ -73,7 +75,7 @@ export default function FloatingActions({ onOpenBookModal }) {
 
         <button
           onClick={() => onOpenBookModal()}
-          className="py-3 px-3 rounded-xl bg-amber-500 text-slate-950 font-black text-xs shadow flex items-center justify-center"
+          className="py-3 px-3 rounded-xl bg-indigo-500 text-slate-950 font-black text-xs shadow flex items-center justify-center"
         >
           Book
         </button>

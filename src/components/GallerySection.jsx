@@ -18,13 +18,13 @@ export default function GallerySection() {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider mb-3">
-            <Camera className="w-3.5 h-3.5 text-amber-600" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-100 text-indigo-900 text-xs font-bold uppercase tracking-wider mb-3">
+            <Camera className="w-3.5 h-3.5 text-indigo-600" />
             <span>Tour Moments</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-display font-black tracking-tight text-slate-900">
-            Tour Memories & <span className="text-amber-600">Scenic Photo Spots</span>
+            Tour Memories & <span className="text-indigo-600">Scenic Photo Spots</span>
           </h2>
 
           <p className="text-slate-600 text-sm sm:text-base mt-3">
@@ -64,7 +64,7 @@ export default function GallerySection() {
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3">
-                <span className="text-[10px] text-amber-400 font-bold uppercase">{item.category}</span>
+                <span className="text-[10px] text-indigo-400 font-bold uppercase">{item.category}</span>
                 <span className="text-xs font-bold text-white leading-tight">{item.title}</span>
               </div>
             </div>
@@ -92,7 +92,7 @@ export default function GallerySection() {
 
               <div className="p-4 bg-slate-900 flex items-center justify-between text-white border-t border-slate-800">
                 <div>
-                  <span className="text-xs text-amber-400 font-bold block">{selectedImage.category}</span>
+                  <span className="text-xs text-indigo-400 font-bold block">{selectedImage.category}</span>
                   <h4 className="text-base font-bold">{selectedImage.title}</h4>
                 </div>
                 <button
