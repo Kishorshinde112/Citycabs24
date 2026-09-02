@@ -1,0 +1,140 @@
+export const FLEET_DATA = [
+  {
+    id: "wagonr",
+    name: "Maruti Wagon R",
+    category: "Hatchback",
+    tag: "Budget Friendly",
+    badgeColor: "bg-blue-100 text-blue-700",
+    seats: "4 + 1 Passengers",
+    configuration: "2 front seats, 3 rear seats",
+    bootSpace: "341 Liters",
+    luggage: "2 Medium Bags + Handbags",
+    acType: "Chilled AC",
+    fuelType: "CNG / Petrol",
+    ratePerKm: "₹11 / km",
+    localFullDay: "₹2,199 / 8hr 80km",
+    image: "/assets/wagonr-Ct1Y7D7H.jpg",
+    features: [
+      "Clean & Sanitized Interiors",
+      "Tall Boy Design with High Headroom",
+      "Bluetooth & Music System",
+      "Economical City & Short Outstation"
+    ],
+    bestFor: "Couple trips, solo travellers, daily city commute & budget getaways"
+  },
+  {
+    id: "dzire",
+    name: "Swift Dzire / Accent",
+    category: "Prime Sedan",
+    tag: "Most Popular",
+    badgeColor: "bg-amber-100 text-amber-800 border-amber-300",
+    seats: "4 + 1 Passengers",
+    configuration: "2 front seats, 3 comfortable rear seats",
+    bootSpace: "382 Liters",
+    luggage: "3-4 Medium Size Bags",
+    acType: "Climate Controlled AC",
+    fuelType: "CNG / Petrol",
+    ratePerKm: "₹12 / km",
+    localFullDay: "₹2,499 / 8hr 80km",
+    image: "/assets/dzire-CAMjcjsT.jpg",
+    features: [
+      "Smooth Highway Suspension",
+      "Spacious Legroom & Reclining Seats",
+      "Large Dedicated Trunk for Luggage",
+      "Mobile Charging Port Available"
+    ],
+    bestFor: "Small families, airport transfers, Mumbai Darshan & outstation trips"
+  },
+  {
+    id: "ertiga",
+    name: "Maruti Suzuki Ertiga",
+    category: "Family MUV",
+    tag: "Best for Family",
+    badgeColor: "bg-emerald-100 text-emerald-800",
+    seats: "6 + 1 Passengers",
+    configuration: "2 Front + 3 Middle + 2 Third Row",
+    bootSpace: "209 - 550 Liters (Foldable)",
+    luggage: "3-4 Medium Bags + Roof Carrier Available",
+    acType: "Dual Zone AC (Roof Vents for Rear)",
+    fuelType: "CNG / Petrol",
+    ratePerKm: "₹15 / km",
+    localFullDay: "₹3,499 / 8hr 80km",
+    image: "/assets/ertiga-Bq9MdWD-.jpg",
+    features: [
+      "Roof AC Vents for all rows",
+      "Generous Shoulder & Legroom",
+      "Foldable 3rd Row for Extra Luggage",
+      "Smooth & Silent Highway Cruise"
+    ],
+    bestFor: "Family vacations, Shirdi pilgrimages, Lonavala & Mahabaleshwar trips"
+  },
+  {
+    id: "carens",
+    name: "Kia Carens",
+    category: "Premium MPV",
+    tag: "Premium Comfort",
+    badgeColor: "bg-purple-100 text-purple-800",
+    seats: "7 Passengers",
+    configuration: "2 Front + 3 Middle + 2 Third Row",
+    bootSpace: "216 Liters",
+    luggage: "3 Medium Bags + Roof Rack",
+    acType: "Multi-Zone Automatic AC",
+    fuelType: "Petrol / Diesel",
+    ratePerKm: "₹17 / km",
+    localFullDay: "₹3,899 / 8hr 80km",
+    image: "/assets/carens-CBBO8xCr.jpg",
+    features: [
+      "Executive Aircraft-style Cabin",
+      "One-Touch Tumble 2nd Row Seats",
+      "High-End Audio & Ambient Lighting",
+      "Ultra-Quiet & Soft Suspension"
+    ],
+    bestFor: "Corporate delegates, luxury family road trips, wedding guests"
+  },
+  {
+    id: "innova",
+    name: "Toyota Innova Crysta",
+    category: "Luxury King",
+    tag: "Supreme Luxury",
+    badgeColor: "bg-rose-100 text-rose-800 border-rose-300",
+    seats: "7 + 1 Passengers",
+    configuration: "Captain / Bench Seat Options",
+    bootSpace: "300 Liters",
+    luggage: "4-5 Large Bags",
+    acType: "Tri-Zone Powerful AC",
+    fuelType: "Diesel",
+    ratePerKm: "₹19 / km",
+    localFullDay: "₹4,499 / 8hr 80km",
+    image: "/assets/innova-B7xv-cs5.jpg",
+    features: [
+      "Unmatched Highway Ride Stability & Safety",
+      "Captain Seats with Armrests",
+      "Huge Luggage Carrier on Top",
+      "7 Airbags & ABS with EBD"
+    ],
+    bestFor: "VIP travel, long-distance Ashtavinayak / Konkan circuits, senior citizens"
+  },
+  {
+    id: "tempo",
+    name: "Tempo Traveller (13/17/26)",
+    category: "Group Minibus",
+    tag: "Large Groups",
+    badgeColor: "bg-slate-100 text-slate-800",
+    seats: "13 / 17 / 26 Seater",
+    configuration: "Push-back 1x1 / 2x1 luxury seats",
+    bootSpace: "Extensive Rear Trunk + Top Carrier",
+    luggage: "15+ Large Suitcases",
+    acType: "Individual AC Vents per seat",
+    fuelType: "Diesel",
+    ratePerKm: "₹24 - ₹32 / km",
+    localFullDay: "₹6,999 / 8hr 80km",
+    image: "/assets/tours/astavinayak_final_lcm8iZIjgA.jpg",
+    features: [
+      "Pushback Reclining Seats with Armrests",
+      "High Roof Walk-In Cabin",
+      "LCD TV & High-Power Music System",
+      "Dedicated Chauffeur & Helper"
+    ],
+    bestFor: "Marriage parties, corporate offsites, school trips, mega family yatras"
+  }
+];

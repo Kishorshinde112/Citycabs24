@@ -1,0 +1,27 @@
+services:
+  cabs-citytour:
+    build:
+      context: .
+    image: cabs-citytour:latest
+    container_name: cabs-citytour
+    restart: unless-stopped
+    networks:
+      - dokploy-network
+      - coolify
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=dokploy-network"
+      - "traefik.http.routers.cabs-citytour-http.entrypoints=web"
+      - "traefik.http.routers.cabs-citytour-http.rule=Host(`cabs.kishorlab.dev`)"
+      - "traefik.http.routers.cabs-citytour-http.service=cabs-citytour-svc"
+      - "traefik.http.routers.cabs-citytour-https.entrypoints=websecure"
+      - "traefik.http.routers.cabs-citytour-https.rule=Host(`cabs.kishorlab.dev`)"
+      - "traefik.http.routers.cabs-citytour-https.service=cabs-citytour-svc"
+      - "traefik.http.routers.cabs-citytour-https.tls=true"
+      - "traefik.http.services.cabs-citytour-svc.loadbalancer.server.port=80"
+
+networks:
+  dokploy-network:
+    external: true
+  coolify:
+    external: true
