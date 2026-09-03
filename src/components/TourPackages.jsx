@@ -14,7 +14,7 @@ export default function TourPackages({ onSelectTour, showMumbaiOnly = false }) {
   const categories = ['All', 'City Sightseeing', 'Hill Station', 'Spiritual & Pilgrimage', 'Coastal & Beach'];
 
   const displayTours = showMumbaiOnly
-    ? tours.filter(t => t.id === 'mumbai-darshan')
+    ? tours.filter(t => t.id.includes('mumbai'))
     : tours;
 
   const filteredTours = activeCategory === 'All'

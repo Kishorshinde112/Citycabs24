@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import useSettingsStore from '../store/settingsStore';
 import useBookingsStore from '../store/bookingsStore';
+import { MUMBAI_DARSHAN_RATES } from '../data/mumbaiDarshanRates';
 
 export default function TourModal({ tour, onClose, onBookClick }) {
   if (!tour) return null;
@@ -167,6 +168,50 @@ export default function TourModal({ tour, onClose, onBookClick }) {
               </ul>
             </div>
           </div>
+
+          {/* Vehicle Tariff Breakdown for Mumbai Sightseeing */}
+          {tour.id && tour.id.includes('mumbai') && (
+            <div className="bg-slate-50 rounded-2xl p-4 border border-slate-200 space-y-2">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                <Car className="w-4 h-4 text-indigo-600" />
+                <span>Vehicle Tariff Breakdown (8h / 10h / 12h)</span>
+              </h4>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead>
+                    <tr className="border-b border-slate-200 text-slate-500 font-bold">
+                      <th className="py-2 pr-2">Car Type</th>
+                      <th className="py-2 px-1 text-center">8h / 80km</th>
+                      <th className="py-2 px-1 text-center">10h / 100km</th>
+                      <th className="py-2 px-1 text-center">12h / 120km</th>
+                      <th className="py-2 px-1 text-center">Extra Km</th>
+                      <th className="py-2 px-1 text-center">Extra Hr</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {MUMBAI_DARSHAN_RATES.map((c) => (
+                      <tr key={c.id} className="hover:bg-slate-100/60">
+                        <td className="py-2 pr-2 font-bold text-slate-900">{c.carType}</td>
+                        {c.isTempo ? (
+                          <td colSpan={3} className="py-2 text-center font-bold text-indigo-700">
+                            12h/100km: Rs. {c.rates['12h_100km'].toLocaleString('en-IN')}/-
+                          </td>
+                        ) : (
+                          <>
+                            <td className="py-2 px-1 text-center font-semibold text-slate-800">Rs. {c.rates['8h_80km'].toLocaleString('en-IN')}/-</td>
+                            <td className="py-2 px-1 text-center font-semibold text-slate-800">Rs. {c.rates['10h_100km'].toLocaleString('en-IN')}/-</td>
+                            <td className="py-2 px-1 text-center font-semibold text-slate-800">Rs. {c.rates['12h_120km'].toLocaleString('en-IN')}/-</td>
+                          </>
+                        )}
+                        <td className="py-2 px-1 text-center text-slate-600">Rs. {c.extraKm}/-</td>
+                        <td className="py-2 px-1 text-center text-slate-600">Rs. {c.extraHr}/-</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
 
           {/* Vehicle Options */}
           <div>
