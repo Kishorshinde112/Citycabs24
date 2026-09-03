@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import useSettingsStore from '../store/settingsStore';
 import { 
   Phone, Mail, MapPin, MessageCircle, Send, CheckCircle2, 
   Clock, Shield, Sparkles, Calendar, Car 
 } from 'lucide-react';
+import useSettingsStore from '../store/settingsStore';
+import useBookingsStore from '../store/bookingsStore';
 
 export default function BookingContactForm() {
   const { phone, email } = useSettingsStore();
+  const { addBooking } = useBookingsStore();
+
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -23,6 +26,15 @@ export default function BookingContactForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true);
+
+    // Save inquiry to Admin Dashboard
+    addBooking({
+      name: formData.name,
+      phone: formData.phone,
+      route: `${formData.pickupLocation} → ${formData.destination}`,
+      vehicle: formData.carPreference,
+      date: formData.date || new Date().toISOString().slice(0, 10),
+    });
 
     // Also trigger WhatsApp message for instantaneous conversion
     const text = `*🚖 CityCabs24 - Website Booking Inquiry*\n\n` +
@@ -87,19 +99,6 @@ export default function BookingContactForm() {
                   <div>
                     <div className="text-[11px] text-slate-400">Primary Hotline (24/7)</div>
                     <div className="font-bold text-sm text-white group-hover:text-indigo-400 transition">+91 {phone}</div>
-                  </div>
-                </a>
-
-                <a
-                  href="tel:+919967672660"
-                  className="flex items-center gap-3.5 p-3 rounded-2xl bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 transition group"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
-                    <Phone className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="text-[11px] text-slate-400">Secondary Booking Line</div>
-                    <div className="font-bold text-sm text-white group-hover:text-indigo-400 transition">+91 9967672660</div>
                   </div>
                 </a>
 

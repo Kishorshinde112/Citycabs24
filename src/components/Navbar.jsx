@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Phone, MessageCircle, Menu, X, Car, Shield, Star, Clock, MapPin, Sparkles } from 'lucide-react';
 import useSettingsStore from '../store/settingsStore';
+import logoImg from '../assets/citycabs24-logo.png';
 
 export default function Navbar({ onOpenBookModal }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { phone } = useSettingsStore();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,8 +15,6 @@ export default function Navbar({ onOpenBookModal }) {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const { phone, email } = useSettingsStore();
 
   const navLinks = [
     { name: 'Home', href: '#home' },
@@ -54,7 +54,7 @@ export default function Navbar({ onOpenBookModal }) {
               className="text-emerald-400 hover:text-emerald-300 flex items-center transition"
             >
               <MessageCircle className="w-3.5 h-3.5 mr-1" />
-              WhatsApp: {phone}
+              WhatsApp: +91 {phone}
             </a>
             <span className="text-slate-600">|</span>
             <a 
@@ -80,14 +80,14 @@ export default function Navbar({ onOpenBookModal }) {
           <div className="flex justify-between items-center">
             
             {/* Brand Logo */}
-            <a href="#home" className="flex items-center gap-3 group">
-              <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-indigo-100 shadow-sm group-hover:scale-105 transition-transform bg-white flex items-center justify-center">
-                <img src="/logo.png" alt="CityCabs24 Logo" className="w-full h-full object-contain p-1" />
+            <a href="/" className="flex items-center gap-3 group">
+              <div className="w-12 h-12 rounded-full overflow-hidden border border-indigo-400/50 shadow-md group-hover:scale-105 transition-transform bg-white flex items-center justify-center p-0.5">
+                <img src={logoImg} alt="CityCabs24 Logo" className="w-full h-full object-contain" />
               </div>
               <div>
                 <div className="flex items-center gap-1.5">
                   <span className="font-display font-black text-2xl tracking-tight text-slate-900">
-                    CityCabs<span className="text-indigo-600">24</span>
+                    CityCabs<span className="text-indigo-500">24</span>
                   </span>
                 </div>
                 <p className="text-[10px] font-semibold tracking-wider uppercase text-slate-500 -mt-1 flex items-center gap-1">

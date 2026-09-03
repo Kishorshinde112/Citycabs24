@@ -5,6 +5,8 @@ services:
     image: cabs-citytour:latest
     container_name: cabs-citytour
     restart: unless-stopped
+    volumes:
+      - ./data:/app/data
     networks:
       - dokploy-network
       - coolify

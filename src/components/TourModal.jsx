@@ -1,15 +1,26 @@
 import React from 'react';
-import useSettingsStore from '../store/settingsStore';
 import { 
   X, MapPin, Calendar, Clock, Car, Check, AlertCircle, 
   Phone, MessageCircle, Star, Sparkles, Shield, ChevronRight
 } from 'lucide-react';
+import useSettingsStore from '../store/settingsStore';
+import useBookingsStore from '../store/bookingsStore';
 
 export default function TourModal({ tour, onClose, onBookClick }) {
-  const { phone } = useSettingsStore();
   if (!tour) return null;
 
+  const { phone } = useSettingsStore();
+  const { addBooking } = useBookingsStore();
+
   const handleWhatsAppBooking = () => {
+    addBooking({
+      name: 'Tour Inquiry',
+      phone: phone,
+      route: `${tour.title} (${tour.duration})`,
+      vehicle: 'Tour Package',
+      date: new Date().toISOString().slice(0, 10),
+    });
+
     const text = `*🚖 CityCabs24 - Tour Booking Request*\n\n` +
       `*Package:* ${tour.title}\n` +
       `*Duration:* ${tour.duration}\n` +

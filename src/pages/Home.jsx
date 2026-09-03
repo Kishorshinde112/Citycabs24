@@ -41,8 +41,8 @@ export default function Home() {
           onOpenBookModal={(data) => handleOpenBookModal(data)}
         />
 
-        {/* 10 Popular Tour Packages with Filters & Modals */}
-        <TourPackages onSelectTour={(tour) => setSelectedTour(tour)} />
+        {/* Highlight Mumbai Darshan */}
+        <TourPackages onSelectTour={(tour) => setSelectedTour(tour)} showMumbaiOnly={true} />
 
         {/* Full Cab Fleet Showcase (Hatchback, Sedan, MUV, MPV, Luxury Crysta, TT) */}
         <FleetSection onOpenBookModal={(data) => handleOpenBookModal(data)} />

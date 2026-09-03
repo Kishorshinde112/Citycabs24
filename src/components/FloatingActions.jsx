@@ -4,6 +4,7 @@ import useSettingsStore from '../store/settingsStore';
 
 export default function FloatingActions({ onOpenBookModal }) {
   const { phone } = useSettingsStore();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };

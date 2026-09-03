@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import useSettingsStore from '../store/settingsStore';
 import { HelpCircle, ChevronDown, ChevronUp, MessageCircle, Phone } from 'lucide-react';
 import { FAQ_DATA } from '../data/faqData';
+import useSettingsStore from '../store/settingsStore';
 
 export default function FaqSection() {
   const { phone } = useSettingsStore();

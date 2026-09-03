@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import useSettingsStore from '../store/settingsStore';
 import { Calculator, ArrowRight, Check, Info, MessageCircle, MapPin, Navigation } from 'lucide-react';
 import { POPULAR_ROUTES } from '../data/routesData';
+import useSettingsStore from '../store/settingsStore';
 
 export default function FareCalculator() {
   const { phone } = useSettingsStore();
@@ -28,7 +28,7 @@ export default function FareCalculator() {
   };
 
   const handleBookRouteWhatsApp = () => {
-    const text = `*🚖 CityCabs24 - Route Booking*\n\n` +
+    const text = `*🚖 CityTourCabs - Route Booking*\n\n` +
       `*Route:* ${currentRoute.from} ➔ ${currentRoute.to}\n` +
       `*Trip Type:* ${tripType === 'one-way' ? 'One Way Drop' : 'Round Trip'}\n` +
       `*Car Class:* ${carClass.toUpperCase()}\n` +

@@ -1,6 +1,6 @@
 import React from 'react';
-import useSettingsStore from '../store/settingsStore';
 import { Sparkles, Check, Car, PhoneCall, ShieldCheck, HeartHandshake, Compass } from 'lucide-react';
+import useSettingsStore from '../store/settingsStore';
 
 export default function AboutSection({ onOpenBookModal }) {
   const { phone } = useSettingsStore();
@@ -22,7 +22,7 @@ export default function AboutSection({ onOpenBookModal }) {
             </h2>
 
             <p className="text-slate-600 text-base leading-relaxed">
-              At <strong>CityCabs24</strong>, we believe travel should be joyful, dependable, and personalized. In a world full of impersonal ride-hailing apps with sudden surge prices and canceling drivers, we stand for classic hospitality, guaranteed vehicle quality, and driver-guides who treat you like family.
+              At <strong>CityTourCabs</strong>, we believe travel should be joyful, dependable, and personalized. In a world full of impersonal ride-hailing apps with sudden surge prices and canceling drivers, we stand for classic hospitality, guaranteed vehicle quality, and driver-guides who treat you like family.
             </p>
 
             <div className="space-y-3 pt-2">
@@ -96,7 +96,7 @@ export default function AboutSection({ onOpenBookModal }) {
                   🚖
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg font-display">CityCabs24 Promise</h3>
+                  <h3 className="font-bold text-lg font-display">CityTourCabs Promise</h3>
                   <p className="text-xs text-indigo-300">Fast. Safe. Affordable. Always at your doorstep.</p>
                 </div>
               </div>

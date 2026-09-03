@@ -1,6 +1,6 @@
 import React from 'react';
-import useSettingsStore from '../store/settingsStore';
 import { X, ShieldCheck } from 'lucide-react';
+import useSettingsStore from '../store/settingsStore';
 
 export default function PrivacyModal({ isOpen, onClose }) {
   const { phone, email } = useSettingsStore();

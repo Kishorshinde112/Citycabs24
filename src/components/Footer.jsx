@@ -2,6 +2,7 @@ import React from 'react';
 import { Car, Phone, Mail, MapPin, MessageCircle, Heart, Shield, Sparkles } from 'lucide-react';
 import { TOURS_DATA } from '../data/toursData';
 import useSettingsStore from '../store/settingsStore';
+import logoImg from '../assets/citycabs24-logo.png';
 
 export default function Footer({ onOpenPrivacyModal, onSelectTour }) {
   const { phone, email } = useSettingsStore();
@@ -14,9 +15,9 @@ export default function Footer({ onOpenPrivacyModal, onSelectTour }) {
           
           {/* Brand Col */}
           <div className="lg:col-span-4 space-y-4">
-            <div className="flex items-center gap-3 group">
-              <div className="w-12 h-12 rounded-full overflow-hidden bg-white shadow-md group-hover:scale-105 transition-transform p-1">
-                <img src="/logo.png" alt="CityCabs24 Logo" className="w-full h-full object-contain" />
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-full overflow-hidden border border-indigo-500/30 bg-white flex items-center justify-center p-0.5 shadow-md">
+                <img src={logoImg} alt="CityCabs24 Logo" className="w-full h-full object-contain" />
               </div>
               <span className="font-display font-black text-2xl tracking-tight text-white">
                 CityCabs<span className="text-indigo-400">24</span>
@@ -93,7 +94,7 @@ export default function Footer({ onOpenPrivacyModal, onSelectTour }) {
                   href={`https://wa.me/91${phone}?text=Hi%20CityCabs24`}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-emerald-400 hover:underline"
+                  className="text-emerald-400 hover:underline font-medium"
                 >
                   WhatsApp: +91 {phone}
                 </a>
@@ -128,7 +129,7 @@ export default function Footer({ onOpenPrivacyModal, onSelectTour }) {
               Terms of Service
             </button>
             <span>•</span>
-            <span className="text-slate-400">Made with 💛 for travellers</span>
+            <span className="text-slate-400">Safe • Reliable • Always</span>
           </div>
         </div>
 

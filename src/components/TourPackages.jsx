@@ -1,24 +1,29 @@
 import React, { useState } from 'react';
-import useSettingsStore from '../store/settingsStore';
 import { 
   MapPin, Clock, Star, Car, ArrowRight, Sparkles, 
   MessageCircle, Phone, Compass, Check
 } from 'lucide-react';
-import { TOURS_DATA } from '../data/toursData';
+import useSettingsStore from '../store/settingsStore';
+import useContentStore from '../store/contentStore';
 
-export default function TourPackages({ onSelectTour }) {
+export default function TourPackages({ onSelectTour, showMumbaiOnly = false }) {
   const { phone } = useSettingsStore();
+  const { tours } = useContentStore();
   const [activeCategory, setActiveCategory] = useState('All');
 
   const categories = ['All', 'City Sightseeing', 'Hill Station', 'Spiritual & Pilgrimage', 'Coastal & Beach'];
 
+  const displayTours = showMumbaiOnly
+    ? tours.filter(t => t.id === 'mumbai-darshan')
+    : tours;
+
   const filteredTours = activeCategory === 'All'
-    ? TOURS_DATA
-    : TOURS_DATA.filter(t => t.category.toLowerCase().includes(activeCategory.toLowerCase()));
+    ? displayTours
+    : displayTours.filter(t => t.category.toLowerCase().includes(activeCategory.toLowerCase()));
 
   const handleWhatsAppDirect = (tour, e) => {
     e.stopPropagation();
-    const text = `*🚖 CityCabs24 Booking Inquiry*\n\n` +
+    const text = `*🚖 CityTourCabs Booking Inquiry*\n\n` +
       `*Tour Name:* ${tour.title}\n` +
       `*Duration:* ${tour.duration}\n` +
       `*Starting Price:* ${tour.startingPrice}\n\n` +
@@ -46,21 +51,23 @@ export default function TourPackages({ onSelectTour }) {
           </p>
 
           {/* Filter Pills */}
-          <div className="flex flex-wrap justify-center gap-2 mt-8">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-sm ${
-                  activeCategory === cat
-                    ? 'bg-slate-900 text-white shadow-md scale-105'
-                    : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
-                }`}
-              >
-                {cat === 'All' ? `🌟 All Tours (${TOURS_DATA.length})` : cat}
-              </button>
-            ))}
-          </div>
+          {!showMumbaiOnly && (
+            <div className="flex flex-wrap justify-center gap-2 mt-8">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-sm ${
+                    activeCategory === cat
+                      ? 'bg-slate-900 text-white shadow-md scale-105'
+                      : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
+                  }`}
+                >
+                  {cat === 'All' ? `🌟 All Tours (${tours.length})` : cat}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Tours Grid */}
@@ -175,6 +182,19 @@ export default function TourPackages({ onSelectTour }) {
             </div>
           ))}
         </div>
+
+        {/* View All Tours CTA */}
+        {showMumbaiOnly && (
+          <div className="mt-10 text-center">
+            <a
+              href="/tours"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-lg shadow-indigo-600/30 transition transform hover:-translate-y-0.5"
+            >
+              View All Maharashtra Tour Packages
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        )}
 
         {/* Bottom Banner Callout */}
         <div className="mt-14 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 rounded-3xl p-6 sm:p-8 text-white flex flex-col md:flex-row items-center justify-between gap-6 border border-slate-700 shadow-xl">

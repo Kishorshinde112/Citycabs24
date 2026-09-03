@@ -1,19 +1,15 @@
 import React from 'react';
 import { Users, Car, CalendarCheck, TrendingUp } from 'lucide-react';
+import useBookingsStore from '../../store/bookingsStore';
 
 export default function Dashboard() {
-  const stats = [
-    { label: 'Total Inquiries (Mock)', value: '1,284', icon: Users, color: 'bg-blue-500' },
-    { label: 'Active Fleet', value: '24', icon: Car, color: 'bg-indigo-500' },
-    { label: 'Bookings Today', value: '12', icon: CalendarCheck, color: 'bg-emerald-500' },
-    { label: 'Revenue Growth', value: '+14%', icon: TrendingUp, color: 'bg-rose-500' },
-  ];
+  const { bookings, updateBookingStatus } = useBookingsStore();
 
-  const recentBookings = [
-    { id: 'B-1001', name: 'Rahul Sharma', route: 'Mumbai to Pune', date: 'Oct 24, 2023', status: 'Confirmed' },
-    { id: 'B-1002', name: 'Priya Patel', route: 'Airport Transfer', date: 'Oct 24, 2023', status: 'Pending' },
-    { id: 'B-1003', name: 'Amit Kumar', route: 'Lonavala Tour', date: 'Oct 23, 2023', status: 'Completed' },
-    { id: 'B-1004', name: 'Neha Singh', route: 'Mumbai Darshan', date: 'Oct 22, 2023', status: 'Completed' },
+  const stats = [
+    { label: 'Total Bookings', value: bookings.length.toString(), icon: Users, color: 'bg-blue-500' },
+    { label: 'Pending Action', value: bookings.filter(b => b.status === 'Pending').length.toString(), icon: CalendarCheck, color: 'bg-amber-500' },
+    { label: 'Active Fleet', value: '24', icon: Car, color: 'bg-indigo-500' },
+    { label: 'Revenue Growth', value: '+14%', icon: TrendingUp, color: 'bg-rose-500' },
   ];
 
   return (
@@ -41,44 +37,61 @@ export default function Dashboard() {
         })}
       </div>
 
-      {/* Recent Activity Table Mock */}
+      {/* Recent Activity Table */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
         <div className="p-6 border-b border-slate-200 flex justify-between items-center">
-          <h2 className="text-lg font-semibold text-slate-800">Recent Bookings (Mock Data)</h2>
-          <button className="text-sm text-indigo-600 hover:text-indigo-700 font-medium">View All</button>
+          <h2 className="text-lg font-semibold text-slate-800">Recent Bookings</h2>
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="bg-slate-50 text-slate-500 text-sm border-b border-slate-200">
-                <th className="p-4 font-medium">Booking ID</th>
-                <th className="p-4 font-medium">Customer</th>
-                <th className="p-4 font-medium">Route/Tour</th>
-                <th className="p-4 font-medium">Date</th>
-                <th className="p-4 font-medium">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {recentBookings.map((booking) => (
-                <tr key={booking.id} className="border-b border-slate-100 hover:bg-slate-50">
-                  <td className="p-4 font-medium text-slate-900">{booking.id}</td>
-                  <td className="p-4 text-slate-700">{booking.name}</td>
-                  <td className="p-4 text-slate-700">{booking.route}</td>
-                  <td className="p-4 text-slate-500 text-sm">{booking.date}</td>
-                  <td className="p-4">
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                      ${booking.status === 'Confirmed' ? 'bg-indigo-100 text-indigo-800' : ''}
-                      ${booking.status === 'Pending' ? 'bg-amber-100 text-amber-800' : ''}
-                      ${booking.status === 'Completed' ? 'bg-emerald-100 text-emerald-800' : ''}
-                    `}>
-                      {booking.status}
-                    </span>
-                  </td>
+        {bookings.length === 0 ? (
+          <div className="p-8 text-center text-slate-500">
+            No bookings received yet.
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-slate-50 text-slate-500 text-sm border-b border-slate-200">
+                  <th className="p-4 font-medium">Booking ID</th>
+                  <th className="p-4 font-medium">Customer Details</th>
+                  <th className="p-4 font-medium">Trip Request</th>
+                  <th className="p-4 font-medium">Date Submitted</th>
+                  <th className="p-4 font-medium">Status / Action</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {bookings.map((booking) => (
+                  <tr key={booking.id} className="border-b border-slate-100 hover:bg-slate-50">
+                    <td className="p-4 font-medium text-slate-900">{booking.id}</td>
+                    <td className="p-4">
+                      <div className="text-slate-900 font-medium">{booking.name}</div>
+                      <div className="text-slate-500 text-xs">{booking.contact}</div>
+                    </td>
+                    <td className="p-4">
+                      <div className="text-slate-700">{booking.tourName || booking.tripType}</div>
+                      <div className="text-slate-500 text-xs">{new Date(booking.travelDate).toLocaleDateString()} • {booking.carType}</div>
+                    </td>
+                    <td className="p-4 text-slate-500 text-sm">{new Date(booking.date).toLocaleDateString()}</td>
+                    <td className="p-4">
+                      <select
+                        value={booking.status}
+                        onChange={(e) => updateBookingStatus(booking.id, e.target.value)}
+                        className={`text-xs font-bold rounded-full px-3 py-1 outline-none border cursor-pointer
+                          ${booking.status === 'Confirmed' ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : ''}
+                          ${booking.status === 'Pending' ? 'bg-amber-50 text-amber-700 border-amber-200' : ''}
+                          ${booking.status === 'Completed' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : ''}
+                        `}
+                      >
+                        <option value="Pending">Pending</option>
+                        <option value="Confirmed">Confirmed</option>
+                        <option value="Completed">Completed</option>
+                      </select>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );

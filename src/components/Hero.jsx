@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import useSettingsStore from '../store/settingsStore';
 import { 
   MapPin, Calendar, Clock, Car, Users, ArrowRight, 
   Sparkles, ShieldCheck, Star, Phone, MessageCircle, CheckCircle2,
@@ -7,9 +6,12 @@ import {
 } from 'lucide-react';
 import { TOURS_DATA } from '../data/toursData';
 import { FLEET_DATA } from '../data/fleetData';
+import useSettingsStore from '../store/settingsStore';
+import useBookingsStore from '../store/bookingsStore';
 
 export default function Hero({ onSelectTour, onOpenBookModal }) {
   const { phone } = useSettingsStore();
+  const { addBooking } = useBookingsStore();
   const [bookingType, setBookingType] = useState('outstation'); // 'outstation', 'local', 'tour'
   const [tripType, setTripType] = useState('one-way'); // 'one-way', 'round-trip'
   const [pickupCity, setPickupCity] = useState('Mumbai (Anywhere / Airport)');
@@ -30,7 +32,7 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
 
   const handleQuickBookWhatsApp = (e) => {
     e.preventDefault();
-    let msg = `*🚖 CityCabs24 Booking Inquiry*\n\n`;
+    let msg = `*🚖 CityTourCabs Booking Inquiry*\n\n`;
     if (bookingType === 'outstation') {
       msg += `📍 *Trip Type:* Outstation (${tripType === 'one-way' ? 'One Way' : 'Round Trip'})\n`;
       msg += `🚗 *Pickup:* ${pickupCity}\n`;
@@ -53,6 +55,15 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
       msg += `📱 *Contact Number:* ${customerPhone}\n`;
     }
     msg += `\n*Please share best rate & confirm availability.*`;
+
+    // Record inquiry to Admin Dashboard
+    addBooking({
+      name: customerPhone ? `Inquiry (${customerPhone})` : 'WhatsApp Direct Lead',
+      phone: customerPhone || phone,
+      route: bookingType === 'tour' ? selectedPackageTitle : `${pickupCity} → ${dropCity} (${bookingType})`,
+      vehicle: FLEET_DATA.find(c => c.id === carType)?.name || carType,
+      date: pickupDate || new Date().toISOString().slice(0, 10),
+    });
 
     const encoded = encodeURIComponent(msg);
     window.open(`https://wa.me/91${phone}?text=${encoded}`, '_blank');
