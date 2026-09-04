@@ -132,12 +132,20 @@ app.post('/api/bookings', (req, res) => {
     const id = 'BK-' + Math.floor(100000 + Math.random() * 900000);
     const createdAt = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
-    const stmt = db.prepare(`
-      INSERT INTO bookings (id, name, phone, route, vehicle, date, status, createdAt)
-      VALUES (?, ?, ?, ?, ?, ?, 'Pending', ?)
-    `);
-
-    stmt.run(id, name || 'Customer', phone || '', route || 'Custom Trip', vehicle || 'Standard Cab', date || new Date().toISOString().slice(0, 10), createdAt);
+    let stmt;
+    try {
+      stmt = db.prepare(`
+        INSERT INTO bookings (id, name, phone, route, vehicle, date, status, created_at)
+        VALUES (?, ?, ?, ?, ?, ?, 'Pending', ?)
+      `);
+      stmt.run(id, name || 'Customer', phone || '', route || 'Custom Trip', vehicle || 'Standard Cab', date || new Date().toISOString().slice(0, 10), createdAt);
+    } catch (e) {
+      stmt = db.prepare(`
+        INSERT INTO bookings (id, name, phone, route, vehicle, date, status)
+        VALUES (?, ?, ?, ?, ?, ?, 'Pending')
+      `);
+      stmt.run(id, name || 'Customer', phone || '', route || 'Custom Trip', vehicle || 'Standard Cab', date || new Date().toISOString().slice(0, 10));
+    }
 
     res.json({
       success: true,
