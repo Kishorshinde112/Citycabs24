@@ -159,12 +159,15 @@ export default function Dashboard() {
                               ? 'bg-indigo-50 text-indigo-700 border-indigo-200'
                               : statusVal === 'Completed'
                               ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                              : statusVal === 'Cancelled'
+                              ? 'bg-rose-50 text-rose-700 border-rose-200'
                               : 'bg-amber-50 text-amber-700 border-amber-200'
                           }`}
                         >
                           <option value="Pending">🟡 Pending</option>
                           <option value="Confirmed">🔵 Confirmed</option>
                           <option value="Completed">🟢 Completed</option>
+                          <option value="Cancelled">🔴 Cancelled</option>
                         </select>
                       </td>
 
