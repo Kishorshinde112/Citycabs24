@@ -17,7 +17,7 @@ const useContentStore = create(
       }))
     }),
     {
-      name: 'site-content-v3',
+      name: 'site-content',
     }
   )
 );

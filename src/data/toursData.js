@@ -1,142 +1,47 @@
 export const TOURS_DATA = [
   {
     id: "mumbai-darshan",
-    title: "Mumbai Darshan (Full Day City Tour)",
+    title: "Mumbai Darshan",
     category: "City Sightseeing",
-    duration: "8h/80km • 10h/100km • 12h/120km",
+    duration: "1 Day (8h/80km, 10h/100km, 12h/120km)",
     tagline: "Discover the City of Dreams with Expert Local Guides",
-    shortDescription: "Complete 360° Mumbai tour covering South Mumbai heritage monuments, scenic sea promenades, Bandra Sea Link, Siddhivinayak, and Bollywood landmarks.",
+    shortDescription: "Explore Mumbai's iconic landmarks with expert drivers who know every historic corner, scenic seaside view, and hidden culinary gem.",
     banner: "/assets/tours/bd08021da8c244de8eafa9a4f86c4e2a30099151_yk3fsq4Dd4.png",
-    startingPrice: "₹2,300",
+    startingPrice: "₹2,499",
     rating: 4.9,
     reviewsCount: 340,
     bookingPackages: [
-      { name: "8 hrs / 80 Kms", duration: "WagonR ₹2,300 | Sedan ₹2,500 | Ertiga ₹3,200", price: "₹2,300" },
-      { name: "10 hrs / 100 Kms", duration: "WagonR ₹2,800 | Sedan ₹3,200 | Ertiga ₹3,800", price: "₹2,800" },
-      { name: "12 hrs / 120 Kms", duration: "WagonR ₹3,400 | Sedan ₹3,800 | Ertiga ₹4,400", price: "₹3,400" },
-      { name: "Tempo Traveller (12h/100km)", duration: "13 Seater ₹8,500 | 17 Seater ₹9,500", price: "₹8,500" }
+      { name: "Half Day", duration: "8 hrs / 80 Km", price: "₹2,499" },
+      { name: "Full Day", duration: "10 hrs / 100 Km", price: "₹2,999" },
+      { name: "Extended Day", duration: "12 hrs / 120 Km", price: "₹3,499" }
     ],
-    carTypes: ["Wagon R (₹2,300+)", "Sedan (₹2,500+)", "Ertiga (₹3,200+)", "Kia Carens (₹3,500+)", "Innova Crysta (₹3,800+)", "13 Seater Traveller (₹8,500)", "17 Seater Traveller (₹9,500)"],
+    carTypes: ["WagonR (Hatchback)", "Swift Dzire (Sedan)", "Maruti Ertiga (6+1)", "Kia Carens (7 Seater)", "Innova Crysta (7+1)", "Tempo Traveller (13/17 Seater)"],
     highlights: [
-      "Gateway of India & Taj Mahal Hotel",
-      "Marine Drive & Girgaon Chowpatty",
-      "Victoria Terminus Station (CSMT)",
-      "Haji Ali Dargah & Mahalaxmi Temple",
-      "Worli Sea Face & Bandra-Worli Sea Link",
-      "Siddhi Vinayak Ganapati Temple",
-      "Nehru Planetarium & Science Centre",
-      "Bandra Bandstand & Mount Mary Church",
-      "Bollywood Actors' Houses (Mannat, Galaxy)",
-      "Juhu Beach & Juhu ISKCON Temple",
-      "Colaba Causeway (Street Shopping)"
+      "Gateway of India & Taj Mahal Palace",
+      "Marine Drive & Queen's Necklace",
+      "Chhatrapati Shivaji Maharaj Terminus (CSMT)",
+      "Siddhi Vinayak Temple & Haji Ali Dargah",
+      "Bandra-Worli Sea Link & Bandstand",
+      "Juhu Beach & Girgaon Chowpatty",
+      "Mani Bhavan (Gandhi Museum) & Hanging Gardens"
     ],
     inclusions: [
-      "Doorstep pickup & drop anywhere in Mumbai, Thane & Navi Mumbai",
+      "Doorstep pickup & drop anywhere in Mumbai",
       "Clean, sanitized air-conditioned vehicle",
       "Experienced driver-cum-guide with local expertise",
       "Fuel & driver allowance included",
       "Flexible schedule – spend your own time at each spot"
     ],
     exclusions: [
-      "Toll charges, parking fees & entry tickets to monuments",
-      "Night Allowance of ₹500/- applicable after 11 PM (Tempo Traveller only)",
-      "Meals, snacks & personal shopping expenses"
+      "Toll charges & parking fees (to be paid actual)",
+      "Monument entry tickets & camera permits",
+      "Meals, snacks & personal expenses"
     ],
     rules: [
-      "Extra Km charges: Wagon R ₹12/km, Sedan ₹14/km, Ertiga ₹16/km, Carens ₹18/km, Crysta ₹20/km, TT ₹22-₹26/km.",
-      "Extra Hr charges: Wagon R ₹130/hr, Sedan ₹150/hr, Ertiga ₹160/hr, Carens ₹170/hr, Crysta ₹200/hr, TT ₹500-₹600/hr.",
-      "Toll charges, parking fees, and entry tickets to monuments are not included in the car hire charges.",
-      "If the booking is canceled after the arrival of the driver, cancellation charges of ₹500/- will be applicable."
-    ]
-  },
-  {
-    id: "south-mumbai-sightseeing",
-    title: "South Mumbai Sightseeing",
-    category: "City Sightseeing",
-    duration: "8 hrs / 80 Km or 10 hrs / 100 Km",
-    tagline: "A Journey Through Mumbai's Iconic Landmarks",
-    shortDescription: "Experience the historic colonial charm, sea-facing promenades, sacred shrines, and vibrant shopping streets of South Mumbai.",
-    banner: "/assets/tours/bd08021da8c244de8eafa9a4f86c4e2a30099151_yk3fsq4Dd4.png",
-    startingPrice: "₹2,300",
-    rating: 4.9,
-    reviewsCount: 290,
-    bookingPackages: [
-      { name: "8 hrs / 80 Kms", duration: "WagonR ₹2,300 | Sedan ₹2,500 | Ertiga ₹3,200", price: "₹2,300" },
-      { name: "10 hrs / 100 Kms", duration: "WagonR ₹2,800 | Sedan ₹3,200 | Ertiga ₹3,800", price: "₹2,800" },
-      { name: "12 hrs / 120 Kms", duration: "WagonR ₹3,400 | Sedan ₹3,800 | Ertiga ₹4,400", price: "₹3,400" }
-    ],
-    carTypes: ["Wagon R", "Sedan (Dzire/Etios)", "Ertiga", "Kia Carens", "Innova Crysta", "Tempo Traveller (13/17)"],
-    highlights: [
-      "Gateway of India",
-      "Taj Mahal Hotel",
-      "Haji Ali Dargah",
-      "Marine Drive (Queen's Necklace)",
-      "Girgaon Chowpatty",
-      "Victoria Terminus Station (CSMT)",
-      "Siddhi Vinayak Ganapati Temple",
-      "Bandra Bandstand",
-      "Juhu Beach",
-      "Mahalaxmi Temple",
-      "Worli Sea Face",
-      "Colaba Causeway (Street Shopping)"
-    ],
-    inclusions: [
-      "Doorstep pickup & drop anywhere in Mumbai",
-      "Clean sanitized AC vehicle with chauffeur",
-      "Driver allowance and fuel included",
-      "Flexible halt timings at all attractions"
-    ],
-    exclusions: [
-      "Toll charges & parking tickets",
-      "Monument entry fees & personal shopping",
-      "Food and beverages"
-    ],
-    rules: [
-      "Toll charges, parking fees, and entry tickets to monuments are not included in the car hire charges.",
-      "If the booking is canceled after the arrival of the driver, cancellation charges of ₹500/- will be applicable."
-    ]
-  },
-  {
-    id: "north-mumbai-sightseeing",
-    title: "North Mumbai Sightseeing",
-    category: "City Sightseeing",
-    duration: "8 hrs / 80 Km or 10 hrs / 100 Km",
-    tagline: "A Journey Through Mumbai's Iconic Landmarks",
-    shortDescription: "Discover Bollywood glitz, Bandra-Worli Sea Link, Mount Mary Church, Nehru Planetarium, and sacred ISKCON temple in North Mumbai.",
-    banner: "/assets/tours/bd08021da8c244de8eafa9a4f86c4e2a30099151_yk3fsq4Dd4.png",
-    startingPrice: "₹2,300",
-    rating: 4.9,
-    reviewsCount: 215,
-    bookingPackages: [
-      { name: "8 hrs / 80 Kms", duration: "WagonR ₹2,300 | Sedan ₹2,500 | Ertiga ₹3,200", price: "₹2,300" },
-      { name: "10 hrs / 100 Kms", duration: "WagonR ₹2,800 | Sedan ₹3,200 | Ertiga ₹3,800", price: "₹2,800" },
-      { name: "12 hrs / 120 Kms", duration: "WagonR ₹3,400 | Sedan ₹3,800 | Ertiga ₹4,400", price: "₹3,400" }
-    ],
-    carTypes: ["Wagon R", "Sedan (Dzire/Etios)", "Ertiga", "Kia Carens", "Innova Crysta", "Tempo Traveller (13/17)"],
-    highlights: [
-      "Worli Sea Face",
-      "Nehru Planetarium and Science Centre",
-      "Siddhi Vinayak Ganapati Temple",
-      "Bandra Worli Sea Link",
-      "Bandra Bandstand",
-      "Mount Mary Church",
-      "Actors' Houses (Bollywood Mansions)",
-      "Juhu Beach",
-      "Juhu ISKCON Temple"
-    ],
-    inclusions: [
-      "Doorstep pickup & drop anywhere in Mumbai",
-      "Clean sanitized AC vehicle with local driver-guide",
-      "Fuel and driver bata included"
-    ],
-    exclusions: [
-      "Sea Link toll charges & parking fees",
-      "Planetarium entry tickets",
-      "Meals & personal expenses"
-    ],
-    rules: [
-      "Toll charges, parking fees, and entry tickets to monuments are not included in the car hire charges.",
-      "If the booking is canceled after the arrival of the driver, cancellation charges of ₹500/- will be applicable."
+      "Flexible pick-up timing and doorstep pick-up from your home or hotel.",
+      "You can customize, add, or skip spots according to your family's preferences.",
+      "Driver guides you with parking, photo spots, and best local street food spots.",
+      "Cancellation charge of ₹500 applicable if cancelled within 12 hours of departure."
     ]
   },
   {

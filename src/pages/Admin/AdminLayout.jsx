@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, Outlet, Navigate, useNavigate, Link } from 'react-router-dom';
-import { LayoutDashboard, Settings as SettingsIcon, LogOut, Car, Menu, X, ExternalLink, Shield, Compass } from 'lucide-react';
+import { LayoutDashboard, Settings as SettingsIcon, LogOut, Car, Menu, X, ExternalLink, Shield } from 'lucide-react';
 import useSettingsStore from '../../store/settingsStore';
 import logoImg from '../../assets/citycabs24-logo.png';
 
@@ -78,21 +78,6 @@ export default function AdminLayout() {
         >
           <SettingsIcon className="w-4 h-4" />
           Contact & Site Settings
-        </NavLink>
-
-        <NavLink
-          to="/admin/tours"
-          onClick={() => setMobileOpen(false)}
-          className={({ isActive }) =>
-            `flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
-              isActive
-                ? 'bg-indigo-500 text-slate-950 shadow-md shadow-indigo-500/20'
-                : 'text-slate-300 hover:bg-slate-800 hover:text-white'
-            }`
-          }
-        >
-          <Compass className="w-4 h-4" />
-          Manage Tours & Pricing
         </NavLink>
 
         <div className="pt-6 pb-2 px-3 text-[10px] uppercase font-bold tracking-wider text-slate-400">
