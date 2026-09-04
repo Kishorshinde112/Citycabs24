@@ -10,7 +10,8 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 80;
 
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // Ensure data directory exists
 const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, '../data');
@@ -37,6 +38,11 @@ db.exec(`
     date TEXT,
     status TEXT DEFAULT 'Pending',
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
+
+  CREATE TABLE IF NOT EXISTS tours (
+    id TEXT PRIMARY KEY,
+    data TEXT NOT NULL
   );
 `);
 
@@ -165,7 +171,56 @@ app.delete('/api/bookings/:id', (req, res) => {
   }
 });
 
-// 3. Admin Authentication Endpoint
+// 3. Tours Endpoints (CMS for Tour Packages & Images)
+app.get('/api/tours', (req, res) => {
+  try {
+    const rows = db.prepare('SELECT id, data FROM tours').all();
+    const tours = rows.map(r => JSON.parse(r.data));
+    res.json({ success: true, tours });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.put('/api/tours', (req, res) => {
+  try {
+    const { tours } = req.body;
+    if (Array.isArray(tours)) {
+      const stmt = db.prepare('INSERT OR REPLACE INTO tours (id, data) VALUES (?, ?)');
+      for (const t of tours) {
+        stmt.run(t.id, JSON.stringify(t));
+      }
+    }
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.put('/api/tours/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+    const tourData = req.body;
+    const stmt = db.prepare('INSERT OR REPLACE INTO tours (id, data) VALUES (?, ?)');
+    stmt.run(id, JSON.stringify(tourData));
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.delete('/api/tours/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+    const stmt = db.prepare('DELETE FROM tours WHERE id = ?');
+    stmt.run(id);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// 4. Admin Authentication Endpoint
 app.post('/api/auth/login', (req, res) => {
   const { email, password } = req.body;
   if (email === 'mumbaicitycabs24@gmail.com' && password === 'Shahrukh@123') {
