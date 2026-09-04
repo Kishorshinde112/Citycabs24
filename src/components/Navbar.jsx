@@ -17,13 +17,14 @@ export default function Navbar({ onOpenBookModal }) {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Mumbai Darshan Rates', href: '/#mumbai-rates' },
-    { name: 'Tour Packages', href: '/tours' },
-    { name: 'Our Fleet', href: '/#fleet' },
-    { name: 'Fare Chart', href: '/#fares' },
-    { name: 'Why Us', href: '/#why-us' },
-    { name: 'Contact', href: '/#contact' },
+    { name: 'Home', href: '#home' },
+    { name: 'Tour Packages', href: '#tours' },
+    { name: 'Our Fleet', href: '#fleet' },
+    { name: 'Fare Chart', href: '#fares' },
+    { name: 'Why Us', href: '#why-us' },
+    { name: 'Gallery', href: '#gallery' },
+    { name: 'About Us', href: '#about' },
+    { name: 'Contact', href: '#contact' },
   ];
 
   return (

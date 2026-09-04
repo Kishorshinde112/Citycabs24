@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import TourPackages from '../components/TourPackages';
-import MumbaiDarshanRateTable from '../components/MumbaiDarshanRateTable';
 import TourModal from '../components/TourModal';
 import FleetSection from '../components/FleetSection';
 import FareCalculator from '../components/FareCalculator';
@@ -41,9 +40,6 @@ export default function Home() {
           onSelectTour={(tour) => setSelectedTour(tour)}
           onOpenBookModal={(data) => handleOpenBookModal(data)}
         />
-
-        {/* Mumbai Sightseeing Official Rates & Itinerary Tabs */}
-        <MumbaiDarshanRateTable onOpenBookModal={(data) => handleOpenBookModal(data)} />
 
         {/* Highlight Mumbai Darshan */}
         <TourPackages onSelectTour={(tour) => setSelectedTour(tour)} showMumbaiOnly={true} />

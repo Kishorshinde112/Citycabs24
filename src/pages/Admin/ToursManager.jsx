@@ -60,7 +60,7 @@ export default function ToursManager() {
                     className="w-full px-3 py-2 border rounded-lg text-sm text-slate-600 focus:ring-2 focus:ring-indigo-500 outline-none"
                     placeholder="Tagline"
                   />
-                  <div className="flex gap-4">
+                  <div className="flex gap-4 flex-col sm:flex-row">
                     <div className="flex-1">
                       <label className="block text-xs font-semibold text-slate-500 mb-1">Starting Price</label>
                       <input
@@ -72,14 +72,23 @@ export default function ToursManager() {
                       />
                     </div>
                     <div className="flex-1">
-                      <label className="block text-xs font-semibold text-slate-500 mb-1">Image URL</label>
+                      <label className="block text-xs font-semibold text-slate-500 mb-1">Upload New Image (Optional)</label>
                       <input
-                        type="text"
-                        value={formData.banner}
-                        onChange={(e) => setFormData({...formData, banner: e.target.value})}
-                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
-                        placeholder="/assets/image.jpg or https://..."
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                          const file = e.target.files[0];
+                          if (file) {
+                            const reader = new FileReader();
+                            reader.onloadend = () => {
+                              setFormData({ ...formData, banner: reader.result });
+                            };
+                            reader.readAsDataURL(file);
+                          }
+                        }}
+                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
                       />
+                      <p className="text-xs text-slate-400 mt-1 truncate">Current: {formData.banner?.substring(0,30)}...</p>
                     </div>
                   </div>
                 </div>

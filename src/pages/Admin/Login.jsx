@@ -15,24 +15,13 @@ export default function Login() {
     setIsLoading(true);
     setError('');
 
-    try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim(), password: password.trim() }),
-      });
-
-      const data = await res.json();
-      if (res.ok && data.success) {
-        localStorage.setItem('adminAuth', 'true');
-        localStorage.setItem('adminToken', data.token);
-        navigate('/admin');
-      } else {
-        setError(data.message || 'Invalid admin credentials. Access denied.');
-        setIsLoading(false);
-      }
-    } catch (err) {
-      setError('Unable to connect to server. Please try again.');
+    // Hardcoded credentials for local frontend-only setup
+    if (email.trim() === 'admin@citycabs24.com' && password === 'Shahrukh@123') {
+      localStorage.setItem('adminAuth', 'true');
+      localStorage.setItem('adminToken', 'dummy-token-123');
+      navigate('/admin');
+    } else {
+      setError('Invalid admin credentials. Access denied.');
       setIsLoading(false);
     }
   };
