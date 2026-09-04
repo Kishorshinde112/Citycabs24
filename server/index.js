@@ -40,6 +40,12 @@ db.exec(`
   );
 `);
 
+try {
+  db.exec(`ALTER TABLE bookings ADD COLUMN createdAt DATETIME DEFAULT CURRENT_TIMESTAMP;`);
+} catch (e) {
+  // Column already exists
+}
+
 // Seed default settings if empty
 const checkSettings = db.prepare('SELECT COUNT(*) as count FROM settings').get();
 if (checkSettings.count === 0) {
@@ -107,7 +113,7 @@ app.put('/api/settings', (req, res) => {
 // 2. Bookings Endpoints
 app.get('/api/bookings', (req, res) => {
   try {
-    const rows = db.prepare('SELECT * FROM bookings ORDER BY createdAt DESC').all();
+    const rows = db.prepare('SELECT * FROM bookings ORDER BY rowid DESC').all();
     res.json({ success: true, bookings: rows });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
