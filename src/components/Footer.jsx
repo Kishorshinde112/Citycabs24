@@ -59,13 +59,13 @@ export default function Footer({ onOpenPrivacyModal, onSelectTour }) {
               Quick Links
             </h4>
             <ul className="space-y-2 text-xs text-slate-400">
-              <li><a href="#home" className="hover:text-indigo-400 transition">Home</a></li>
-              <li><a href="#tours" className="hover:text-indigo-400 transition">Tour Packages</a></li>
-              <li><a href="#fleet" className="hover:text-indigo-400 transition">Our Cab Fleet</a></li>
-              <li><a href="#fares" className="hover:text-indigo-400 transition">Fare Tariff Chart</a></li>
-              <li><a href="#why-us" className="hover:text-indigo-400 transition">Why Choose Us</a></li>
-              <li><a href="#gallery" className="hover:text-indigo-400 transition">Tour Gallery</a></li>
-              <li><a href="#about" className="hover:text-indigo-400 transition">About Us</a></li>
+              <li><a href="/" className="hover:text-indigo-400 transition">Home</a></li>
+              <li><a href="/mumbai-darshan" className="hover:text-indigo-400 transition">Mumbai Darshan Cabs</a></li>
+              <li><a href="/#tours" className="hover:text-indigo-400 transition">Tour Packages</a></li>
+              <li><a href="/#fleet" className="hover:text-indigo-400 transition">Our Cab Fleet</a></li>
+              <li><a href="/#why-us" className="hover:text-indigo-400 transition">Why Choose Us</a></li>
+              <li><a href="/#gallery" className="hover:text-indigo-400 transition">Tour Gallery</a></li>
+              <li><a href="/#about" className="hover:text-indigo-400 transition">About Us</a></li>
               <li>
                 <button onClick={onOpenPrivacyModal} className="hover:text-indigo-400 transition">
                   Privacy Policy & Terms
