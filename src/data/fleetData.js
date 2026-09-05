@@ -128,7 +128,7 @@ export const FLEET_DATA = [
     fuelType: "Diesel",
     ratePerKm: "₹24 - ₹32 / km",
     localFullDay: "₹6,999 / 8hr 80km",
-    image: "/assets/tempo-traveller.jpg",
+    image: "",
     features: [
       "Pushback Reclining Seats with Armrests",
       "High Roof Walk-In Cabin",

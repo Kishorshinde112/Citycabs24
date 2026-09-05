@@ -66,11 +66,19 @@ export default function FleetSection({ onOpenBookModal }) {
             {/* Left Image View */}
             <div className="lg:col-span-6 relative">
               <div className="relative rounded-2xl overflow-hidden bg-slate-950/70 border border-slate-800 aspect-video flex items-center justify-center p-4">
-                <img
-                  src={activeCar.image}
-                  alt={activeCar.name}
-                  className="w-full h-full object-contain transform hover:scale-105 transition-transform duration-500"
-                />
+                {activeCar.image ? (
+                  <img
+                    src={activeCar.image}
+                    alt={activeCar.name}
+                    className="w-full h-full object-contain transform hover:scale-105 transition-transform duration-500"
+                  />
+                ) : (
+                  <div className="flex flex-col items-center justify-center text-slate-500 py-6 text-center">
+                    <Users className="w-14 h-14 text-indigo-400 mb-2" />
+                    <span className="font-bold text-sm text-slate-200">{activeCar.name}</span>
+                    <span className="text-xs text-slate-400 mt-1">13 / 17 / 26 Seater AC Group Minibus</span>
+                  </div>
+                )}
                 
                 {/* Tag Badge */}
                 <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-indigo-500 text-slate-950 font-black text-xs uppercase tracking-wider">
@@ -191,12 +199,20 @@ export default function FleetSection({ onOpenBookModal }) {
                 </div>
 
                 <div className="h-36 rounded-2xl bg-white p-3 flex items-center justify-center border border-slate-200/70 mb-4">
-                  <img
-                    src={car.image}
-                    alt={car.name}
-                    className="max-h-full max-w-full object-contain"
-                    loading="lazy"
-                  />
+                  {car.image ? (
+                    <img
+                      src={car.image}
+                      alt={car.name}
+                      className="max-h-full max-w-full object-contain"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="flex flex-col items-center justify-center text-slate-400 p-2 text-center">
+                      <Users className="w-10 h-10 text-indigo-500 mb-1" />
+                      <span className="font-bold text-xs text-slate-700">{car.name}</span>
+                      <span className="text-[10px] text-slate-500">13 - 26 Seater Group Vehicle</span>
+                    </div>
+                  )}
                 </div>
 
                 <h4 className="text-lg font-bold text-slate-900">{car.name}</h4>
