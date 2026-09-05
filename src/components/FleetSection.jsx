@@ -22,7 +22,7 @@ export default function FleetSection({ onOpenBookModal }) {
   };
 
   return (
-    <section id="fleet" className="py-16 sm:py-24 bg-[#0F172A] text-white relative">
+    <section id="fleet" className="py-16 sm:py-24 bg-zinc-950 text-white relative border-b border-zinc-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -31,7 +31,7 @@ export default function FleetSection({ onOpenBookModal }) {
             Our Cabs Gallery
           </h2>
 
-          <p className="text-slate-300 text-sm sm:text-base mt-2.5">
+          <p className="text-zinc-400 text-sm sm:text-base mt-2.5">
             Take a look at our well-maintained fleet of comfortable and reliable vehicles.
           </p>
         </div>
@@ -44,23 +44,23 @@ export default function FleetSection({ onOpenBookModal }) {
               onClick={() => setActiveCarId(car.id)}
               className={`px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 ${
                 activeCarId === car.id
-                  ? 'bg-slate-900 text-white shadow-lg scale-105'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200/60'
+                  ? 'bg-yellow-400 text-black shadow-lg shadow-yellow-400/20 scale-105 font-extrabold'
+                  : 'bg-zinc-900 text-zinc-300 hover:bg-zinc-800 border border-zinc-800'
               }`}
             >
-              <Car className={`w-4 h-4 ${activeCarId === car.id ? 'text-indigo-400' : 'text-slate-500'}`} />
+              <Car className={`w-4 h-4 ${activeCarId === car.id ? 'text-black' : 'text-yellow-400'}`} />
               <span>{car.name}</span>
             </button>
           ))}
         </div>
 
         {/* Featured Car Showcase Card */}
-        <div className="bg-slate-900 rounded-3xl overflow-hidden shadow-2xl border border-slate-800 text-white mb-16">
+        <div className="bg-zinc-900 rounded-3xl overflow-hidden shadow-2xl border border-zinc-800 text-white mb-16">
           <div className="grid lg:grid-cols-12 gap-8 items-center p-6 sm:p-10">
             
             {/* Left Image View */}
             <div className="lg:col-span-6 relative">
-              <div className="relative rounded-2xl overflow-hidden bg-slate-950/70 border border-slate-800 aspect-video flex items-center justify-center p-4">
+              <div className="relative rounded-2xl overflow-hidden bg-black border border-zinc-800 aspect-video flex items-center justify-center p-4">
                 {activeCar.image ? (
                   <img
                     src={activeCar.image}
@@ -68,25 +68,25 @@ export default function FleetSection({ onOpenBookModal }) {
                     className="w-full h-full object-contain transform hover:scale-105 transition-transform duration-500"
                   />
                 ) : (
-                  <div className="flex flex-col items-center justify-center text-slate-500 py-6 text-center">
-                    <Users className="w-14 h-14 text-indigo-400 mb-2" />
-                    <span className="font-bold text-sm text-slate-200">{activeCar.name}</span>
-                    <span className="text-xs text-slate-400 mt-1">13 / 17 / 26 Seater AC Group Minibus</span>
+                  <div className="flex flex-col items-center justify-center text-zinc-500 py-6 text-center">
+                    <Users className="w-14 h-14 text-yellow-400 mb-2" />
+                    <span className="font-bold text-sm text-zinc-200">{activeCar.name}</span>
+                    <span className="text-xs text-zinc-400 mt-1">13 / 17 / 26 Seater AC Group Minibus</span>
                   </div>
                 )}
                 
                 {/* Tag Badge */}
-                <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-indigo-500 text-slate-950 font-black text-xs uppercase tracking-wider">
+                <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-yellow-400 text-black font-black text-xs uppercase tracking-wider">
                   {activeCar.tag}
                 </span>
 
-                <span className="absolute top-4 right-4 px-3 py-1 rounded-full bg-slate-800/80 backdrop-blur-md text-slate-300 font-medium text-xs">
+                <span className="absolute top-4 right-4 px-3 py-1 rounded-full bg-zinc-800/90 backdrop-blur-md text-zinc-300 font-medium text-xs border border-zinc-700">
                   {activeCar.category}
                 </span>
               </div>
 
-              <div className="mt-4 bg-slate-800/50 rounded-2xl p-3 border border-slate-700/60 text-xs text-slate-300 flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-indigo-400 shrink-0" />
+              <div className="mt-4 bg-zinc-950/80 rounded-2xl p-3 border border-zinc-800 text-xs text-zinc-300 flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-yellow-400 shrink-0" />
                 <span><strong>Recommended For:</strong> {activeCar.bestFor}</span>
               </div>
             </div>
@@ -94,38 +94,38 @@ export default function FleetSection({ onOpenBookModal }) {
             {/* Right Specs & Rates */}
             <div className="lg:col-span-6 space-y-6">
               <div>
-                <div className="text-indigo-400 text-xs font-bold uppercase tracking-wider">
+                <div className="text-yellow-400 text-xs font-bold uppercase tracking-wider">
                   {activeCar.category} Class
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-display font-black tracking-tight text-white mt-1">
                   {activeCar.name}
                 </h3>
-                <p className="text-xs text-slate-400 mt-1">
+                <p className="text-xs text-zinc-400 mt-1">
                   Seating: {activeCar.configuration}
                 </p>
               </div>
 
               {/* Key Specs Grid */}
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                <div className="bg-slate-800/80 p-3 rounded-2xl border border-slate-700/80">
-                  <div className="flex items-center gap-1.5 text-slate-400 text-xs mb-1">
-                    <Users className="w-4 h-4 text-indigo-400" />
+                <div className="bg-zinc-950 p-3 rounded-2xl border border-zinc-800">
+                  <div className="flex items-center gap-1.5 text-zinc-400 text-xs mb-1">
+                    <Users className="w-4 h-4 text-yellow-400" />
                     <span>Capacity</span>
                   </div>
                   <div className="font-bold text-sm text-white">{activeCar.seats}</div>
                 </div>
 
-                <div className="bg-slate-800/80 p-3 rounded-2xl border border-slate-700/80">
-                  <div className="flex items-center gap-1.5 text-slate-400 text-xs mb-1">
-                    <Briefcase className="w-4 h-4 text-blue-400" />
+                <div className="bg-zinc-950 p-3 rounded-2xl border border-zinc-800">
+                  <div className="flex items-center gap-1.5 text-zinc-400 text-xs mb-1">
+                    <Briefcase className="w-4 h-4 text-yellow-400" />
                     <span>Boot Space</span>
                   </div>
                   <div className="font-bold text-sm text-white">{activeCar.bootSpace}</div>
                 </div>
 
-                <div className="bg-slate-800/80 p-3 rounded-2xl border border-slate-700/80">
-                  <div className="flex items-center gap-1.5 text-slate-400 text-xs mb-1">
-                    <Snowflake className="w-4 h-4 text-emerald-400" />
+                <div className="bg-zinc-950 p-3 rounded-2xl border border-zinc-800">
+                  <div className="flex items-center gap-1.5 text-zinc-400 text-xs mb-1">
+                    <Snowflake className="w-4 h-4 text-yellow-400" />
                     <span>Air Conditioning</span>
                   </div>
                   <div className="font-bold text-xs text-white truncate">{activeCar.acType}</div>
@@ -134,11 +134,11 @@ export default function FleetSection({ onOpenBookModal }) {
 
               {/* Feature List */}
               <div className="space-y-2">
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-400">Included Comforts</div>
+                <div className="text-xs font-bold uppercase tracking-wider text-yellow-400/80">Included Comforts</div>
                 <div className="grid sm:grid-cols-2 gap-2">
                   {activeCar.features.map((feat, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-xs text-slate-200">
-                      <CheckCircle className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                    <div key={idx} className="flex items-center gap-2 text-xs text-zinc-200">
+                      <CheckCircle className="w-3.5 h-3.5 text-yellow-400 shrink-0" />
                       <span>{feat}</span>
                     </div>
                   ))}
@@ -146,19 +146,19 @@ export default function FleetSection({ onOpenBookModal }) {
               </div>
 
               {/* Pricing & CTAs */}
-              <div className="pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="pt-4 border-t border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
-                  <div className="text-xs text-slate-400">Outstation Rate</div>
-                  <div className="text-2xl font-black text-indigo-400 font-display">
+                  <div className="text-xs text-zinc-400">Outstation Rate</div>
+                  <div className="text-2xl font-black text-yellow-400 font-display">
                     {activeCar.ratePerKm}
-                    <span className="text-xs font-normal text-slate-400 ml-1.5">(Local: {activeCar.localFullDay.split('/')[0]})</span>
+                    <span className="text-xs font-normal text-zinc-400 ml-1.5">(Local: {activeCar.localFullDay.split('/')[0]})</span>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-2.5 w-full sm:w-auto">
                   <button
                     onClick={() => handleBookCarWhatsApp(activeCar)}
-                    className="flex-1 sm:flex-none py-3 px-5 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-lg transition"
+                    className="flex-1 sm:flex-none py-3 px-5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-yellow-400 border border-yellow-400/40 text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-lg transition"
                   >
                     <MessageCircle className="w-4 h-4" />
                     <span>Book on WhatsApp</span>
@@ -166,7 +166,7 @@ export default function FleetSection({ onOpenBookModal }) {
 
                   <button
                     onClick={() => onOpenBookModal({ carType: activeCar.name })}
-                    className="py-3 px-4 rounded-xl bg-indigo-500 hover:bg-indigo-600 text-slate-950 text-xs font-black transition shadow"
+                    className="py-3 px-4 rounded-xl bg-yellow-400 hover:bg-yellow-500 text-black text-xs font-black transition shadow"
                   >
                     Quick Quote
                   </button>
@@ -183,17 +183,17 @@ export default function FleetSection({ onOpenBookModal }) {
           {FLEET_DATA.map((car) => (
             <div
               key={car.id}
-              className="bg-slate-50 rounded-3xl p-5 border border-slate-200 hover:border-indigo-400/50 hover:shadow-lg transition duration-300 flex flex-col justify-between"
+              className="bg-zinc-900 rounded-3xl p-5 border border-zinc-800 hover:border-yellow-400/50 hover:shadow-xl transition duration-300 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold ${car.badgeColor}`}>
+                  <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-yellow-400 text-black">
                     {car.tag}
                   </span>
-                  <span className="text-xs font-bold text-slate-600">{car.ratePerKm}</span>
+                  <span className="text-xs font-bold text-yellow-400">{car.ratePerKm}</span>
                 </div>
 
-                <div className="h-36 rounded-2xl bg-white p-3 flex items-center justify-center border border-slate-200/70 mb-4">
+                <div className="h-36 rounded-2xl bg-black p-3 flex items-center justify-center border border-zinc-800 mb-4">
                   {car.image ? (
                     <img
                       src={car.image}
@@ -202,31 +202,31 @@ export default function FleetSection({ onOpenBookModal }) {
                       loading="lazy"
                     />
                   ) : (
-                    <div className="flex flex-col items-center justify-center text-slate-400 p-2 text-center">
-                      <Users className="w-10 h-10 text-indigo-500 mb-1" />
-                      <span className="font-bold text-xs text-slate-700">{car.name}</span>
-                      <span className="text-[10px] text-slate-500">13 - 26 Seater Group Vehicle</span>
+                    <div className="flex flex-col items-center justify-center text-zinc-500 p-2 text-center">
+                      <Users className="w-10 h-10 text-yellow-400 mb-1" />
+                      <span className="font-bold text-xs text-zinc-200">{car.name}</span>
+                      <span className="text-[10px] text-zinc-400">13 - 26 Seater Group Vehicle</span>
                     </div>
                   )}
                 </div>
 
-                <h4 className="text-lg font-bold text-slate-900">{car.name}</h4>
-                <div className="text-xs text-slate-500 mt-0.5">{car.seats} • {car.luggage}</div>
+                <h4 className="text-lg font-bold text-white">{car.name}</h4>
+                <div className="text-xs text-zinc-400 mt-0.5">{car.seats} • {car.luggage}</div>
 
-                <p className="text-xs text-slate-600 mt-2 line-clamp-2">
+                <p className="text-xs text-zinc-400 mt-2 line-clamp-2">
                   {car.bestFor}
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between">
+              <div className="mt-4 pt-3 border-t border-zinc-800 flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] text-slate-400 block">Local 8h/80km</span>
-                  <span className="text-sm font-bold text-slate-900">{car.localFullDay.split('/')[0]}</span>
+                  <span className="text-[10px] text-zinc-500 block">Local 8h/80km</span>
+                  <span className="text-sm font-bold text-white">{car.localFullDay.split('/')[0]}</span>
                 </div>
 
                 <button
                   onClick={() => handleBookCarWhatsApp(car)}
-                  className="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white text-xs font-bold transition flex items-center gap-1"
+                  className="px-3.5 py-1.5 rounded-xl bg-yellow-400 hover:bg-yellow-500 text-black text-xs font-extrabold transition flex items-center gap-1"
                 >
                   <span>Book</span>
                   <ArrowRight className="w-3.5 h-3.5" />

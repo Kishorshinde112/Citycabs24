@@ -39,7 +39,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans flex flex-col selection:bg-indigo-500 selection:text-white pb-14 sm:pb-0">
+    <div className="min-h-screen bg-zinc-950 text-white font-sans flex flex-col selection:bg-yellow-400 selection:text-black pb-14 sm:pb-0">
 
       {/* Top Navigation */}
       <Navbar onOpenBookModal={() => handleOpenBookModal()} />

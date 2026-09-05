@@ -64,16 +64,16 @@ export default function MumbaiDarshanRateTable({ onOpenBookModal }) {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 text-indigo-700 text-xs font-bold uppercase tracking-wider mb-3 border border-indigo-200">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-yellow-400/10 text-yellow-400 text-xs font-bold uppercase tracking-wider mb-3 border border-yellow-400/30">
+            <Sparkles className="w-3.5 h-3.5 text-yellow-400" />
             <span>Official Transparent Pricing</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl font-display font-black tracking-tight text-slate-900">
-            Mumbai Sightseeing <span className="text-indigo-600">Rates & Packages</span>
+          <h2 className="text-3xl sm:text-4xl font-display font-black tracking-tight text-white">
+            Mumbai Sightseeing <span className="text-yellow-400">Rates & Packages</span>
           </h2>
 
-          <p className="text-slate-600 text-sm sm:text-base mt-3">
+          <p className="text-zinc-400 text-sm sm:text-base mt-3">
             Choose from Half Day (8 hrs / 80 kms), Full Day (10 hrs / 100 kms), Extended Day (12 hrs / 120 kms), or Tempo Travellers with complete transparency.
           </p>
 
@@ -83,11 +83,11 @@ export default function MumbaiDarshanRateTable({ onOpenBookModal }) {
               onClick={() => setActiveTab('rates')}
               className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-sm flex items-center gap-2 ${
                 activeTab === 'rates'
-                  ? 'bg-slate-900 text-white shadow-md scale-105'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  ? 'bg-yellow-400 text-black font-black shadow-md scale-105'
+                  : 'bg-zinc-900 text-zinc-300 hover:bg-zinc-800 border border-zinc-800'
               }`}
             >
-              <Car className="w-4 h-4 text-indigo-400" />
+              <Car className="w-4 h-4" />
               <span>Full Sightseeing Rate Chart</span>
             </button>
 
@@ -95,11 +95,11 @@ export default function MumbaiDarshanRateTable({ onOpenBookModal }) {
               onClick={() => setActiveTab('south')}
               className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-sm flex items-center gap-2 ${
                 activeTab === 'south'
-                  ? 'bg-indigo-600 text-white shadow-md scale-105'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  ? 'bg-yellow-400 text-black font-black shadow-md scale-105'
+                  : 'bg-zinc-900 text-zinc-300 hover:bg-zinc-800 border border-zinc-800'
               }`}
             >
-              <MapPin className="w-4 h-4 text-amber-500" />
+              <MapPin className="w-4 h-4" />
               <span>South Mumbai (12 Spots)</span>
             </button>
 
@@ -107,11 +107,11 @@ export default function MumbaiDarshanRateTable({ onOpenBookModal }) {
               onClick={() => setActiveTab('north')}
               className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-sm flex items-center gap-2 ${
                 activeTab === 'north'
-                  ? 'bg-indigo-600 text-white shadow-md scale-105'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  ? 'bg-yellow-400 text-black font-black shadow-md scale-105'
+                  : 'bg-zinc-900 text-zinc-300 hover:bg-zinc-800 border border-zinc-800'
               }`}
             >
-              <Compass className="w-4 h-4 text-emerald-500" />
+              <Compass className="w-4 h-4" />
               <span>North Mumbai (9 Spots)</span>
             </button>
 
@@ -119,11 +119,11 @@ export default function MumbaiDarshanRateTable({ onOpenBookModal }) {
               onClick={() => setActiveTab('full')}
               className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-sm flex items-center gap-2 ${
                 activeTab === 'full'
-                  ? 'bg-emerald-600 text-white shadow-md scale-105'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  ? 'bg-yellow-400 text-black font-black shadow-md scale-105'
+                  : 'bg-zinc-900 text-zinc-300 hover:bg-zinc-800 border border-zinc-800'
               }`}
             >
-              <Sparkles className="w-4 h-4 text-yellow-300" />
+              <Sparkles className="w-4 h-4" />
               <span>Full Day Complete Circuit</span>
             </button>
           </div>
@@ -133,30 +133,30 @@ export default function MumbaiDarshanRateTable({ onOpenBookModal }) {
         {activeTab === 'rates' && (
           <div className="space-y-6">
             {/* Rates Table Container */}
-            <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
+            <div className="bg-zinc-900 rounded-3xl border border-zinc-800 shadow-2xl overflow-hidden">
               
               {/* Header inside card */}
-              <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="bg-black text-white p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-zinc-800">
                 <div>
                   <h3 className="text-xl font-bold font-display flex items-center gap-2.5">
-                    <Car className="w-5 h-5 text-indigo-400" />
+                    <Car className="w-5 h-5 text-yellow-400" />
                     <span>Mumbai Sightseeing Rates</span>
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-300 mt-1">
+                  <p className="text-xs sm:text-sm text-zinc-400 mt-1">
                     Fixed tariffs for local Mumbai tours. Driver-cum-guide included in all vehicles.
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2 bg-slate-800/80 p-1.5 rounded-xl border border-slate-700 text-xs">
-                  <span className="text-slate-400 pl-2">Quick Duration Filter:</span>
+                <div className="flex items-center gap-2 bg-zinc-900 p-1.5 rounded-xl border border-zinc-800 text-xs">
+                  <span className="text-zinc-400 pl-2">Quick Duration Filter:</span>
                   {['8h_80km', '10h_100km', '12h_120km'].map((d) => (
                     <button
                       key={d}
                       onClick={() => setSelectedDuration(d)}
                       className={`px-3 py-1.5 rounded-lg font-bold transition ${
                         selectedDuration === d
-                          ? 'bg-indigo-600 text-white shadow-sm'
-                          : 'text-slate-300 hover:text-white'
+                          ? 'bg-yellow-400 text-black shadow-sm'
+                          : 'text-zinc-300 hover:text-white'
                       }`}
                     >
                       {d === '8h_80km' ? '8h / 80km' : d === '10h_100km' ? '10h / 100km' : '12h / 120km'}

@@ -66,7 +66,7 @@ export default function MumbaiDarshanPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans flex flex-col pb-14 sm:pb-0">
+    <div className="min-h-screen bg-zinc-950 text-white font-sans flex flex-col pb-14 sm:pb-0">
       
       {/* Navigation */}
       <Navbar onOpenBookModal={() => handleOpenBookModal()} />
@@ -74,8 +74,8 @@ export default function MumbaiDarshanPage() {
       <main className="flex-1">
 
         {/* Hero Section */}
-        <section className="relative bg-slate-900 text-white py-16 sm:py-20 overflow-hidden">
-          <div className="absolute inset-0 bg-black/50 z-10" />
+        <section className="relative bg-black text-white py-16 sm:py-20 overflow-hidden border-b border-zinc-800">
+          <div className="absolute inset-0 bg-black/60 z-10" />
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-40" 
             style={{ backgroundImage: `url('https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1920&q=80')` }}
@@ -83,17 +83,17 @@ export default function MumbaiDarshanPage() {
           
           <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">
-              Mumbai Darshan
+              Mumbai <span className="text-yellow-400">Darshan</span>
             </h1>
 
-            <p className="text-lg sm:text-xl text-slate-200 mt-2 font-medium">
-              Discover Mumbai's iconic landmarks
+            <p className="text-lg sm:text-xl text-zinc-300 mt-2 font-medium">
+              Discover Mumbai's iconic landmarks with expert local driver-guides
             </p>
           </div>
         </section>
 
         {/* 2-Column Split Content Section */}
-        <section className="py-12 bg-white">
+        <section className="py-12 bg-zinc-950">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-12 gap-10 items-start">
               
@@ -102,44 +102,45 @@ export default function MumbaiDarshanPage() {
                 
                 {/* Intro Driver Guide Header */}
                 <div>
-                  <h3 className="text-lg font-bold text-emerald-600">
+                  <h3 className="text-lg font-bold text-yellow-400 flex items-center gap-2">
                     Get drivers who act as a guide
                   </h3>
-                  <p className="text-sm text-slate-600 mt-1">
+                  <p className="text-sm text-zinc-400 mt-1">
                     Mumbai sightseeing packages and explore the best of the city.
                   </p>
-                  <div className="border-b border-dashed border-slate-300 my-6" />
+                  <div className="border-b border-dashed border-zinc-800 my-6" />
                 </div>
 
                 {/* Rules To Be Noted */}
                 <div>
-                  <h2 className="text-xl font-bold font-display text-slate-900 mb-4">
+                  <h2 className="text-xl font-bold font-display text-white mb-4">
                     Rules To be Noted
                   </h2>
 
                   <div className="space-y-3">
                     {rulesList.map((rule, idx) => (
-                      <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed">
-                        <Check className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+                      <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                        <Check className="w-4 h-4 text-yellow-400 shrink-0 mt-0.5" />
                         <span>{rule}</span>
                       </div>
                     ))}
                   </div>
 
-                  <div className="border-b border-dashed border-slate-300 my-6" />
+                  <div className="border-b border-dashed border-zinc-800 my-6" />
                 </div>
 
                 {/* Tour Highlights Points to Visit */}
                 <div>
-                  <h2 className="text-xl font-bold font-display text-slate-900 mb-4">
+                  <h2 className="text-xl font-bold font-display text-white mb-4">
                     Tour Highlights points to visit
                   </h2>
 
-                  <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-6">
+                  <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
                     <div className="grid sm:grid-cols-1 gap-2.5">
                       {highlightsList.map((spot, idx) => (
-                        <div key={idx} className="text-xs sm:text-sm font-semibold text-slate-800">
-                          {idx + 1}. {spot}
+                        <div key={idx} className="text-xs sm:text-sm font-semibold text-zinc-200 flex items-center gap-2">
+                          <span className="text-yellow-400 font-bold w-6">{idx + 1}.</span>
+                          <span>{spot}</span>
                         </div>
                       ))}
                     </div>
@@ -152,10 +153,10 @@ export default function MumbaiDarshanPage() {
               <div className="lg:col-span-5 space-y-6">
                 
                 {/* Rate Card Table */}
-                <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                <div className="bg-zinc-900 rounded-2xl border border-zinc-800 overflow-hidden shadow-2xl">
                   
                   {/* Table Header */}
-                  <div className="bg-[#0284C7] text-white p-4 font-bold text-base flex items-center justify-between">
+                  <div className="bg-yellow-400 text-black p-4 font-black text-base flex items-center justify-between">
                     <span>Rate Card</span>
                   </div>
 
@@ -163,39 +164,39 @@ export default function MumbaiDarshanPage() {
                   <div className="overflow-x-auto">
                     <table className="w-full text-xs text-left border-collapse">
                       <thead>
-                        <tr className="bg-[#0284C7] text-white text-[11px] font-bold border-t border-sky-400">
-                          <th className="p-3 border-r border-sky-400">Vehicle</th>
-                          <th className="p-3 text-center border-r border-sky-400">8 Hrs / 80 Kms</th>
-                          <th className="p-3 text-center border-r border-sky-400">10 Hrs / 100 Kms</th>
-                          <th className="p-3 text-center border-r border-sky-400">12 Hrs / 120 Kms</th>
+                        <tr className="bg-yellow-500 text-black text-[11px] font-extrabold border-t border-yellow-400">
+                          <th className="p-3 border-r border-yellow-400">Vehicle</th>
+                          <th className="p-3 text-center border-r border-yellow-400">8 Hrs / 80 Kms</th>
+                          <th className="p-3 text-center border-r border-yellow-400">10 Hrs / 100 Kms</th>
+                          <th className="p-3 text-center border-r border-yellow-400">12 Hrs / 120 Kms</th>
                           <th className="p-3 text-center">Extra Kms / Extra Hrs</th>
                         </tr>
                       </thead>
 
-                      <tbody className="divide-y divide-slate-200 text-slate-800 font-medium">
+                      <tbody className="divide-y divide-zinc-800 text-zinc-200 font-medium">
                         {ratesTable.map((row, idx) => (
-                          <tr key={idx} className="hover:bg-slate-50">
-                            <td className="p-3 font-bold border-r border-slate-200">{row.vehicle}</td>
-                            <td className="p-3 text-center border-r border-slate-200">{row.h8}</td>
-                            <td className="p-3 text-center border-r border-slate-200">{row.h10}</td>
-                            <td className="p-3 text-center border-r border-slate-200">{row.h12}</td>
-                            <td className="p-3 text-center text-[11px] whitespace-pre-line">{row.extra}</td>
+                          <tr key={idx} className="hover:bg-zinc-800/80 transition">
+                            <td className="p-3 font-bold border-r border-zinc-800 text-yellow-400">{row.vehicle}</td>
+                            <td className="p-3 text-center border-r border-zinc-800">{row.h8}</td>
+                            <td className="p-3 text-center border-r border-zinc-800">{row.h10}</td>
+                            <td className="p-3 text-center border-r border-zinc-800">{row.h12}</td>
+                            <td className="p-3 text-center text-[11px] whitespace-pre-line text-zinc-400">{row.extra}</td>
                           </tr>
                         ))}
 
                         {/* Tempo Traveller 13 Seater */}
-                        <tr className="bg-slate-50/50">
-                          <td className="p-3 font-bold border-r border-slate-200">13 Seater A/C Traveller</td>
-                          <td colSpan={4} className="p-3 text-center font-semibold text-slate-700">
-                            Full Day Mumbai Darshan ( 12 hrs 100 kms ) = Rs.8500/-
+                        <tr className="bg-zinc-950">
+                          <td className="p-3 font-bold border-r border-zinc-800 text-yellow-400">13 Seater A/C Traveller</td>
+                          <td colSpan={4} className="p-3 text-center font-semibold text-zinc-300">
+                            Full Day Mumbai Darshan ( 12 hrs 100 kms ) = <span className="text-yellow-400 font-bold">Rs.8500/-</span>
                           </td>
                         </tr>
 
                         {/* Tempo Traveller 17 Seater */}
-                        <tr className="bg-slate-50/50">
-                          <td className="p-3 font-bold border-r border-slate-200">17 Seater A/C Traveller</td>
-                          <td colSpan={4} className="p-3 text-center font-semibold text-slate-700">
-                            Full Day Mumbai Darshan ( 12 hrs 100 kms ) = Rs.9500/-
+                        <tr className="bg-zinc-950">
+                          <td className="p-3 font-bold border-r border-zinc-800 text-yellow-400">17 Seater A/C Traveller</td>
+                          <td colSpan={4} className="p-3 text-center font-semibold text-zinc-300">
+                            Full Day Mumbai Darshan ( 12 hrs 100 kms ) = <span className="text-yellow-400 font-bold">Rs.9500/-</span>
                           </td>
                         </tr>
                       </tbody>
@@ -205,39 +206,40 @@ export default function MumbaiDarshanPage() {
                 </div>
 
                 {/* Package Coverage Details Box */}
-                <div className="bg-slate-50 rounded-2xl border border-slate-200 p-5 text-xs text-slate-700 space-y-2 leading-relaxed">
-                  <div className="font-bold text-slate-900 text-sm mb-1">Package Coverage Details</div>
+                <div className="bg-zinc-900 rounded-2xl border border-zinc-800 p-5 text-xs text-zinc-300 space-y-2 leading-relaxed">
+                  <div className="font-bold text-yellow-400 text-sm mb-1">Package Coverage Details</div>
                   <p>In the 8 Hrs / 80 Kms package, around 8–10 places can be covered.</p>
                   <p>In the 10 Hrs / 100 Kms package, around 10–12 places can be covered.</p>
                   <p>In the 12 Hrs / 120 Kms package, around 14 or more places can be covered.</p>
                   <p>For Tempo Traveller only ( 12 hrs 100 kms ) packages are available.</p>
-                  <p className="text-slate-500 italic pt-1">
+                  <p className="text-zinc-500 italic pt-1">
                     (The mentioned numbers may vary depending on traffic conditions and the time spent at each location.)
                   </p>
                 </div>
 
                 {/* Quick Booking Box */}
-                <div className="bg-orange-50/60 rounded-2xl border border-orange-200 p-6 space-y-4">
-                  <h3 className="text-lg font-bold text-slate-900">
-                    Quick Booking
+                <div className="bg-zinc-900 rounded-2xl border-2 border-yellow-400 p-6 space-y-4 shadow-2xl shadow-yellow-400/10">
+                  <h3 className="text-lg font-black text-white flex items-center justify-between">
+                    <span>Quick Booking</span>
+                    <span className="text-xs bg-yellow-400 text-black px-2 py-0.5 rounded font-extrabold">Instant</span>
                   </h3>
 
-                  <p className="text-xs text-slate-600">
-                    Get instant confirmation for your Mumbai Darshan
+                  <p className="text-xs text-zinc-400">
+                    Get instant driver & cab confirmation for your Mumbai Darshan
                   </p>
 
                   <button
                     onClick={() => handleOpenBookModal({ dropCity: 'Mumbai Darshan' })}
-                    className="w-full py-3.5 rounded-xl bg-[#FF5722] hover:bg-orange-600 text-white font-extrabold text-sm shadow-md transition cursor-pointer"
+                    className="w-full py-3.5 rounded-xl bg-yellow-400 hover:bg-yellow-500 text-black font-black text-base shadow-lg shadow-yellow-400/20 transition cursor-pointer"
                   >
                     Book Now
                   </button>
 
-                  <div className="pt-2 text-xs text-slate-600 flex items-center justify-between border-t border-orange-200/60">
+                  <div className="pt-2 text-xs text-zinc-400 flex items-center justify-between border-t border-zinc-800">
                     <span>Or call us directly:</span>
-                    <a href={`tel:+91${phone}`} className="font-bold text-slate-900 hover:text-[#0284C7] flex items-center gap-1">
-                      <Phone className="w-3.5 h-3.5 text-[#0284C7]" />
-                      <span>+91 {phone} | City Cabs 24</span>
+                    <a href={`tel:+91${phone}`} className="font-bold text-yellow-400 hover:underline flex items-center gap-1">
+                      <Phone className="w-3.5 h-3.5 text-yellow-400" />
+                      <span>+91 {phone}</span>
                     </a>
                   </div>
                 </div>

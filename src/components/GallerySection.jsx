@@ -6,16 +6,16 @@ export default function GallerySection() {
   const [selectedImage, setSelectedImage] = useState(null);
 
   return (
-    <section id="gallery" className="py-16 sm:py-24 bg-white relative">
+    <section id="gallery" className="py-16 sm:py-24 bg-zinc-950 text-white relative border-b border-zinc-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="text-3xl sm:text-4xl font-display font-extrabold tracking-tight text-slate-900">
+          <h2 className="text-3xl sm:text-4xl font-display font-extrabold tracking-tight text-white">
             Memories from Our Tours
           </h2>
 
-          <p className="text-slate-600 text-sm sm:text-base mt-2.5">
+          <p className="text-zinc-400 text-sm sm:text-base mt-2.5">
             Explore the beautiful moments captured during our tours and sightseeing trips.
           </p>
         </div>
@@ -26,7 +26,7 @@ export default function GallerySection() {
             <div
               key={item.id}
               onClick={() => setSelectedImage(item)}
-              className="group relative h-56 rounded-2xl overflow-hidden bg-slate-900 cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+              className="group relative h-56 rounded-2xl overflow-hidden bg-black cursor-pointer shadow-md hover:shadow-xl border border-zinc-800 hover:border-yellow-400/50 transition-all duration-300 transform hover:-translate-y-1"
             >
               <img
                 src={item.image}
@@ -34,8 +34,8 @@ export default function GallerySection() {
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3">
-                <span className="text-[10px] text-sky-400 font-bold uppercase">{item.category}</span>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3">
+                <span className="text-[10px] text-yellow-400 font-bold uppercase">{item.category}</span>
                 <span className="text-xs font-bold text-white leading-tight">{item.title}</span>
               </div>
             </div>

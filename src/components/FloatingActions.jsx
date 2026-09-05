@@ -14,10 +14,10 @@ export default function FloatingActions({ onOpenBookModal }) {
       {/* Right Edge Side Floating Vertical Inquire Now Button */}
       <button
         onClick={() => onOpenBookModal()}
-        className="fixed right-0 top-1/2 -translate-y-1/2 z-40 bg-[#FF5722] hover:bg-orange-600 text-white font-bold text-xs py-3 px-2 rounded-l-xl shadow-2xl flex items-center gap-1.5 cursor-pointer [writing-mode:vertical-rl] rotate-180 transition hover:px-2.5"
+        className="fixed right-0 top-1/2 -translate-y-1/2 z-40 bg-yellow-400 hover:bg-yellow-500 text-black font-extrabold text-xs py-3 px-2.5 rounded-l-xl shadow-2xl flex items-center gap-1.5 cursor-pointer [writing-mode:vertical-rl] rotate-180 transition hover:px-3"
         aria-label="Inquire Now"
       >
-        <Phone className="w-3.5 h-3.5 rotate-90" />
+        <Phone className="w-3.5 h-3.5 rotate-90 text-black" />
         <span className="tracking-wider uppercase">Inquire Now</span>
       </button>
 
@@ -27,10 +27,10 @@ export default function FloatingActions({ onOpenBookModal }) {
         {/* Scroll To Top */}
         <button
           onClick={scrollToTop}
-          className="w-11 h-11 rounded-full bg-slate-900/80 hover:bg-slate-900 text-white shadow-lg flex items-center justify-center backdrop-blur-md transition transform hover:scale-110 border border-slate-700 cursor-pointer"
+          className="w-11 h-11 rounded-full bg-zinc-900/90 hover:bg-zinc-800 text-white shadow-lg flex items-center justify-center backdrop-blur-md transition transform hover:scale-110 border border-zinc-700 cursor-pointer"
           aria-label="Scroll to top"
         >
-          <ArrowUp className="w-5 h-5" />
+          <ArrowUp className="w-5 h-5 text-yellow-400" />
         </button>
 
         {/* WhatsApp Pulse Floating Button */}
@@ -38,36 +38,36 @@ export default function FloatingActions({ onOpenBookModal }) {
           href={`https://wa.me/91${phone}?text=Hi%20CityCabs24,%20I%20would%20like%20to%20book%20a%20cab%20tour.`}
           target="_blank"
           rel="noreferrer"
-          className="w-12 h-12 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white shadow-2xl flex items-center justify-center transition transform hover:scale-110 border border-emerald-400"
+          className="w-12 h-12 rounded-full bg-yellow-400 hover:bg-yellow-500 text-black shadow-2xl flex items-center justify-center transition transform hover:scale-110 border border-yellow-300"
           aria-label="WhatsApp Chat"
         >
-          <MessageCircle className="w-6 h-6" />
+          <MessageCircle className="w-6 h-6 text-black" />
         </a>
       </div>
 
       {/* Mobile Sticky Bottom Floating Bar (High conversion) */}
-      <div className="fixed bottom-0 inset-x-0 z-40 sm:hidden bg-white/95 backdrop-blur-md border-t border-slate-200 p-2.5 px-3 flex items-center gap-2 shadow-2xl">
+      <div className="fixed bottom-0 inset-x-0 z-40 sm:hidden bg-zinc-950/95 backdrop-blur-md border-t border-zinc-800 p-2.5 px-3 flex items-center gap-2 shadow-2xl">
         <a
           href={`tel:+91${phone}`}
-          className="flex-1 py-3 px-2 rounded-xl bg-slate-900 text-white font-black text-xs flex items-center justify-center gap-1.5 shadow"
+          className="flex-1 py-3 px-2 rounded-xl bg-zinc-900 text-white border border-zinc-800 font-black text-xs flex items-center justify-center gap-1.5 shadow"
         >
-          <Phone className="w-4 h-4 text-sky-400" />
-          <span>Call Driver Desk</span>
+          <Phone className="w-4 h-4 text-yellow-400" />
+          <span>Call Desk</span>
         </a>
 
         <a
           href={`https://wa.me/91${phone}?text=Hi%20CityCabs24,%20I%20want%20to%20book%20a%20cab.`}
           target="_blank"
           rel="noreferrer"
-          className="flex-1 py-3 px-2 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-700 text-white font-black text-xs flex items-center justify-center gap-1.5 shadow"
+          className="flex-1 py-3 px-2 rounded-xl bg-zinc-900 text-yellow-400 border border-yellow-400/40 font-black text-xs flex items-center justify-center gap-1.5 shadow"
         >
           <MessageCircle className="w-4 h-4" />
-          <span>WhatsApp Chat</span>
+          <span>WhatsApp</span>
         </a>
 
         <button
           onClick={() => onOpenBookModal()}
-          className="py-3 px-3 rounded-xl bg-[#0284C7] text-white font-black text-xs shadow flex items-center justify-center cursor-pointer"
+          className="py-3 px-4 rounded-xl bg-yellow-400 text-black font-black text-xs shadow flex items-center justify-center cursor-pointer"
         >
           Book
         </button>

@@ -23,16 +23,16 @@ export default function TourPackages({ onSelectTour, showMumbaiOnly = false }) {
     : tours;
 
   return (
-    <section id="tours" className="py-16 sm:py-24 bg-slate-50 relative border-b border-slate-200">
+    <section id="tours" className="py-16 sm:py-24 bg-zinc-950 text-white relative border-b border-zinc-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="text-3xl sm:text-4xl font-display font-extrabold tracking-tight text-slate-900">
+          <h2 className="text-3xl sm:text-4xl font-display font-extrabold tracking-tight text-white">
             Explore Mumbai & Beyond
           </h2>
 
-          <p className="text-slate-600 text-sm sm:text-base mt-2.5">
+          <p className="text-zinc-400 text-sm sm:text-base mt-2.5">
             Discover our range of convenient and comfortable cab services tailored to your needs.
           </p>
         </div>
@@ -53,23 +53,23 @@ export default function TourPackages({ onSelectTour, showMumbaiOnly = false }) {
                     onSelectTour(tour);
                   }
                 }}
-                className="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col cursor-pointer"
+                className="group bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-yellow-400/50 shadow-lg transition-all duration-300 flex flex-col cursor-pointer"
               >
                 
                 {/* Tour Image Container with Badge */}
-                <div className="relative h-56 w-full overflow-hidden bg-slate-900">
+                <div className="relative h-56 w-full overflow-hidden bg-black">
                   <img
                     src={tour.banner}
                     alt={tour.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
 
                   {/* Top Left Badge Tag */}
                   <div className="absolute top-3 left-3">
-                    <span className="px-3 py-1 rounded-md bg-slate-900/80 backdrop-blur-md text-white font-bold text-[11px] flex items-center gap-1 border border-slate-700">
-                      <MapPin className="w-3 h-3 text-sky-400" />
+                    <span className="px-3 py-1 rounded-md bg-black/90 backdrop-blur-md text-yellow-400 font-bold text-[11px] flex items-center gap-1 border border-yellow-400/40">
+                      <MapPin className="w-3 h-3 text-yellow-400" />
                       <span>{badgeTag}</span>
                     </span>
                   </div>
@@ -78,11 +78,11 @@ export default function TourPackages({ onSelectTour, showMumbaiOnly = false }) {
                 {/* Card Body */}
                 <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
                   <div>
-                    <h3 className="text-xl font-bold font-display text-slate-900 group-hover:text-[#0284C7] transition">
+                    <h3 className="text-xl font-bold font-display text-white group-hover:text-yellow-400 transition">
                       {tour.title}
                     </h3>
                     
-                    <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+                    <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
                       {tour.shortDescription}
                     </p>
                   </div>
@@ -91,7 +91,7 @@ export default function TourPackages({ onSelectTour, showMumbaiOnly = false }) {
                   <div className="pt-2">
                     <a
                       href={targetUrl}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0284C7] hover:text-sky-700 group-hover:translate-x-1 transition"
+                      className="inline-flex items-center gap-1.5 text-xs font-extrabold text-yellow-400 hover:text-yellow-300 group-hover:translate-x-1 transition"
                     >
                       <span>Learn More</span>
                       <ArrowRight className="w-3.5 h-3.5" />

@@ -42,16 +42,16 @@ export default function WhyChooseUs({ onOpenBookModal }) {
   ];
 
   return (
-    <section id="why-us" className="py-16 sm:py-24 bg-[#FFF9F4] relative border-b border-amber-100">
+    <section id="why-us" className="py-16 sm:py-24 bg-black text-white relative border-b border-zinc-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="text-3xl sm:text-4xl font-display font-extrabold tracking-tight text-slate-900">
+          <h2 className="text-3xl sm:text-4xl font-display font-extrabold tracking-tight text-white">
             Why Choose CityCabs24?
           </h2>
 
-          <p className="text-slate-600 text-sm sm:text-base mt-2.5">
+          <p className="text-zinc-400 text-sm sm:text-base mt-2.5">
             Experience the difference with our commitment to excellence, reliability, and customer satisfaction.
           </p>
         </div>
@@ -63,22 +63,22 @@ export default function WhyChooseUs({ onOpenBookModal }) {
             return (
               <div
                 key={idx}
-                className="bg-white rounded-2xl p-6 border border-amber-100/60 shadow-sm flex items-start gap-4"
+                className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800 hover:border-yellow-400/40 shadow-lg flex items-start gap-4 transition"
               >
-                <div className="w-12 h-12 rounded-xl bg-orange-50 text-[#FF5722] flex items-center justify-center shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 flex items-center justify-center shrink-0">
                   <Icon className="w-6 h-6" />
                 </div>
 
                 <div className="flex-1">
-                  <h3 className="text-base font-bold font-display text-slate-900">
+                  <h3 className="text-base font-bold font-display text-white">
                     {feat.title}
                   </h3>
 
-                  <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                  <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
                     {feat.desc}
                   </p>
 
-                  <div className="mt-3 text-xs font-black text-[#FF5722]">
+                  <div className="mt-3 text-xs font-black text-yellow-400">
                     {feat.stat}
                   </div>
                 </div>
