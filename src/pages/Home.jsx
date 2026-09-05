@@ -5,7 +5,6 @@ import TourPackages from '../components/TourPackages';
 import MumbaiDarshanRateTable from '../components/MumbaiDarshanRateTable';
 import TourModal from '../components/TourModal';
 import FleetSection from '../components/FleetSection';
-import FareCalculator from '../components/FareCalculator';
 import WhyChooseUs from '../components/WhyChooseUs';
 import GallerySection from '../components/GallerySection';
 import Testimonials from '../components/Testimonials';
@@ -61,9 +60,6 @@ export default function Home() {
 
         {/* Full Cab Fleet Showcase (Hatchback, Sedan, MUV, MPV, Luxury Crysta, TT) */}
         <FleetSection onOpenBookModal={(data) => handleOpenBookModal(data)} />
-
-        {/* Transparent Fare Chart & Interactive Route Estimator */}
-        <FareCalculator />
 
         {/* Why Choose Us / Driver-Cum-Guide Advantage */}
         <WhyChooseUs onOpenBookModal={() => handleOpenBookModal()} />
