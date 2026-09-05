@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
+import PromotionalOfferBanner from '../components/PromotionalOfferBanner';
 import TourPackages from '../components/TourPackages';
 import MumbaiDarshanRateTable from '../components/MumbaiDarshanRateTable';
 import TourModal from '../components/TourModal';
@@ -41,6 +42,9 @@ export default function Home() {
           onSelectTour={(tour) => setSelectedTour(tour)}
           onOpenBookModal={(data) => handleOpenBookModal(data)}
         />
+
+        {/* First Ride Promotional Discount Banner */}
+        <PromotionalOfferBanner onOpenBookModal={(data) => handleOpenBookModal(data)} />
 
         {/* Official Mumbai Sightseeing Rate Chart & Itineraries */}
         <MumbaiDarshanRateTable onOpenBookModal={(data) => handleOpenBookModal(data)} />
