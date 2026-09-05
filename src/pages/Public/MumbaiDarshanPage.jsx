@@ -26,15 +26,6 @@ export default function MumbaiDarshanPage() {
     setBookModalOpen(true);
   };
 
-  const mumbaiPlaces = [
-    { title: 'Gateway of India', category: 'Historical Landmark', desc: 'Iconic 20th-century monument facing the Arabian Sea & Taj Mahal Palace Hotel.', img: 'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=800&q=80' },
-    { title: 'Marine Drive & Queen\'s Necklace', category: 'Coastal Promenade', desc: '3.6 km long arc-shaped boulevard along the coastline, stunning during sunset & night.', img: 'https://images.unsplash.com/photo-1567157577867-05ccb1388e66?auto=format&fit=crop&w=800&q=80' },
-    { title: 'Siddhivinayak Temple', category: 'Spiritual Shrine', desc: 'One of India\'s most revered Ganesha temples located in Prabhadevi.', img: 'https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=800&q=80' },
-    { title: 'Haji Ali Dargah', category: 'Heritage & Pilgrimage', desc: 'Famous mosque & tomb located on an islet off the coast of Worli in South Mumbai.', img: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=800&q=80' },
-    { title: 'Bandra Bandstand & Celebrity Homes', category: 'Sightseeing Highlight', desc: 'Walk along Bandra promenade, visit Bandra Fort, and see Shah Rukh Khan\'s Mannat & Salman Khan\'s Galaxy.', img: 'https://images.unsplash.com/photo-1529253355930-ddbe423a2ac7?auto=format&fit=crop&w=800&q=80' },
-    { title: 'Juhu Beach & Street Food', category: 'Beach & Culinary', desc: 'Famous beach known for Mumbai street food like Pav Bhaji, Bhel Puri, and sea breeze.', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80' }
-  ];
-
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans flex flex-col selection:bg-amber-500 selection:text-white pb-14 sm:pb-0">
       
@@ -104,31 +95,44 @@ export default function MumbaiDarshanPage() {
         {/* Rate Chart & Itineraries */}
         <MumbaiDarshanRateTable onOpenBookModal={(data) => handleOpenBookModal(data)} />
 
-        {/* Key Attractions Covered */}
-        <section className="py-16 bg-white border-y border-slate-200">
+        {/* Key Attractions Covered - Clean Text List */}
+        <section className="py-14 bg-white border-y border-slate-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto mb-12">
-              <span className="text-xs font-bold text-amber-600 uppercase tracking-widest">Iconic Landmarks</span>
-              <h2 className="text-3xl font-display font-extrabold text-slate-900 mt-1">
-                Top Places Covered in Mumbai Darshan
+            <div className="text-center max-w-2xl mx-auto mb-10">
+              <span className="text-xs font-bold text-amber-600 uppercase tracking-widest">Complete Circuit</span>
+              <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 mt-1">
+                Major Sightseeing Spots Covered
               </h2>
-              <p className="text-slate-600 text-sm mt-2">
-                Our drivers ensure you get ample time at every spot to click photos, shop, and absorb the history.
+              <p className="text-slate-600 text-xs sm:text-sm mt-2">
+                Our experienced driver-guides give you dedicated time at each landmark to explore, take photos, and enjoy local food.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {mumbaiPlaces.map((place, idx) => (
-                <div key={idx} className="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200/80 shadow-xs hover:shadow-md transition">
-                  <div className="h-44 overflow-hidden relative">
-                    <img src={place.img} alt={place.title} className="w-full h-full object-cover hover:scale-105 transition duration-500" />
-                    <span className="absolute top-3 left-3 px-2.5 py-1 bg-slate-900/80 backdrop-blur-xs text-white text-[10px] font-bold rounded-md uppercase">
-                      {place.category}
-                    </span>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+              {[
+                { name: 'Gateway of India & Taj Palace', cat: 'South Mumbai' },
+                { name: 'Marine Drive & Queen\'s Necklace', cat: 'South Mumbai' },
+                { name: 'Siddhivinayak Temple', cat: 'South Mumbai' },
+                { name: 'Haji Ali Dargah & Mahalaxmi Temple', cat: 'South Mumbai' },
+                { name: 'Hanging Gardens & Kamla Nehru Park', cat: 'South Mumbai' },
+                { name: 'Mani Bhavan (Mahatma Gandhi Museum)', cat: 'South Mumbai' },
+                { name: 'CST Station & Crawford Market', cat: 'South Mumbai' },
+                { name: 'Girgaon Chowpatty Beach', cat: 'South Mumbai' },
+                { name: 'Bandra Bandstand & Promenade', cat: 'North Mumbai' },
+                { name: 'Celebrity Homes (SRK\'s Mannat & Salman\'s Galaxy)', cat: 'North Mumbai' },
+                { name: 'Juhu Beach & Street Food Market', cat: 'North Mumbai' },
+                { name: 'Bandra Fort (Castella de Aguada)', cat: 'North Mumbai' },
+                { name: 'Mount Mary Church Bandra', cat: 'North Mumbai' },
+                { name: 'ISKCON Temple Juhu', cat: 'North Mumbai' },
+                { name: 'Bandra-Worli Sea Link Drive', cat: 'Connecting Route' }
+              ].map((spot, idx) => (
+                <div key={idx} className="flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-amber-400 hover:bg-amber-50/30 transition">
+                  <div className="w-7 h-7 rounded-lg bg-amber-100 text-amber-900 flex items-center justify-center font-bold text-xs shrink-0">
+                    {idx + 1}
                   </div>
-                  <div className="p-5">
-                    <h3 className="font-bold font-display text-lg text-slate-900">{place.title}</h3>
-                    <p className="text-slate-600 text-xs sm:text-sm mt-2 leading-relaxed">{place.desc}</p>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-bold text-sm text-slate-900 truncate">{spot.name}</h3>
+                    <span className="text-[10px] font-semibold text-slate-500 uppercase">{spot.cat}</span>
                   </div>
                 </div>
               ))}
