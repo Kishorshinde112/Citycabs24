@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import PromotionalOfferBanner from '../components/PromotionalOfferBanner';
@@ -17,12 +17,23 @@ import Footer from '../components/Footer';
 import FloatingActions from '../components/FloatingActions';
 import QuickBookModal from '../components/QuickBookModal';
 import PrivacyModal from '../components/PrivacyModal';
+import AutoEnquiryModal from '../components/AutoEnquiryModal';
 
 export default function Home() {
   const [selectedTour, setSelectedTour] = useState(null);
   const [bookModalOpen, setBookModalOpen] = useState(false);
   const [bookModalInitialData, setBookModalInitialData] = useState({});
   const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
+  const [autoEnquiryOpen, setAutoEnquiryOpen] = useState(false);
+
+  // Auto trigger enquiry modal after 5.5 seconds of user spending time on page
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAutoEnquiryOpen(true);
+    }, 5500);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleOpenBookModal = (initialData = {}) => {
     setBookModalInitialData(initialData);
@@ -110,6 +121,12 @@ export default function Home() {
       <PrivacyModal
         isOpen={privacyModalOpen}
         onClose={() => setPrivacyModalOpen(false)}
+      />
+
+      {/* Auto Timed Discount Enquiry Modal (5-6s Trigger) */}
+      <AutoEnquiryModal
+        isOpen={autoEnquiryOpen}
+        onClose={() => setAutoEnquiryOpen(false)}
       />
 
     </div>
