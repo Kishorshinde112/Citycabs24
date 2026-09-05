@@ -16,8 +16,7 @@ export default function Login() {
     setError('');
 
     // Credentials check for admin portal
-    const validEmails = ['admin@citycabs24.com', 'mumbaicitycabs24@gmail.com'];
-    if (validEmails.includes(email.trim().toLowerCase()) && password === 'Shahrukh@123') {
+    if (email.trim().toLowerCase() === 'mumbaicitycabs24@gmail.com' && password === 'Shahrukh@123') {
       localStorage.setItem('adminAuth', 'true');
       localStorage.setItem('adminToken', 'dummy-token-123');
       navigate('/admin');
@@ -77,7 +76,7 @@ export default function Login() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@citycabs24.com"
+                  placeholder="mumbaicitycabs24@gmail.com"
                   required
                   className="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
                 />
