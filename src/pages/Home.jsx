@@ -46,38 +46,26 @@ export default function Home() {
 
       {/* Main Content Sections */}
       <main className="flex-1">
-        {/* Hero with Interactive Booking Widget */}
+        {/* Hero Section */}
         <Hero
           onSelectTour={(tour) => setSelectedTour(tour)}
           onOpenBookModal={(data) => handleOpenBookModal(data)}
         />
 
-        {/* Official Mumbai Sightseeing Rate Chart & Itineraries */}
-        <MumbaiDarshanRateTable onOpenBookModal={(data) => handleOpenBookModal(data)} />
+        {/* Explore Mumbai & Beyond (10 Tour Cards) */}
+        <TourPackages onSelectTour={(tour) => setSelectedTour(tour)} showMumbaiOnly={false} />
 
-        {/* Highlight Mumbai Darshan */}
-        <TourPackages onSelectTour={(tour) => setSelectedTour(tour)} showMumbaiOnly={true} />
-
-        {/* Full Cab Fleet Showcase (Hatchback, Sedan, MUV, MPV, Luxury Crysta, TT) */}
-        <FleetSection onOpenBookModal={(data) => handleOpenBookModal(data)} />
-
-        {/* Why Choose Us / Driver-Cum-Guide Advantage */}
+        {/* Why Choose CityCabs24? (Peach Section with 6 Feature Boxes) */}
         <WhyChooseUs onOpenBookModal={() => handleOpenBookModal()} />
 
-        {/* Tour Moments & Photo Gallery */}
-        <GallerySection />
+        {/* Our Cabs Gallery (Dark Navy Section) */}
+        <FleetSection onOpenBookModal={(data) => handleOpenBookModal(data)} />
 
-        {/* Customer Reviews & Google Rating */}
+        {/* What Our Customers Say */}
         <Testimonials />
 
-        {/* About Us & Our Mission */}
-        <AboutSection onOpenBookModal={() => handleOpenBookModal()} />
-
-        {/* Frequently Asked Questions */}
-        <FaqSection />
-
-        {/* Direct Booking & Inquiry Contact Form */}
-        <BookingContactForm />
+        {/* Memories from Our Tours */}
+        <GallerySection />
       </main>
 
       {/* Footer */}
