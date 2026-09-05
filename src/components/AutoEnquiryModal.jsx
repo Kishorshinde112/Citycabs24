@@ -63,13 +63,13 @@ export default function AutoEnquiryModal({ isOpen, onClose }) {
           <X className="w-5 h-5" />
         </button>
 
-        {/* Headline matching benchmark screenshot */}
+        {/* Headline */}
         <div className="text-center mb-6 pt-1">
-          <h3 className="text-xl sm:text-2xl font-extrabold text-orange-600 leading-tight">
-            Get 5% to 10% Discount and free Tour ITINERARY on your first ride
+          <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 leading-tight">
+            Submit Your Enquiry Now!
           </h3>
-          <p className="text-sm sm:text-base font-bold text-slate-800 mt-1.5">
-            Submit your Enquiry Now!
+          <p className="text-xs sm:text-sm font-medium text-slate-600 mt-1">
+            Book your Mumbai Darshan & Guided Sightseeing Tour
           </p>
         </div>
 
