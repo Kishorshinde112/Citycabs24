@@ -1,17 +1,11 @@
 import React, { useState } from 'react';
 import Navbar from '../../components/Navbar';
-import MumbaiDarshanRateTable from '../../components/MumbaiDarshanRateTable';
-import FleetSection from '../../components/FleetSection';
-import WhyChooseUs from '../../components/WhyChooseUs';
-import Testimonials from '../../components/Testimonials';
-import FaqSection from '../../components/FaqSection';
-import BookingContactForm from '../../components/BookingContactForm';
 import Footer from '../../components/Footer';
 import FloatingActions from '../../components/FloatingActions';
 import QuickBookModal from '../../components/QuickBookModal';
 import PrivacyModal from '../../components/PrivacyModal';
 import AutoEnquiryModal from '../../components/AutoEnquiryModal';
-import { Camera, MapPin, Phone, MessageCircle, Star, ShieldCheck, Clock, CheckCircle2 } from 'lucide-react';
+import { Phone, Check } from 'lucide-react';
 import useSettingsStore from '../../store/settingsStore';
 
 export default function MumbaiDarshanPage() {
@@ -26,134 +20,233 @@ export default function MumbaiDarshanPage() {
     setBookModalOpen(true);
   };
 
+  const rulesList = [
+    "Toll parking and entry tickets are not included in the car hire charges",
+    "(Flexible pick-up timing and doorstep pick up)",
+    "You can add or skip places of your choice.",
+    "You can take your own time at each spot.",
+    "Cancellation charge of Rs 500/- will be applicable if the booking is Cancelled after arrival of driver",
+    "Night Allowance of Rs.500/- will be applicable after 11pm (Only for Tempo Traveller)",
+    "All bookings are charged for the full package duration. For eg, if you book 8 hours and 80 km, even if you return the car in 6 hrs, you still must pay for the full 8 you booked (Applicable on all packages)",
+    "Time and kilometres are calculated from your pickup point to pickup point (if the drop location is different then extra charges might applicable)"
+  ];
+
+  const highlightsList = [
+    "Gateway of India",
+    "Taj Mahal Palace Hotel",
+    "Marine Drive",
+    "Girgaon Chowpatty Viewing Deck",
+    "Kamla Nehru Park",
+    "Hanging Gardens",
+    "Taraporewala Aquarium",
+    "Chhatrapati Shivaji Maharaj Museum",
+    "Flora Fountain",
+    "Elephanta Caves (4-5 hrs to cover)",
+    "Haji Ali Dargah",
+    "Mahalaxmi Temple",
+    "Mahalaxmi Racecourse",
+    "Chhatrapati Shivaji Maharaj Terminus",
+    "Colaba Causeway ( street shopping )",
+    "Worli Sea Face",
+    "Nehru Planetarium Science Centre",
+    "Siddhivinayak Temple",
+    "Bandra-Worli Sea Link",
+    "Bandra Bandstand",
+    "Mount Mary Basilica ( Church )",
+    "Juhu Beach",
+    "ISKCON Temple, Juhu"
+  ];
+
+  const ratesTable = [
+    { vehicle: "WagonR", h8: "₹2300", h10: "₹2800", h12: "₹3400", extra: "₹12/km\n₹120/hr" },
+    { vehicle: "Sedan", h8: "₹2500", h10: "₹3200", h12: "₹3800", extra: "₹14/km\n₹140/hr" },
+    { vehicle: "Ertiga", h8: "₹3200", h10: "₹3800", h12: "₹4400", extra: "₹16/km\n₹160/hr" },
+    { vehicle: "Kia Carens", h8: "₹3500", h10: "₹4200", h12: "₹4800", extra: "₹18/km\n₹180/hr" },
+    { vehicle: "Crysta", h8: "₹3800", h10: "₹4500", h12: "₹5200", extra: "₹20/km\n₹200/hr" }
+  ];
+
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans flex flex-col selection:bg-amber-500 selection:text-white pb-14 sm:pb-0">
+    <div className="min-h-screen bg-white text-slate-900 font-sans flex flex-col pb-14 sm:pb-0">
       
       {/* Navigation */}
       <Navbar onOpenBookModal={() => handleOpenBookModal()} />
 
       <main className="flex-1">
 
-        {/* Hero Section for Mumbai Darshan */}
-        <section className="relative bg-slate-900 text-white py-16 sm:py-24 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/90 to-slate-900/40 z-10" />
+        {/* Hero Section */}
+        <section className="relative bg-slate-900 text-white py-16 sm:py-20 overflow-hidden">
+          <div className="absolute inset-0 bg-black/50 z-10" />
           <div 
-            className="absolute inset-0 bg-cover bg-center opacity-35" 
+            className="absolute inset-0 bg-cover bg-center opacity-40" 
             style={{ backgroundImage: `url('https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1920&q=80')` }}
           />
           
-          <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold uppercase tracking-wider mb-4">
-                <Camera className="w-4 h-4 text-amber-400" />
-                <span>Official Guided Sightseeing Service</span>
-              </div>
+          <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">
+              Mumbai Darshan
+            </h1>
 
-              <h1 className="text-3xl sm:text-5xl font-black font-display tracking-tight text-white leading-tight">
-                Mumbai Darshan <span className="text-amber-400">Cab Service</span>
-              </h1>
-
-              <p className="text-base sm:text-lg text-slate-300 mt-4 leading-relaxed">
-                Explore the City of Dreams with expert driver-cum-guides. Private AC Cabs for South Mumbai, North Mumbai & Full-Day Sightseeing Tours. Doorstep pickup across Mumbai, Thane & Navi Mumbai.
-              </p>
-
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-6 text-xs sm:text-sm font-semibold text-slate-200">
-                <div className="flex items-center gap-2 bg-slate-800/80 px-3.5 py-2 rounded-xl border border-slate-700">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                  <span>Doorstep Pickup</span>
-                </div>
-                <div className="flex items-center gap-2 bg-slate-800/80 px-3.5 py-2 rounded-xl border border-slate-700">
-                  <ShieldCheck className="w-4 h-4 text-blue-400" />
-                  <span>Verified Drivers</span>
-                </div>
-                <div className="flex items-center gap-2 bg-slate-800/80 px-3.5 py-2 rounded-xl border border-slate-700 col-span-2 sm:col-span-1">
-                  <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-                  <span>4.9★ Top Rated</span>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap gap-4 mt-8">
-                <button
-                  onClick={() => handleOpenBookModal({ dropCity: 'Mumbai Darshan Full Day' })}
-                  className="px-7 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-black text-sm shadow-lg shadow-amber-500/25 transition transform hover:-translate-y-0.5"
-                >
-                  Book Mumbai Darshan Cab
-                </button>
-
-                <a
-                  href={`tel:+91${phone}`}
-                  className="px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/20 backdrop-blur-sm transition flex items-center gap-2"
-                >
-                  <Phone className="w-4 h-4 text-amber-400" />
-                  <span>Call +91 {phone}</span>
-                </a>
-              </div>
-            </div>
+            <p className="text-lg sm:text-xl text-slate-200 mt-2 font-medium">
+              Discover Mumbai's iconic landmarks
+            </p>
           </div>
         </section>
 
-        {/* Rate Chart & Itineraries */}
-        <MumbaiDarshanRateTable onOpenBookModal={(data) => handleOpenBookModal(data)} />
-
-        {/* Key Attractions Covered - Clean Text List */}
-        <section className="py-14 bg-white border-y border-slate-200">
+        {/* 2-Column Split Content Section */}
+        <section className="py-12 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto mb-10">
-              <span className="text-xs font-bold text-amber-600 uppercase tracking-widest">Complete Circuit</span>
-              <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 mt-1">
-                Major Sightseeing Spots Covered
-              </h2>
-              <p className="text-slate-600 text-xs sm:text-sm mt-2">
-                Our experienced driver-guides give you dedicated time at each landmark to explore, take photos, and enjoy local food.
-              </p>
-            </div>
+            <div className="grid lg:grid-cols-12 gap-10 items-start">
+              
+              {/* LEFT COLUMN: Rules & Tour Highlights */}
+              <div className="lg:col-span-7 space-y-8">
+                
+                {/* Intro Driver Guide Header */}
+                <div>
+                  <h3 className="text-lg font-bold text-emerald-600">
+                    Get drivers who act as a guide
+                  </h3>
+                  <p className="text-sm text-slate-600 mt-1">
+                    Mumbai sightseeing packages and explore the best of the city.
+                  </p>
+                  <div className="border-b border-dashed border-slate-300 my-6" />
+                </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-              {[
-                { name: 'Gateway of India & Taj Palace', cat: 'South Mumbai' },
-                { name: 'Marine Drive & Queen\'s Necklace', cat: 'South Mumbai' },
-                { name: 'Siddhivinayak Temple', cat: 'South Mumbai' },
-                { name: 'Haji Ali Dargah & Mahalaxmi Temple', cat: 'South Mumbai' },
-                { name: 'Hanging Gardens & Kamla Nehru Park', cat: 'South Mumbai' },
-                { name: 'Mani Bhavan (Mahatma Gandhi Museum)', cat: 'South Mumbai' },
-                { name: 'CST Station & Crawford Market', cat: 'South Mumbai' },
-                { name: 'Girgaon Chowpatty Beach', cat: 'South Mumbai' },
-                { name: 'Bandra Bandstand & Promenade', cat: 'North Mumbai' },
-                { name: 'Celebrity Homes (SRK\'s Mannat & Salman\'s Galaxy)', cat: 'North Mumbai' },
-                { name: 'Juhu Beach & Street Food Market', cat: 'North Mumbai' },
-                { name: 'Bandra Fort (Castella de Aguada)', cat: 'North Mumbai' },
-                { name: 'Mount Mary Church Bandra', cat: 'North Mumbai' },
-                { name: 'ISKCON Temple Juhu', cat: 'North Mumbai' },
-                { name: 'Bandra-Worli Sea Link Drive', cat: 'Connecting Route' }
-              ].map((spot, idx) => (
-                <div key={idx} className="flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-amber-400 hover:bg-amber-50/30 transition">
-                  <div className="w-7 h-7 rounded-lg bg-amber-100 text-amber-900 flex items-center justify-center font-bold text-xs shrink-0">
-                    {idx + 1}
+                {/* Rules To Be Noted */}
+                <div>
+                  <h2 className="text-xl font-bold font-display text-slate-900 mb-4">
+                    Rules To be Noted
+                  </h2>
+
+                  <div className="space-y-3">
+                    {rulesList.map((rule, idx) => (
+                      <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                        <Check className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+                        <span>{rule}</span>
+                      </div>
+                    ))}
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-bold text-sm text-slate-900 truncate">{spot.name}</h3>
-                    <span className="text-[10px] font-semibold text-slate-500 uppercase">{spot.cat}</span>
+
+                  <div className="border-b border-dashed border-slate-300 my-6" />
+                </div>
+
+                {/* Tour Highlights Points to Visit */}
+                <div>
+                  <h2 className="text-xl font-bold font-display text-slate-900 mb-4">
+                    Tour Highlights points to visit
+                  </h2>
+
+                  <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-6">
+                    <div className="grid sm:grid-cols-1 gap-2.5">
+                      {highlightsList.map((spot, idx) => (
+                        <div key={idx} className="text-xs sm:text-sm font-semibold text-slate-800">
+                          {idx + 1}. {spot}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              ))}
+
+              </div>
+
+              {/* RIGHT COLUMN: Rate Card & Booking Card */}
+              <div className="lg:col-span-5 space-y-6">
+                
+                {/* Rate Card Table */}
+                <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                  
+                  {/* Table Header */}
+                  <div className="bg-[#0284C7] text-white p-4 font-bold text-base flex items-center justify-between">
+                    <span>Rate Card</span>
+                  </div>
+
+                  {/* Rates Table */}
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-xs text-left border-collapse">
+                      <thead>
+                        <tr className="bg-[#0284C7] text-white text-[11px] font-bold border-t border-sky-400">
+                          <th className="p-3 border-r border-sky-400">Vehicle</th>
+                          <th className="p-3 text-center border-r border-sky-400">8 Hrs / 80 Kms</th>
+                          <th className="p-3 text-center border-r border-sky-400">10 Hrs / 100 Kms</th>
+                          <th className="p-3 text-center border-r border-sky-400">12 Hrs / 120 Kms</th>
+                          <th className="p-3 text-center">Extra Kms / Extra Hrs</th>
+                        </tr>
+                      </thead>
+
+                      <tbody className="divide-y divide-slate-200 text-slate-800 font-medium">
+                        {ratesTable.map((row, idx) => (
+                          <tr key={idx} className="hover:bg-slate-50">
+                            <td className="p-3 font-bold border-r border-slate-200">{row.vehicle}</td>
+                            <td className="p-3 text-center border-r border-slate-200">{row.h8}</td>
+                            <td className="p-3 text-center border-r border-slate-200">{row.h10}</td>
+                            <td className="p-3 text-center border-r border-slate-200">{row.h12}</td>
+                            <td className="p-3 text-center text-[11px] whitespace-pre-line">{row.extra}</td>
+                          </tr>
+                        ))}
+
+                        {/* Tempo Traveller 13 Seater */}
+                        <tr className="bg-slate-50/50">
+                          <td className="p-3 font-bold border-r border-slate-200">13 Seater A/C Traveller</td>
+                          <td colSpan={4} className="p-3 text-center font-semibold text-slate-700">
+                            Full Day Mumbai Darshan ( 12 hrs 100 kms ) = Rs.8500/-
+                          </td>
+                        </tr>
+
+                        {/* Tempo Traveller 17 Seater */}
+                        <tr className="bg-slate-50/50">
+                          <td className="p-3 font-bold border-r border-slate-200">17 Seater A/C Traveller</td>
+                          <td colSpan={4} className="p-3 text-center font-semibold text-slate-700">
+                            Full Day Mumbai Darshan ( 12 hrs 100 kms ) = Rs.9500/-
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+
+                {/* Package Coverage Details Box */}
+                <div className="bg-slate-50 rounded-2xl border border-slate-200 p-5 text-xs text-slate-700 space-y-2 leading-relaxed">
+                  <div className="font-bold text-slate-900 text-sm mb-1">Package Coverage Details</div>
+                  <p>In the 8 Hrs / 80 Kms package, around 8–10 places can be covered.</p>
+                  <p>In the 10 Hrs / 100 Kms package, around 10–12 places can be covered.</p>
+                  <p>In the 12 Hrs / 120 Kms package, around 14 or more places can be covered.</p>
+                  <p>For Tempo Traveller only ( 12 hrs 100 kms ) packages are available.</p>
+                  <p className="text-slate-500 italic pt-1">
+                    (The mentioned numbers may vary depending on traffic conditions and the time spent at each location.)
+                  </p>
+                </div>
+
+                {/* Quick Booking Box */}
+                <div className="bg-orange-50/60 rounded-2xl border border-orange-200 p-6 space-y-4">
+                  <h3 className="text-lg font-bold text-slate-900">
+                    Quick Booking
+                  </h3>
+
+                  <p className="text-xs text-slate-600">
+                    Get instant confirmation for your Mumbai Darshan
+                  </p>
+
+                  <button
+                    onClick={() => handleOpenBookModal({ dropCity: 'Mumbai Darshan' })}
+                    className="w-full py-3.5 rounded-xl bg-[#FF5722] hover:bg-orange-600 text-white font-extrabold text-sm shadow-md transition cursor-pointer"
+                  >
+                    Book Now
+                  </button>
+
+                  <div className="pt-2 text-xs text-slate-600 flex items-center justify-between border-t border-orange-200/60">
+                    <span>Or call us directly:</span>
+                    <a href={`tel:+91${phone}`} className="font-bold text-slate-900 hover:text-[#0284C7] flex items-center gap-1">
+                      <Phone className="w-3.5 h-3.5 text-[#0284C7]" />
+                      <span>+91 {phone} | City Cabs 24</span>
+                    </a>
+                  </div>
+                </div>
+
+              </div>
+
             </div>
           </div>
         </section>
-
-        {/* Fleet Showcase */}
-        <FleetSection onOpenBookModal={(data) => handleOpenBookModal(data)} />
-
-        {/* Why Choose CityCabs24 */}
-        <WhyChooseUs onOpenBookModal={() => handleOpenBookModal()} />
-
-        {/* Reviews */}
-        <Testimonials />
-
-        {/* FAQs */}
-        <FaqSection />
-
-        {/* Contact Booking Form */}
-        <BookingContactForm />
 
       </main>
 

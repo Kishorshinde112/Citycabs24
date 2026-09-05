@@ -11,17 +11,12 @@ export default function Testimonials() {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-100 text-indigo-900 text-xs font-bold uppercase tracking-wider mb-3">
-            <Star className="w-3.5 h-3.5 text-indigo-600 fill-current" />
-            <span>Verified Customer Stories</span>
-          </div>
-
-          <h2 className="text-3xl sm:text-4xl font-display font-black tracking-tight text-slate-900">
-            Loved by Over <span className="text-indigo-600">12,500+ Travellers</span>
+          <h2 className="text-3xl sm:text-4xl font-display font-extrabold tracking-tight text-slate-900">
+            What Our Customers Say
           </h2>
 
-          <p className="text-slate-600 text-sm sm:text-base mt-3">
-            Read real feedback from families, corporate travellers, and pilgrims who explored Maharashtra with CityCabs24.
+          <p className="text-slate-600 font-serif italic text-sm sm:text-base mt-2">
+            Don't just take our word for it - hear from our satisfied customers.
           </p>
         </div>
 

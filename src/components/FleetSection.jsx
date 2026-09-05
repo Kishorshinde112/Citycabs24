@@ -22,22 +22,17 @@ export default function FleetSection({ onOpenBookModal }) {
   };
 
   return (
-    <section id="fleet" className="py-16 sm:py-24 bg-white relative">
+    <section id="fleet" className="py-16 sm:py-24 bg-[#0F172A] text-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 text-blue-800 text-xs font-bold uppercase tracking-wider mb-3 border border-blue-100">
-            <Car className="w-3.5 h-3.5 text-blue-600" />
-            <span>Well-Maintained Sanitized Vehicles</span>
-          </div>
-
-          <h2 className="text-3xl sm:text-4xl font-display font-black tracking-tight text-slate-900">
-            Our Premium <span className="text-indigo-600">Cab Fleet</span>
+          <h2 className="text-3xl sm:text-4xl font-display font-extrabold tracking-tight text-white">
+            Our Cabs Gallery
           </h2>
 
-          <p className="text-slate-600 text-sm sm:text-base mt-3">
-            Choose from economic hatchbacks, comfortable sedans, spacious 6-7 seater family MUVs, to luxury Innova Crystas and Tempo Travellers.
+          <p className="text-slate-300 text-sm sm:text-base mt-2.5">
+            Take a look at our well-maintained fleet of comfortable and reliable vehicles.
           </p>
         </div>
 
