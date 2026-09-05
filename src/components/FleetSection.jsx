@@ -37,20 +37,20 @@ export default function FleetSection({ onOpenBookModal }) {
                   </span>
                 </div>
 
-                {/* Car Image Display Container */}
-                <div className="h-44 rounded-2xl bg-black p-4 flex items-center justify-center border border-zinc-800/80 mb-4 overflow-hidden relative">
+                {/* Car Image Display Container (Full Edge-to-Edge Fill) */}
+                <div className="aspect-[16/9] w-full rounded-2xl overflow-hidden bg-zinc-950 border border-zinc-800 mb-4 relative flex items-center justify-center shadow-inner">
                   {car.image ? (
                     <img
                       src={car.image}
                       alt={car.name}
-                      className="max-h-full max-w-full object-contain transform group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                     />
                   ) : (
-                    <div className="flex flex-col items-center justify-center text-zinc-500 p-2 text-center">
-                      <Users className="w-12 h-12 text-yellow-400 mb-2" />
-                      <span className="font-bold text-sm text-zinc-200">{car.name}</span>
-                      <span className="text-xs text-zinc-400 mt-0.5">13 - 26 Seater Group Minibus</span>
+                    <div className="w-full h-full bg-zinc-950 flex flex-col items-center justify-center text-zinc-500 p-4 text-center border border-dashed border-zinc-800">
+                      <Users className="w-12 h-12 text-yellow-400 mb-1.5" />
+                      <span className="font-extrabold text-sm text-zinc-200">{car.name}</span>
+                      <span className="text-xs text-zinc-400 mt-0.5">13 - 26 Seater AC Group Vehicle</span>
                     </div>
                   )}
                 </div>
