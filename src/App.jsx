@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import ToursPage from './pages/Public/ToursPage';
+import MumbaiDarshanPage from './pages/Public/MumbaiDarshanPage';
 import ToursManager from './pages/Admin/ToursManager';
 import AdminLayout from './pages/Admin/AdminLayout';
 import Login from './pages/Admin/Login';
@@ -15,6 +16,8 @@ export default function App() {
         {/* Public Website */}
         <Route path="/" element={<Home />} />
         <Route path="/tours" element={<ToursPage />} />
+        <Route path="/mumbai-darshan" element={<MumbaiDarshanPage />} />
+        <Route path="/mumbai-darshan-cab-service" element={<MumbaiDarshanPage />} />
 
         {/* Admin Login */}
         <Route path="/admin/login" element={<Login />} />
