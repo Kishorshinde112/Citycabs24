@@ -1,32 +1,15 @@
-import React, { useState } from 'react';
-import { 
-  Car, Users, Briefcase, Snowflake, Fuel, CheckCircle, 
-  ArrowRight, MessageCircle, Phone, Sparkles 
-} from 'lucide-react';
+import React from 'react';
+import { Users, ArrowRight } from 'lucide-react';
 import { FLEET_DATA } from '../data/fleetData';
-import useSettingsStore from '../store/settingsStore';
 
 export default function FleetSection({ onOpenBookModal }) {
-  const { phone } = useSettingsStore();
-  const [activeCarId, setActiveCarId] = useState(FLEET_DATA[1].id); // Dzire default
-
-  const activeCar = FLEET_DATA.find(c => c.id === activeCarId) || FLEET_DATA[0];
-
-  const handleBookCarWhatsApp = (car) => {
-    const text = `*🚖 CityCabs24 - Car Booking Inquiry*\n\n` +
-      `*Vehicle Selected:* ${car.name} (${car.category})\n` +
-      `*Seating:* ${car.seats}\n` +
-      `*Rate:* ${car.ratePerKm}\n\n` +
-      `Hello, I would like to book a *${car.name}* for our upcoming trip. Please share rate and availability.`;
-    window.open(`https://wa.me/91${phone}?text=${encodeURIComponent(text)}`, '_blank');
-  };
 
   return (
     <section id="fleet" className="py-16 sm:py-24 bg-zinc-950 text-white relative border-b border-zinc-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
+        <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-3xl sm:text-4xl font-display font-extrabold tracking-tight text-white">
             Our Cabs Gallery
           </h2>
@@ -36,202 +19,71 @@ export default function FleetSection({ onOpenBookModal }) {
           </p>
         </div>
 
-        {/* Car Selection Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10">
-          {FLEET_DATA.map((car) => (
-            <button
-              key={car.id}
-              onClick={() => setActiveCarId(car.id)}
-              className={`px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 ${
-                activeCarId === car.id
-                  ? 'bg-yellow-400 text-black shadow-lg shadow-yellow-400/20 scale-105 font-extrabold'
-                  : 'bg-zinc-900 text-zinc-300 hover:bg-zinc-800 border border-zinc-800'
-              }`}
-            >
-              <Car className={`w-4 h-4 ${activeCarId === car.id ? 'text-black' : 'text-yellow-400'}`} />
-              <span>{car.name}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* Featured Car Showcase Card */}
-        <div className="bg-zinc-900 rounded-3xl overflow-hidden shadow-2xl border border-zinc-800 text-white mb-16">
-          <div className="grid lg:grid-cols-12 gap-8 items-center p-6 sm:p-10">
-            
-            {/* Left Image View */}
-            <div className="lg:col-span-6 relative">
-              <div className="relative rounded-2xl overflow-hidden bg-black border border-zinc-800 aspect-video flex items-center justify-center p-4">
-                {activeCar.image ? (
-                  <img
-                    src={activeCar.image}
-                    alt={activeCar.name}
-                    className="w-full h-full object-contain transform hover:scale-105 transition-transform duration-500"
-                  />
-                ) : (
-                  <div className="flex flex-col items-center justify-center text-zinc-500 py-6 text-center">
-                    <Users className="w-14 h-14 text-yellow-400 mb-2" />
-                    <span className="font-bold text-sm text-zinc-200">{activeCar.name}</span>
-                    <span className="text-xs text-zinc-400 mt-1">13 / 17 / 26 Seater AC Group Minibus</span>
-                  </div>
-                )}
-                
-                {/* Tag Badge */}
-                <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-yellow-400 text-black font-black text-xs uppercase tracking-wider">
-                  {activeCar.tag}
-                </span>
-
-                <span className="absolute top-4 right-4 px-3 py-1 rounded-full bg-zinc-800/90 backdrop-blur-md text-zinc-300 font-medium text-xs border border-zinc-700">
-                  {activeCar.category}
-                </span>
-              </div>
-
-              <div className="mt-4 bg-zinc-950/80 rounded-2xl p-3 border border-zinc-800 text-xs text-zinc-300 flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-yellow-400 shrink-0" />
-                <span><strong>Recommended For:</strong> {activeCar.bestFor}</span>
-              </div>
-            </div>
-
-            {/* Right Specs & Rates */}
-            <div className="lg:col-span-6 space-y-6">
-              <div>
-                <div className="text-yellow-400 text-xs font-bold uppercase tracking-wider">
-                  {activeCar.category} Class
-                </div>
-                <h3 className="text-2xl sm:text-3xl font-display font-black tracking-tight text-white mt-1">
-                  {activeCar.name}
-                </h3>
-                <p className="text-xs text-zinc-400 mt-1">
-                  Seating: {activeCar.configuration}
-                </p>
-              </div>
-
-              {/* Key Specs Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                <div className="bg-zinc-950 p-3 rounded-2xl border border-zinc-800">
-                  <div className="flex items-center gap-1.5 text-zinc-400 text-xs mb-1">
-                    <Users className="w-4 h-4 text-yellow-400" />
-                    <span>Capacity</span>
-                  </div>
-                  <div className="font-bold text-sm text-white">{activeCar.seats}</div>
-                </div>
-
-                <div className="bg-zinc-950 p-3 rounded-2xl border border-zinc-800">
-                  <div className="flex items-center gap-1.5 text-zinc-400 text-xs mb-1">
-                    <Briefcase className="w-4 h-4 text-yellow-400" />
-                    <span>Boot Space</span>
-                  </div>
-                  <div className="font-bold text-sm text-white">{activeCar.bootSpace}</div>
-                </div>
-
-                <div className="bg-zinc-950 p-3 rounded-2xl border border-zinc-800">
-                  <div className="flex items-center gap-1.5 text-zinc-400 text-xs mb-1">
-                    <Snowflake className="w-4 h-4 text-yellow-400" />
-                    <span>Air Conditioning</span>
-                  </div>
-                  <div className="font-bold text-xs text-white truncate">{activeCar.acType}</div>
-                </div>
-              </div>
-
-              {/* Feature List */}
-              <div className="space-y-2">
-                <div className="text-xs font-bold uppercase tracking-wider text-yellow-400/80">Included Comforts</div>
-                <div className="grid sm:grid-cols-2 gap-2">
-                  {activeCar.features.map((feat, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-xs text-zinc-200">
-                      <CheckCircle className="w-3.5 h-3.5 text-yellow-400 shrink-0" />
-                      <span>{feat}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Pricing & CTAs */}
-              <div className="pt-4 border-t border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div>
-                  <div className="text-xs text-zinc-400">Outstation Rate</div>
-                  <div className="text-2xl font-black text-yellow-400 font-display">
-                    {activeCar.ratePerKm}
-                    <span className="text-xs font-normal text-zinc-400 ml-1.5">(Local: {activeCar.localFullDay.split('/')[0]})</span>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2.5 w-full sm:w-auto">
-                  <button
-                    onClick={() => handleBookCarWhatsApp(activeCar)}
-                    className="flex-1 sm:flex-none py-3 px-5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-yellow-400 border border-yellow-400/40 text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-lg transition"
-                  >
-                    <MessageCircle className="w-4 h-4" />
-                    <span>Book on WhatsApp</span>
-                  </button>
-
-                  <button
-                    onClick={() => onOpenBookModal({ carType: activeCar.name })}
-                    className="py-3 px-4 rounded-xl bg-yellow-400 hover:bg-yellow-500 text-black text-xs font-black transition shadow"
-                  >
-                    Quick Quote
-                  </button>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-
-        {/* All Fleet Grid (Compact View) */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Unified Clean 6-Cab Fleet Grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
           {FLEET_DATA.map((car) => (
             <div
               key={car.id}
-              className="bg-zinc-900 rounded-3xl p-5 border border-zinc-800 hover:border-yellow-400/50 hover:shadow-xl transition duration-300 flex flex-col justify-between"
+              className="bg-zinc-900 rounded-3xl p-5 sm:p-6 border border-zinc-800 hover:border-yellow-400/60 shadow-xl transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
+                {/* Top Badge & Rate Header */}
                 <div className="flex items-center justify-between mb-3">
-                  <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-yellow-400 text-black">
+                  <span className="px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-yellow-400 text-black shadow-sm">
                     {car.tag}
                   </span>
-                  <span className="text-xs font-bold text-yellow-400">{car.ratePerKm}</span>
+                  <span className="text-xs font-black text-yellow-400 bg-yellow-400/10 px-2.5 py-1 rounded-lg border border-yellow-400/30">
+                    {car.ratePerKm}
+                  </span>
                 </div>
 
-                <div className="h-36 rounded-2xl bg-black p-3 flex items-center justify-center border border-zinc-800 mb-4">
+                {/* Car Image Display Container */}
+                <div className="h-44 rounded-2xl bg-black p-4 flex items-center justify-center border border-zinc-800/80 mb-4 overflow-hidden relative">
                   {car.image ? (
                     <img
                       src={car.image}
                       alt={car.name}
-                      className="max-h-full max-w-full object-contain"
+                      className="max-h-full max-w-full object-contain transform group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                     />
                   ) : (
                     <div className="flex flex-col items-center justify-center text-zinc-500 p-2 text-center">
-                      <Users className="w-10 h-10 text-yellow-400 mb-1" />
-                      <span className="font-bold text-xs text-zinc-200">{car.name}</span>
-                      <span className="text-[10px] text-zinc-400">13 - 26 Seater Group Vehicle</span>
+                      <Users className="w-12 h-12 text-yellow-400 mb-2" />
+                      <span className="font-bold text-sm text-zinc-200">{car.name}</span>
+                      <span className="text-xs text-zinc-400 mt-0.5">13 - 26 Seater Group Minibus</span>
                     </div>
                   )}
                 </div>
 
-                <h4 className="text-lg font-bold text-white">{car.name}</h4>
-                <div className="text-xs text-zinc-400 mt-0.5">{car.seats} • {car.luggage}</div>
+                {/* Car Name & Specs */}
+                <h3 className="text-xl font-bold font-display text-white group-hover:text-yellow-400 transition">
+                  {car.name}
+                </h3>
+                <div className="text-xs text-zinc-400 mt-1 font-medium">
+                  {car.seats} • {car.luggage} • {car.acType}
+                </div>
 
-                <p className="text-xs text-zinc-400 mt-2 line-clamp-2">
-                  {car.bestFor}
+                <p className="text-xs text-zinc-400 mt-2.5 leading-relaxed line-clamp-2">
+                  <strong>Best for:</strong> {car.bestFor}
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-zinc-800 flex items-center justify-between">
+              {/* Pricing Breakdown & Single Action Button */}
+              <div className="mt-5 pt-4 border-t border-zinc-800/80 flex items-center justify-between gap-3">
                 <div>
-                  <span className="text-[10px] text-zinc-500 block">Local 8h/80km</span>
-                  <span className="text-sm font-bold text-white">{car.localFullDay.split('/')[0]}</span>
+                  <span className="text-[10px] text-zinc-500 uppercase font-bold block">Local (8h/80km)</span>
+                  <span className="text-sm font-black text-white">{car.localFullDay.split('/')[0]}</span>
                 </div>
 
                 <button
-                  onClick={() => handleBookCarWhatsApp(car)}
-                  className="px-3.5 py-1.5 rounded-xl bg-yellow-400 hover:bg-yellow-500 text-black text-xs font-extrabold transition flex items-center gap-1"
+                  onClick={() => onOpenBookModal({ carType: car.name })}
+                  className="px-4 py-2.5 rounded-xl bg-yellow-400 hover:bg-yellow-500 text-black text-xs font-black transition-all shadow-md shadow-yellow-400/20 flex items-center gap-1.5 cursor-pointer transform hover:-translate-y-0.5"
                 >
-                  <span>Book</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <span>Book Cab</span>
+                  <ArrowRight className="w-4 h-4 text-black" />
                 </button>
               </div>
+
             </div>
           ))}
         </div>
