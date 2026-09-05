@@ -21,8 +21,8 @@ export default function AboutSection({ onOpenBookModal }) {
               Personal Connection Over <span className="text-indigo-600">App Confusion</span>
             </h2>
 
-            <p className="text-slate-600 text-base leading-relaxed">
-              At <strong>CityTourCabs</strong>, we believe travel should be joyful, dependable, and personalized. In a world full of impersonal ride-hailing apps with sudden surge prices and canceling drivers, we stand for classic hospitality, guaranteed vehicle quality, and driver-guides who treat you like family.
+            <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
+              At <strong>CityCabs24</strong>, we believe travel should be joyful, dependable, and personalized. In a world full of impersonal ride-hailing apps with sudden surge prices and canceling drivers, we stand for classic hospitality, guaranteed vehicle quality, and driver-guides who treat you like family.
             </p>
 
             <div className="space-y-3 pt-2">
@@ -96,7 +96,7 @@ export default function AboutSection({ onOpenBookModal }) {
                   🚖
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg font-display">CityTourCabs Promise</h3>
+                  <h3 className="font-bold text-lg font-display">CityCabs24 Promise</h3>
                   <p className="text-xs text-indigo-300">Fast. Safe. Affordable. Always at your doorstep.</p>
                 </div>
               </div>

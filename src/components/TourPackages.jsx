@@ -23,7 +23,7 @@ export default function TourPackages({ onSelectTour, showMumbaiOnly = false }) {
 
   const handleWhatsAppDirect = (tour, e) => {
     e.stopPropagation();
-    const text = `*🚖 CityTourCabs Booking Inquiry*\n\n` +
+    const text = `*🚖 CityCabs24 Booking Inquiry*\n\n` +
       `*Tour Name:* ${tour.title}\n` +
       `*Duration:* ${tour.duration}\n` +
       `*Starting Price:* ${tour.startingPrice}\n\n` +

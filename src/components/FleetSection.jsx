@@ -13,7 +13,7 @@ export default function FleetSection({ onOpenBookModal }) {
   const activeCar = FLEET_DATA.find(c => c.id === activeCarId) || FLEET_DATA[0];
 
   const handleBookCarWhatsApp = (car) => {
-    const text = `*🚖 CityTourCabs - Car Booking Inquiry*\n\n` +
+    const text = `*🚖 CityCabs24 - Car Booking Inquiry*\n\n` +
       `*Vehicle Selected:* ${car.name} (${car.category})\n` +
       `*Seating:* ${car.seats}\n` +
       `*Rate:* ${car.ratePerKm}\n\n` +

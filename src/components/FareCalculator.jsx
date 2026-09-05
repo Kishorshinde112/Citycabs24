@@ -28,7 +28,7 @@ export default function FareCalculator() {
   };
 
   const handleBookRouteWhatsApp = () => {
-    const text = `*🚖 CityTourCabs - Route Booking*\n\n` +
+    const text = `*🚖 CityCabs24 - Route Booking*\n\n` +
       `*Route:* ${currentRoute.from} ➔ ${currentRoute.to}\n` +
       `*Trip Type:* ${tripType === 'one-way' ? 'One Way Drop' : 'Round Trip'}\n` +
       `*Car Class:* ${carClass.toUpperCase()}\n` +

@@ -56,14 +56,14 @@ export default function WhyChooseUs({ onOpenBookModal }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-900 text-xs font-bold uppercase tracking-wider mb-3">
-            <Award className="w-3.5 h-3.5 text-emerald-700" />
-            <span>The CityTourCabs Difference</span>
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider mb-3">
+            <Award className="w-3.5 h-3.5 text-amber-700" />
+            <span>The CityCabs24 Advantage</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-display font-black tracking-tight text-slate-900">
-            Why Thousands of Travellers <span className="text-indigo-600">Trust Us</span>
+            Why Thousands of Travellers <span className="text-amber-600">Trust Us</span>
           </h2>
 
           <p className="text-slate-600 text-sm sm:text-base mt-3">
@@ -78,30 +78,25 @@ export default function WhyChooseUs({ onOpenBookModal }) {
             return (
               <div
                 key={idx}
-                className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1"
+                className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center border ${feat.color} shadow-sm group-hover:scale-110 transition-transform`}>
-                      <Icon className="w-6 h-6" />
+                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center border ${feat.color} shadow-xs`}>
+                      <Icon className="w-5 h-5" />
                     </div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-slate-100 text-slate-600">
+                    <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">
                       {feat.badge}
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-bold font-display text-slate-900 mb-2 group-hover:text-indigo-600 transition">
+                  <h3 className="text-lg font-bold font-display text-slate-900 mb-2">
                     {feat.title}
                   </h3>
 
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                     {feat.description}
                   </p>
-                </div>
-
-                <div className="mt-5 pt-3 border-t border-slate-100 flex items-center gap-1.5 text-xs font-bold text-indigo-600">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                  <span>Verified Standard</span>
                 </div>
               </div>
             );

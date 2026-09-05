@@ -21,7 +21,7 @@ export default function Testimonials() {
           </h2>
 
           <p className="text-slate-600 text-sm sm:text-base mt-3">
-            Read real feedback from families, corporate travellers, and pilgrims who explored Maharashtra with CityTourCabs.
+            Read real feedback from families, corporate travellers, and pilgrims who explored Maharashtra with CityCabs24.
           </p>
         </div>
 
