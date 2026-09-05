@@ -231,7 +231,8 @@ app.delete('/api/tours/:id', (req, res) => {
 // 4. Admin Authentication Endpoint
 app.post('/api/auth/login', (req, res) => {
   const { email, password } = req.body;
-  if (email === 'mumbaicitycabs24@gmail.com' && password === 'Shahrukh@123') {
+  const validEmails = ['admin@citycabs24.com', 'mumbaicitycabs24@gmail.com'];
+  if (validEmails.includes(email?.trim().toLowerCase()) && password === 'Shahrukh@123') {
     res.json({ success: true, token: 'admin-jwt-token-citycabs24' });
   } else {
     res.status(401).json({ success: false, message: 'Invalid admin credentials.' });

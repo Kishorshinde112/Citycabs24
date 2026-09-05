@@ -15,8 +15,9 @@ export default function Login() {
     setIsLoading(true);
     setError('');
 
-    // Hardcoded credentials for local frontend-only setup
-    if (email.trim() === 'admin@citycabs24.com' && password === 'Shahrukh@123') {
+    // Credentials check for admin portal
+    const validEmails = ['admin@citycabs24.com', 'mumbaicitycabs24@gmail.com'];
+    if (validEmails.includes(email.trim().toLowerCase()) && password === 'Shahrukh@123') {
       localStorage.setItem('adminAuth', 'true');
       localStorage.setItem('adminToken', 'dummy-token-123');
       navigate('/admin');
