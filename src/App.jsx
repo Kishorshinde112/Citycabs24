@@ -3,6 +3,16 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import ToursPage from './pages/Public/ToursPage';
 import MumbaiDarshanPage from './pages/Public/MumbaiDarshanPage';
+import ShirdiTourPage from './pages/Public/ShirdiTourPage';
+import AshtavinayakPage from './pages/Public/AshtavinayakPage';
+import IgatpuriTourPage from './pages/Public/IgatpuriTourPage';
+import MahabaleshwarPage from './pages/Public/MahabaleshwarPage';
+import MatheranPage from './pages/Public/MatheranPage';
+import JyotirlingaPage from './pages/Public/JyotirlingaPage';
+import KonkanDarshanPage from './pages/Public/KonkanDarshanPage';
+import LonavalaTripPage from './pages/Public/LonavalaTripPage';
+import AlibaugPage from './pages/Public/AlibaugPage';
+import ThankYouPage from './pages/Public/ThankYouPage';
 import ToursManager from './pages/Admin/ToursManager';
 import AdminLayout from './pages/Admin/AdminLayout';
 import Login from './pages/Admin/Login';
@@ -16,8 +26,20 @@ export default function App() {
         {/* Public Website */}
         <Route path="/" element={<Home />} />
         <Route path="/tours" element={<ToursPage />} />
+
+        {/* Tour Pages */}
         <Route path="/mumbai-darshan" element={<MumbaiDarshanPage />} />
         <Route path="/mumbai-darshan-cab-service" element={<MumbaiDarshanPage />} />
+        <Route path="/lonavala-trip" element={<LonavalaTripPage />} />
+        <Route path="/alibaug-sightseeing" element={<AlibaugPage />} />
+        <Route path="/matheran-sightseeing" element={<MatheranPage />} />
+        <Route path="/shirdi-tour" element={<ShirdiTourPage />} />
+        <Route path="/mahabaleshwar-sightseeing" element={<MahabaleshwarPage />} />
+        <Route path="/igatpuri-tour" element={<IgatpuriTourPage />} />
+        <Route path="/ashtavinayak" element={<AshtavinayakPage />} />
+        <Route path="/3-jyotirlinga-in-maharashtra" element={<JyotirlingaPage />} />
+        <Route path="/konkan-darshan" element={<KonkanDarshanPage />} />
+        <Route path="/booking-confirmed" element={<ThankYouPage />} />
 
         {/* Admin Login */}
         <Route path="/admin/login" element={<Login />} />

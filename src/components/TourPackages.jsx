@@ -46,6 +46,7 @@ export default function TourPackages({ onSelectTour, showMumbaiOnly = false }) {
             return (
               <div
                 key={tour.id}
+                id={`tour-${tour.id}`}
                 onClick={() => {
                   if (tour.id === 'mumbai-darshan') {
                     window.location.href = '/mumbai-darshan';
@@ -53,7 +54,7 @@ export default function TourPackages({ onSelectTour, showMumbaiOnly = false }) {
                     onSelectTour(tour);
                   }
                 }}
-                className="group bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-yellow-400/50 shadow-lg transition-all duration-300 flex flex-col cursor-pointer"
+                className="group scroll-mt-24 bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-yellow-400/50 shadow-lg transition-all duration-300 flex flex-col cursor-pointer"
               >
                 
                 {/* Tour Image Container with Badge */}
@@ -89,13 +90,27 @@ export default function TourPackages({ onSelectTour, showMumbaiOnly = false }) {
 
                   {/* Learn More Link */}
                   <div className="pt-2">
-                    <a
-                      href={targetUrl}
-                      className="inline-flex items-center gap-1.5 text-xs font-extrabold text-yellow-400 hover:text-yellow-300 group-hover:translate-x-1 transition"
-                    >
-                      <span>Learn More</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </a>
+                    {tour.id === 'mumbai-darshan' ? (
+                      <a
+                        href="/mumbai-darshan"
+                        className="inline-flex items-center gap-1.5 text-xs font-extrabold text-yellow-400 hover:text-yellow-300 group-hover:translate-x-1 transition"
+                      >
+                        <span>Learn More</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </a>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onSelectTour(tour);
+                        }}
+                        className="inline-flex items-center gap-1.5 text-xs font-extrabold text-yellow-400 hover:text-yellow-300 group-hover:translate-x-1 transition cursor-pointer"
+                      >
+                        <span>Learn More</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                    )}
                   </div>
 
                 </div>

@@ -3,7 +3,7 @@ import { Phone, MessageCircle, Menu, X, ChevronDown, Sparkles } from 'lucide-rea
 import useSettingsStore from '../store/settingsStore';
 import logoImg from '../assets/citycabs24-logo.png';
 
-export default function Navbar({ onOpenBookModal }) {
+export default function Navbar({ onOpenBookModal, onSelectTour }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -18,17 +18,23 @@ export default function Navbar({ onOpenBookModal }) {
   }, []);
 
   const tourOptions = [
-    { name: 'Mumbai Darshan', href: '/mumbai-darshan' },
-    { name: 'Lonavala Trip', href: '/#tours' },
-    { name: 'Alibaug Sightseeing', href: '/#tours' },
-    { name: 'Matheran Sightseeing', href: '/#tours' },
-    { name: 'Shirdi Tour', href: '/#tours' },
-    { name: 'Mahabaleshwar Sightseeing', href: '/#tours' },
-    { name: 'Igatpuri Tour', href: '/#tours' },
-    { name: 'Ashtavinayak', href: '/#tours' },
-    { name: '3 Jyotirlinga in Maharashtra', href: '/#tours' },
-    { name: 'Konkan Darshan', href: '/#tours' },
+    { name: 'Mumbai Darshan', id: 'mumbai-darshan', href: '/mumbai-darshan' },
+    { name: 'Lonavala Trip', id: 'lonavala-trip', href: '/lonavala-trip' },
+    { name: 'Alibaug Sightseeing', id: 'alibaug-sightseeing', href: '/alibaug-sightseeing' },
+    { name: 'Matheran Sightseeing', id: 'matheran-sightseeing', href: '/matheran-sightseeing' },
+    { name: 'Shirdi Tour', id: 'shirdi-tour', href: '/shirdi-tour' },
+    { name: 'Mahabaleshwar Sightseeing', id: 'mahabaleshwar-sightseeing', href: '/mahabaleshwar-sightseeing' },
+    { name: 'Igatpuri Tour', id: 'igatpuri-tour', href: '/igatpuri-tour' },
+    { name: 'Ashtavinayak', id: 'ashtavinayak', href: '/ashtavinayak' },
+    { name: '3 Jyotirlinga in Maharashtra', id: 'jyotirlinga-maharashtra', href: '/3-jyotirlinga-in-maharashtra' },
+    { name: 'Konkan Darshan', id: 'konkan-darshan', href: '/konkan-darshan' },
   ];
+
+  const handleTourClick = (e, item) => {
+    setDropdownOpen(false);
+    setMobileMenuOpen(false);
+    // All tours now have dedicated pages — just navigate via href (no preventDefault needed)
+  };
 
   return (
     <>
@@ -52,14 +58,13 @@ export default function Navbar({ onOpenBookModal }) {
       </div>
 
       {/* Main Sticky Navbar */}
-      <nav 
-        className={`sticky top-0 z-50 transition-all duration-300 bg-zinc-950 border-b border-zinc-800 text-white ${
-          isScrolled ? 'shadow-xl py-2.5 bg-black/95 backdrop-blur-md' : 'py-3.5'
-        }`}
+      <nav
+        className={`sticky top-0 z-50 transition-all duration-300 bg-zinc-950 border-b border-zinc-800 text-white ${isScrolled ? 'shadow-xl py-2.5 bg-black/95 backdrop-blur-md' : 'py-3.5'
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
-            
+
             {/* Brand Logo */}
             <a href="/" className="flex items-center gap-2.5">
               <div className="w-10 h-10 rounded-full overflow-hidden border border-yellow-400/40 shadow-sm bg-white flex items-center justify-center p-0.5">
@@ -83,12 +88,12 @@ export default function Navbar({ onOpenBookModal }) {
               </a>
 
               {/* Tour Options Dropdown */}
-              <div 
+              <div
                 className="relative"
                 onMouseEnter={() => setDropdownOpen(true)}
                 onMouseLeave={() => setDropdownOpen(false)}
               >
-                <button 
+                <button
                   className="text-sm font-semibold text-zinc-200 hover:text-yellow-400 transition flex items-center gap-1 py-2"
                 >
                   <span>Tour Options</span>
@@ -101,7 +106,8 @@ export default function Navbar({ onOpenBookModal }) {
                       <a
                         key={idx}
                         href={item.href}
-                        className="block px-4 py-2 text-xs font-semibold text-zinc-200 hover:bg-yellow-400 hover:text-black transition"
+                        onClick={(e) => handleTourClick(e, item)}
+                        className="block px-4 py-2 text-xs font-semibold text-zinc-200 hover:bg-yellow-400 hover:text-black transition cursor-pointer"
                       >
                         {item.name}
                       </a>
@@ -212,8 +218,8 @@ export default function Navbar({ onOpenBookModal }) {
                   <a
                     key={idx}
                     href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block py-1 text-xs font-semibold text-zinc-300 hover:text-yellow-400"
+                    onClick={(e) => handleTourClick(e, item)}
+                    className="block py-1 text-xs font-semibold text-zinc-300 hover:text-yellow-400 cursor-pointer"
                   >
                     • {item.name}
                   </a>

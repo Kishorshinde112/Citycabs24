@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import FloatingActions from '../../components/FloatingActions';
 import QuickBookModal from '../../components/QuickBookModal';
 import PrivacyModal from '../../components/PrivacyModal';
 import AutoEnquiryModal from '../../components/AutoEnquiryModal';
-import { Phone, Check } from 'lucide-react';
+import TourModal from '../../components/TourModal';
+import { Phone, Check, Sparkles, ArrowRight } from 'lucide-react';
 import useSettingsStore from '../../store/settingsStore';
 
 export default function MumbaiDarshanPage() {
@@ -14,6 +15,16 @@ export default function MumbaiDarshanPage() {
   const [bookModalInitialData, setBookModalInitialData] = useState({});
   const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
   const [autoEnquiryOpen, setAutoEnquiryOpen] = useState(false);
+  const [selectedTour, setSelectedTour] = useState(null);
+
+  // Auto trigger enquiry modal after 4.5 seconds of user spending time on page
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAutoEnquiryOpen(true);
+    }, 4500);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleOpenBookModal = (initialData = {}) => {
     setBookModalInitialData({ dropCity: 'Mumbai Darshan', tripType: 'Mumbai Darshan', ...initialData });
@@ -69,7 +80,10 @@ export default function MumbaiDarshanPage() {
     <div className="min-h-screen bg-zinc-950 text-white font-sans flex flex-col pb-14 sm:pb-0">
       
       {/* Navigation */}
-      <Navbar onOpenBookModal={() => handleOpenBookModal()} />
+      <Navbar 
+        onOpenBookModal={() => handleOpenBookModal()} 
+        onSelectTour={(tour) => setSelectedTour(tour)}
+      />
 
       <main className="flex-1">
 
@@ -81,14 +95,42 @@ export default function MumbaiDarshanPage() {
             style={{ backgroundImage: `url('https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1920&q=80')` }}
           />
           
-          <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
             <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">
               Mumbai <span className="text-yellow-400">Darshan</span>
             </h1>
 
-            <p className="text-lg sm:text-xl text-zinc-300 mt-2 font-medium">
+            <p className="text-lg sm:text-xl text-zinc-300 max-w-2xl mx-auto font-medium">
               Discover Mumbai's iconic landmarks with expert local driver-guides
             </p>
+
+            {/* Quick Action Buttons in Hero */}
+            <div className="pt-3 flex flex-wrap justify-center items-center gap-3">
+              <a
+                href="#rate-card"
+                className="px-6 py-2.5 rounded-xl bg-yellow-400 hover:bg-yellow-500 text-black font-extrabold text-xs sm:text-sm shadow-lg shadow-yellow-400/20 transition flex items-center gap-1.5"
+              >
+                <span>View Rate Card</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
+
+              <button
+                type="button"
+                onClick={() => setAutoEnquiryOpen(true)}
+                className="px-6 py-2.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 text-yellow-400 border border-yellow-400/50 text-xs sm:text-sm font-bold transition flex items-center gap-1.5 cursor-pointer shadow"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-yellow-400" />
+                <span>Submit Enquiry (Get Discount)</span>
+              </button>
+
+              <a
+                href={`tel:+91${phone}`}
+                className="px-5 py-2.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 text-white border border-zinc-750 text-xs sm:text-sm font-bold transition flex items-center gap-1.5 shadow"
+              >
+                <Phone className="w-3.5 h-3.5 text-yellow-400" />
+                <span>Call Desk</span>
+              </a>
+            </div>
           </div>
         </section>
 
@@ -153,7 +195,7 @@ export default function MumbaiDarshanPage() {
               <div className="lg:col-span-5 space-y-6">
                 
                 {/* Rate Card Table */}
-                <div className="bg-zinc-900 rounded-2xl border border-zinc-800 overflow-hidden shadow-2xl">
+                <div id="rate-card" className="scroll-mt-24 bg-zinc-900 rounded-2xl border border-zinc-800 overflow-hidden shadow-2xl">
                   
                   {/* Table Header */}
                   <div className="bg-yellow-400 text-black p-4 font-black text-base flex items-center justify-between">
@@ -235,6 +277,15 @@ export default function MumbaiDarshanPage() {
                     Book Now
                   </button>
 
+                  <button
+                    type="button"
+                    onClick={() => setAutoEnquiryOpen(true)}
+                    className="w-full py-3 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-yellow-400 border border-yellow-400/30 font-bold text-xs transition cursor-pointer flex items-center justify-center gap-1.5"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-yellow-400" />
+                    <span>Submit Enquiry Now</span>
+                  </button>
+
                   <div className="pt-2 text-xs text-zinc-400 flex items-center justify-between border-t border-zinc-800">
                     <span>Or call us directly:</span>
                     <a href={`tel:+91${phone}`} className="font-bold text-yellow-400 hover:underline flex items-center gap-1">
@@ -255,11 +306,24 @@ export default function MumbaiDarshanPage() {
       {/* Footer */}
       <Footer
         onOpenPrivacyModal={() => setPrivacyModalOpen(true)}
-        onSelectTour={() => {}}
+        onSelectTour={(tour) => setSelectedTour(tour)}
       />
 
       {/* Floating Actions */}
       <FloatingActions onOpenBookModal={() => handleOpenBookModal()} />
+
+      {/* Tour Package Details Modal */}
+      {selectedTour && (
+        <TourModal
+          tour={selectedTour}
+          onClose={() => setSelectedTour(null)}
+          onBookClick={() => {
+            const current = selectedTour;
+            setSelectedTour(null);
+            handleOpenBookModal({ dropCity: current.title, tripType: 'Tour Package' });
+          }}
+        />
+      )}
 
       {/* Quick Booking Modal */}
       <QuickBookModal

@@ -16,6 +16,7 @@ import FloatingActions from '../components/FloatingActions';
 import QuickBookModal from '../components/QuickBookModal';
 import PrivacyModal from '../components/PrivacyModal';
 import AutoEnquiryModal from '../components/AutoEnquiryModal';
+import { TOURS_DATA } from '../data/toursData';
 
 export default function Home() {
   const [selectedTour, setSelectedTour] = useState(null);
@@ -23,6 +24,22 @@ export default function Home() {
   const [bookModalInitialData, setBookModalInitialData] = useState({});
   const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
   const [autoEnquiryOpen, setAutoEnquiryOpen] = useState(false);
+
+  // Check URL query parameters (e.g. /?tour=lonavala-trip)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const tourParam = params.get('tour');
+    if (tourParam) {
+      const match = TOURS_DATA.find(t => t.id === tourParam);
+      if (match) {
+        setSelectedTour(match);
+        setTimeout(() => {
+          const el = document.getElementById(`tour-${tourParam}`) || document.getElementById('tours');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 300);
+      }
+    }
+  }, []);
 
   // Auto trigger enquiry modal after 5.5 seconds of user spending time on page
   useEffect(() => {
@@ -42,7 +59,10 @@ export default function Home() {
     <div className="min-h-screen bg-zinc-950 text-white font-sans flex flex-col selection:bg-yellow-400 selection:text-black pb-14 sm:pb-0">
 
       {/* Top Navigation */}
-      <Navbar onOpenBookModal={() => handleOpenBookModal()} />
+      <Navbar 
+        onOpenBookModal={() => handleOpenBookModal()} 
+        onSelectTour={(tour) => setSelectedTour(tour)}
+      />
 
       {/* Main Content Sections */}
       <main className="flex-1">
@@ -66,6 +86,12 @@ export default function Home() {
 
         {/* Memories from Our Tours */}
         <GallerySection />
+
+        {/* About Us */}
+        <AboutSection onOpenBookModal={() => handleOpenBookModal()} />
+
+        {/* Direct Booking & Inquiry Contact Form */}
+        <BookingContactForm />
       </main>
 
       {/* Footer */}
