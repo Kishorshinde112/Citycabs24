@@ -8,9 +8,14 @@ import AutoEnquiryModal from '../../components/AutoEnquiryModal';
 import TourModal from '../../components/TourModal';
 import { Phone, Check, Sparkles, ArrowRight } from 'lucide-react';
 import useSettingsStore from '../../store/settingsStore';
+import useContentStore from '../../store/contentStore';
 
 export default function MumbaiDarshanPage() {
   const { phone } = useSettingsStore();
+  const { tours, siteImages } = useContentStore();
+  const mumbaiTour = tours?.find(t => t.id === 'mumbai-darshan');
+  const heroBg = mumbaiTour?.banner || siteImages?.mumbaiHero || 'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1920&q=80';
+
   const [bookModalOpen, setBookModalOpen] = useState(false);
   const [bookModalInitialData, setBookModalInitialData] = useState({});
   const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
@@ -92,7 +97,7 @@ export default function MumbaiDarshanPage() {
           <div className="absolute inset-0 bg-black/60 z-10" />
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-40" 
-            style={{ backgroundImage: `url('https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1920&q=80')` }}
+            style={{ backgroundImage: `url('${heroBg}')` }}
           />
           
           <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">

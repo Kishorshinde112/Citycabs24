@@ -76,8 +76,8 @@ export default function AdminLayout() {
             }`
           }
         >
-          <Compass className="w-4 h-4" />
-          Manage Tours & Images
+          <ImageIcon className="w-4 h-4" />
+          Manage Tour & Site Images
         </NavLink>
 
         <NavLink

@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
 import { GALLERY_DATA } from '../data/routesData';
+import useContentStore from '../store/contentStore';
 
 export default function GallerySection() {
   const [selectedImage, setSelectedImage] = useState(null);
+  const { gallery } = useContentStore();
+  const displayGallery = (gallery && gallery.length > 0) ? gallery : GALLERY_DATA;
 
   return (
     <section id="gallery" className="py-16 sm:py-24 bg-zinc-950 text-white relative border-b border-zinc-800">
@@ -22,7 +25,7 @@ export default function GallerySection() {
 
         {/* Gallery Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {GALLERY_DATA.map((item) => (
+          {displayGallery.map((item) => (
             <div
               key={item.id}
               onClick={() => setSelectedImage(item)}

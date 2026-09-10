@@ -8,8 +8,10 @@ import AutoEnquiryModal from '../../components/AutoEnquiryModal';
 import TourModal from '../../components/TourModal';
 import { Phone, Check, Sparkles, ArrowRight } from 'lucide-react';
 import useSettingsStore from '../../store/settingsStore';
+import useContentStore from '../../store/contentStore';
 
 export default function TourDetailPage({
+  tourId,
   tourName,
   subtitle,
   heroImage,
@@ -22,6 +24,17 @@ export default function TourDetailPage({
   tripType,
 }) {
   const { phone } = useSettingsStore();
+  const { tours } = useContentStore();
+
+  const matchedTour = tours?.find(t =>
+    (tourId && t.id === tourId) ||
+    (t.title && tourName && (
+      t.title.toLowerCase().includes(tourName.toLowerCase()) ||
+      tourName.toLowerCase().includes(t.title.toLowerCase())
+    ))
+  );
+  const displayHeroImage = matchedTour?.banner || heroImage;
+
   const [bookModalOpen, setBookModalOpen] = useState(false);
   const [bookModalInitialData, setBookModalInitialData] = useState({});
   const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
@@ -47,7 +60,7 @@ export default function TourDetailPage({
       <main className="flex-1">
         {/* Hero */}
         <section className="relative h-[300px] md:h-[420px] overflow-hidden">
-          <img src={heroImage} alt={tourName} className="w-full h-full object-cover" />
+          <img src={displayHeroImage} alt={tourName} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-black/55 flex flex-col items-center justify-center text-center px-4 space-y-3">
             <h1 className="text-4xl sm:text-5xl font-extrabold text-white drop-shadow-lg">{tourName}</h1>
             {subtitle && <p className="text-lg sm:text-2xl text-zinc-200 font-medium max-w-2xl">{subtitle}</p>}

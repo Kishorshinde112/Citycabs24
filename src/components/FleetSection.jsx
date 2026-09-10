@@ -1,8 +1,11 @@
 import React from 'react';
 import { Users, ArrowRight } from 'lucide-react';
 import { FLEET_DATA } from '../data/fleetData';
+import useContentStore from '../store/contentStore';
 
 export default function FleetSection({ onOpenBookModal }) {
+  const { fleet } = useContentStore();
+  const displayFleet = (fleet && fleet.length > 0) ? fleet : FLEET_DATA;
 
   return (
     <section id="fleet" className="py-16 sm:py-24 bg-zinc-950 text-white relative border-b border-zinc-800">
@@ -21,7 +24,7 @@ export default function FleetSection({ onOpenBookModal }) {
 
         {/* Unified Clean 6-Cab Fleet Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
-          {FLEET_DATA.map((car) => (
+          {displayFleet.map((car) => (
             <div
               key={car.id}
               className="bg-zinc-900 rounded-3xl p-5 sm:p-6 border border-zinc-800 hover:border-yellow-400/60 shadow-xl transition-all duration-300 flex flex-col justify-between group"

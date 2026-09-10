@@ -100,10 +100,12 @@ app.put('/api/settings', (req, res) => {
   try {
     const { phone, helpPhone, email } = req.body;
     const updateStmt = db.prepare('INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)');
-
-    if (phone) updateStmt.run('phone', String(phone).trim());
-    if (helpPhone) updateStmt.run('helpPhone', String(helpPhone).trim());
-    if (email) updateStmt.run('email', String(email).trim());
+    for (const [key, value] of Object.entries(req.body)) {
+      if (value !== undefined && value !== null) {
+        const valStr = typeof value === 'object' ? JSON.stringify(value) : String(value).trim();
+        updateStmt.run(key, valStr);
+      }
+    }
 
     const rows = db.prepare('SELECT key, value FROM settings').all();
     const settings = {};

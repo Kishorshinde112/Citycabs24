@@ -1,9 +1,12 @@
 import React from 'react';
 import { Phone, ArrowRight } from 'lucide-react';
 import useSettingsStore from '../store/settingsStore';
+import useContentStore from '../store/contentStore';
 
 export default function Hero({ onSelectTour, onOpenBookModal }) {
   const { phone } = useSettingsStore();
+  const { siteImages } = useContentStore();
+  const heroImage = siteImages?.homeHero || 'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1920&q=80';
 
   return (
     <div id="home" className="relative bg-slate-900 text-white min-h-[500px] sm:min-h-[580px] flex items-center justify-center overflow-hidden py-20 border-b border-slate-800">
@@ -12,7 +15,7 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
       <div 
         className="absolute inset-0 bg-cover bg-center opacity-40 transform scale-105"
         style={{ 
-          backgroundImage: `url('https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1920&q=80')` 
+          backgroundImage: `url('${heroImage}')` 
         }}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/70 to-slate-900/50" />
