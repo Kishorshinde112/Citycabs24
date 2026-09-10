@@ -14,12 +14,14 @@ services:
       - "traefik.enable=true"
       - "traefik.docker.network=dokploy-network"
       - "traefik.http.routers.citycabs24-http.entrypoints=web"
-      - "traefik.http.routers.citycabs24-http.rule=Host(`cabs.kishorlab.dev`)"
+      - "traefik.http.routers.citycabs24-http.rule=Host(`citycabs24.com`) || Host(`www.citycabs24.com`) || Host(`cabs.kishorlab.dev`)"
       - "traefik.http.routers.citycabs24-http.service=citycabs24-svc"
+      - "traefik.http.routers.citycabs24-http.middlewares=redirect-to-https@file"
       - "traefik.http.routers.citycabs24-https.entrypoints=websecure"
-      - "traefik.http.routers.citycabs24-https.rule=Host(`cabs.kishorlab.dev`)"
+      - "traefik.http.routers.citycabs24-https.rule=Host(`citycabs24.com`) || Host(`www.citycabs24.com`) || Host(`cabs.kishorlab.dev`)"
       - "traefik.http.routers.citycabs24-https.service=citycabs24-svc"
       - "traefik.http.routers.citycabs24-https.tls=true"
+      - "traefik.http.routers.citycabs24-https.tls.certresolver=letsencrypt"
       - "traefik.http.services.citycabs24-svc.loadbalancer.server.port=80"
 
 networks:
