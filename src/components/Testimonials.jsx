@@ -54,16 +54,9 @@ export default function Testimonials() {
               </div>
 
               {/* Author Info */}
-              <div className="mt-6 pt-4 border-t border-zinc-800 flex items-center gap-3">
-                <img
-                  src={rev.avatar}
-                  alt={rev.name}
-                  className="w-11 h-11 rounded-full object-cover border-2 border-yellow-400"
-                />
-                <div>
-                  <h4 className="text-sm font-bold text-white leading-snug">{rev.name}</h4>
-                  <p className="text-[11px] text-zinc-400">{rev.location} • {rev.date}</p>
-                </div>
+              <div className="mt-6 pt-4 border-t border-zinc-800">
+                <h4 className="text-sm font-bold text-white leading-snug">{rev.name}</h4>
+                <p className="text-[11px] text-zinc-400 mt-0.5">{rev.location} • {rev.date}</p>
               </div>
 
             </div>
