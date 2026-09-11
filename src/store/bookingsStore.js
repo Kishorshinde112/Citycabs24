@@ -37,11 +37,27 @@ const useBookingsStore = create((set, get) => ({
     // Optimistic UI update
     set((state) => ({ bookings: [newBooking, ...state.bookings] }));
 
+    const payload = {
+      id: bookingData.id || tempId,
+      name: bookingData.name || 'Customer',
+      phone: bookingData.phone || bookingData.contact || '',
+      contact: bookingData.contact || bookingData.phone || '',
+      route: bookingData.route || bookingData.tourName || bookingData.destination || 'Custom Trip',
+      tourName: bookingData.tourName || bookingData.route || 'Custom Trip',
+      vehicle: bookingData.vehicle || bookingData.carType || 'Standard Cab',
+      carType: bookingData.carType || bookingData.vehicle || 'Standard Cab',
+      date: bookingData.date || bookingData.travelDate || new Date().toISOString().slice(0, 10),
+      travelDate: bookingData.travelDate || bookingData.date || new Date().toISOString().slice(0, 10),
+      pickupLocation: bookingData.pickupLocation || bookingData.pickup || '',
+      passengers: bookingData.passengers || '4',
+      tripType: bookingData.tripType || 'Standard Tour',
+    };
+
     try {
       const res = await fetch('/api/bookings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(bookingData),
+        body: JSON.stringify(payload),
       });
       if (res.ok) {
         const data = await res.json();

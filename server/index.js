@@ -130,9 +130,15 @@ app.get('/api/bookings', (req, res) => {
 
 app.post('/api/bookings', (req, res) => {
   try {
-    const { name, phone, route, vehicle, date } = req.body;
-    const id = 'BK-' + Math.floor(100000 + Math.random() * 900000);
+    const name = String(req.body.name || req.body.fullName || 'Customer').trim();
+    const phone = String(req.body.phone || req.body.contact || '').trim();
+    const route = String(req.body.route || req.body.tourName || req.body.destination || req.body.drop || 'Custom Trip').trim();
+    const vehicle = String(req.body.vehicle || req.body.carType || req.body.carPreference || 'Standard Cab').trim();
+    const date = String(req.body.date || req.body.travelDate || req.body.pickupDate || new Date().toISOString().slice(0, 10)).trim();
+    const id = req.body.id || ('BK-' + Math.floor(100000 + Math.random() * 900000));
     const createdAt = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+    console.log(`📥 [NEW BOOKING RECEIVED] ID: ${id} | Name: "${name}" | Phone: "${phone}" | Route: "${route}" | Vehicle: "${vehicle}" | Date: "${date}"`);
 
     let stmt;
     try {
@@ -140,13 +146,13 @@ app.post('/api/bookings', (req, res) => {
         INSERT INTO bookings (id, name, phone, route, vehicle, date, status, created_at)
         VALUES (?, ?, ?, ?, ?, ?, 'Pending', ?)
       `);
-      stmt.run(id, name || 'Customer', phone || '', route || 'Custom Trip', vehicle || 'Standard Cab', date || new Date().toISOString().slice(0, 10), createdAt);
+      stmt.run(id, name, phone, route, vehicle, date, createdAt);
     } catch (e) {
       stmt = db.prepare(`
         INSERT INTO bookings (id, name, phone, route, vehicle, date, status)
         VALUES (?, ?, ?, ?, ?, ?, 'Pending')
       `);
-      stmt.run(id, name || 'Customer', phone || '', route || 'Custom Trip', vehicle || 'Standard Cab', date || new Date().toISOString().slice(0, 10));
+      stmt.run(id, name, phone, route, vehicle, date);
     }
 
     res.json({
@@ -154,6 +160,7 @@ app.post('/api/bookings', (req, res) => {
       booking: { id, name, phone, route, vehicle, date, status: 'Pending', createdAt }
     });
   } catch (err) {
+    console.error('❌ Error saving booking:', err);
     res.status(500).json({ success: false, error: err.message });
   }
 });

@@ -36,11 +36,15 @@ export default function AutoEnquiryModal({ isOpen, onClose }) {
 
     addBooking({
       name: formData.fullName,
+      phone: formData.phone,
       contact: formData.phone,
       tripType: 'Auto Discount Enquiry',
       tourName: formData.destination,
+      route: formData.destination,
       travelDate: formData.travelDate || new Date().toISOString().split('T')[0],
+      date: formData.travelDate || new Date().toISOString().split('T')[0],
       carType: 'Standard Cab / Tour Vehicle',
+      vehicle: 'Standard Cab / Tour Vehicle',
       pickupLocation: 'Customer Address'
     });
 

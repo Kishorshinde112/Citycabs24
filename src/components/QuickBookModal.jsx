@@ -93,10 +93,14 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
 
     const bookingPayload = {
       name:            formData.name.trim(),
+      phone:           formData.contact.trim(),
       contact:         formData.contact.trim(),
       tripType:        formData.tripType,
+      route:           formData.drop,
       tourName:        formData.drop,
+      date:            formData.date,
       travelDate:      formData.date,
+      vehicle:         formData.carType,
       carType:         formData.carType,
       pickupLocation:  formData.pickup.trim(),
       passengers:      formData.passengers,
