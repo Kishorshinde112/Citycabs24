@@ -15,10 +15,12 @@ export default function AutoEnquiryModal({ isOpen, onClose }) {
   });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
       setSubmitted(false);
+      setIsSubmitting(false);
       setError('');
       if (!formData.travelDate) {
         const today = new Date().toISOString().split('T')[0];
@@ -28,8 +30,6 @@ export default function AutoEnquiryModal({ isOpen, onClose }) {
   }, [isOpen]);
 
   if (!isOpen) return null;
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
