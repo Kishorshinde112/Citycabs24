@@ -176,21 +176,40 @@ export function triggerLeadNotification(booking) {
   // 1. Play sound (HTML5 audio)
   playChimeSound();
 
-  // 2. Trigger browser notification if permitted
+  // 2. Trigger browser / PWA notification if permitted
   if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
-    try {
-      const name = booking?.name || 'New Customer';
-      const phone = booking?.phone || booking?.contact || '';
-      const route = booking?.route || booking?.tourName || 'Tour Booking';
+    const name = booking?.name || 'New Customer';
+    const phone = booking?.phone || booking?.contact || '';
+    const route = booking?.route || booking?.tourName || 'Tour Booking';
+    const notifTitle = '🚖 New Booking Inquiry Received!';
+    const notifOptions = {
+      body: `${name} (+91 ${phone})\nRoute: ${route}`,
+      icon: '/icon-192.png',
+      badge: '/icon-192.png',
+      tag: booking?.id || Date.now().toString(),
+      data: { url: '/admin', id: booking?.id },
+      vibrate: [300, 100, 300, 100, 300],
+      requireInteraction: true
+    };
 
-      new Notification('🚖 New Booking Inquiry Received!', {
-        body: `${name} (${phone})\nRoute: ${route}`,
-        icon: '/icon-192.png',
-        badge: '/icon-192.png',
-        tag: booking?.id || Date.now().toString(),
+    // On Mobile Android / Chrome PWA: MUST use ServiceWorkerRegistration.showNotification
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.ready.then((reg) => {
+        reg.showNotification(notifTitle, notifOptions);
+      }).catch(() => {
+        try {
+          new Notification(notifTitle, notifOptions);
+        } catch (e) {
+          console.warn('Notification fallback failed:', e);
+        }
       });
-    } catch (err) {
-      console.warn('Browser notification error:', err);
+    } else {
+      // Desktop / Standard fallback
+      try {
+        new Notification(notifTitle, notifOptions);
+      } catch (err) {
+        console.warn('Browser notification error:', err);
+      }
     }
   }
 }

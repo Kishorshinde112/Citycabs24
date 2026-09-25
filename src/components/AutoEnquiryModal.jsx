@@ -29,13 +29,16 @@ export default function AutoEnquiryModal({ isOpen, onClose }) {
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.fullName.trim() || !formData.phone.trim()) {
       setError('Please enter your full name and phone number.');
       return;
     }
 
+    setIsSubmitting(true);
     const bookingPayload = {
       name: formData.fullName,
       phone: formData.phone,
@@ -50,7 +53,12 @@ export default function AutoEnquiryModal({ isOpen, onClose }) {
       pickupLocation: 'Customer Address'
     };
 
-    addBooking(bookingPayload);
+    try {
+      await addBooking(bookingPayload);
+    } catch (err) {
+      console.warn('Booking add error:', err);
+    }
+
     onClose();
     navigate('/enquiry-received', { state: bookingPayload });
   };

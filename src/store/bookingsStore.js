@@ -58,16 +58,19 @@ const useBookingsStore = create((set, get) => ({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
+        keepalive: true,
       });
       if (res.ok) {
         const data = await res.json();
         if (data.success && data.booking) {
           get().fetchBookings();
+          return data.booking;
         }
       }
     } catch (err) {
       console.error('Failed to sync booking to server:', err);
     }
+    return newBooking;
   },
 
   updateBookingStatus: async (id, status) => {

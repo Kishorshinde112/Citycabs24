@@ -110,49 +110,97 @@ export default function Dashboard() {
     return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstall);
   }, []);
 
-  // Fetch on mount & Auto-polling every 10 seconds for new incoming leads
+  // Fetch on mount & Auto-polling with background wake-up detection
   useEffect(() => {
-    fetchBookings();
+    // Request screen wakeLock if supported so mobile dispatch screen doesn't turn off
+    let wakeLockSentinel = null;
+    const requestWakeLock = async () => {
+      try {
+        if ('wakeLock' in navigator && document.visibilityState === 'visible') {
+          wakeLockSentinel = await navigator.wakeLock.request('screen');
+        }
+      } catch (e) {}
+    };
+    requestWakeLock();
 
-    const interval = setInterval(async () => {
+    const getAlertedSet = () => {
+      try {
+        const stored = sessionStorage.getItem('citycabs_alerted_ids');
+        return new Set(stored ? JSON.parse(stored) : []);
+      } catch {
+        return new Set();
+      }
+    };
+
+    const markAlerted = (id) => {
+      try {
+        const set = getAlertedSet();
+        set.add(id);
+        sessionStorage.setItem('citycabs_alerted_ids', JSON.stringify([...set].slice(-100)));
+      } catch {}
+    };
+
+    const checkLeads = async () => {
       try {
         const res = await fetch('/api/bookings');
-        if (res.ok) {
-          const data = await res.json();
-          if (data.success && Array.isArray(data.bookings)) {
-            const currentList = data.bookings;
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!data.success || !Array.isArray(data.bookings)) return;
 
-            // Check if any new booking ID has arrived compared to our snapshot
-            if (previousBookingsRef.current !== null && previousBookingsRef.current.length > 0) {
-              const prevIds = new Set(previousBookingsRef.current.map((b) => b.id));
-              const newlyAdded = currentList.filter((b) => !prevIds.has(b.id));
+        const currentList = data.bookings;
+        const alerted = getAlertedSet();
 
-              if (newlyAdded.length > 0) {
-                // New lead arrived! Trigger alert chime & notification
-                const latest = newlyAdded[0];
-                triggerLeadNotification(latest);
-                setNewLeadBanner(latest);
-              }
-            }
+        if (previousBookingsRef.current !== null && previousBookingsRef.current.length > 0) {
+          const prevIds = new Set(previousBookingsRef.current.map((b) => b.id));
+          const newlyAdded = currentList.filter((b) => !prevIds.has(b.id) && !alerted.has(b.id));
 
-            previousBookingsRef.current = currentList;
-            useBookingsStore.setState({ bookings: currentList });
+          if (newlyAdded.length > 0) {
+            const latest = newlyAdded[0];
+            markAlerted(latest.id);
+            triggerLeadNotification(latest);
+            setNewLeadBanner(latest);
           }
+        } else {
+          // On first load, seed the alerted set with all existing IDs so they don't false-trigger
+          currentList.forEach((b) => alerted.add(b.id));
+          try {
+            sessionStorage.setItem('citycabs_alerted_ids', JSON.stringify([...alerted].slice(-100)));
+          } catch {}
         }
+
+        previousBookingsRef.current = currentList;
+        useBookingsStore.setState({ bookings: currentList });
       } catch (err) {
-        console.warn('Auto-polling background check:', err);
+        console.warn('Auto-polling lead check:', err);
       }
-    }, 10000);
+    };
 
-    return () => clearInterval(interval);
+    // Initial check
+    checkLeads();
+
+    // Auto-poll every 8 seconds
+    const interval = setInterval(checkLeads, 8000);
+
+    // Immediate check whenever user turns on screen, unlocks phone, or refocuses app
+    const handleWakeUp = () => {
+      if (document.visibilityState === 'visible') {
+        requestWakeLock();
+        checkLeads();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleWakeUp);
+    window.addEventListener('focus', handleWakeUp);
+
+    return () => {
+      clearInterval(interval);
+      document.removeEventListener('visibilitychange', handleWakeUp);
+      window.removeEventListener('focus', handleWakeUp);
+      if (wakeLockSentinel && wakeLockSentinel.release) {
+        wakeLockSentinel.release().catch(() => {});
+      }
+    };
   }, []);
-
-  // Sync ref when bookings change
-  useEffect(() => {
-    if (previousBookingsRef.current === null && bookings.length > 0) {
-      previousBookingsRef.current = bookings;
-    }
-  }, [bookings]);
 
   const handleToggleNotifications = async () => {
     const nextVal = !notifEnabled;

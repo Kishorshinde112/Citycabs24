@@ -25,7 +25,7 @@ export default function BookingContactForm() {
   });
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitted(true);
 
@@ -44,7 +44,11 @@ export default function BookingContactForm() {
     };
 
     // Save inquiry to Admin Dashboard & trigger n8n + email alert
-    addBooking(bookingPayload);
+    try {
+      await addBooking(bookingPayload);
+    } catch (err) {
+      console.warn('Booking submit error:', err);
+    }
 
     // Redirect to Booking Confirmed / Thank You page (Google Ads conversion tracked)
     navigate('/booking-confirmed', { state: bookingPayload });

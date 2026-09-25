@@ -81,9 +81,12 @@ if (checkBookings.count === 0) {
   );
 }
 
-// Email Notification Setup (Gmail SMTP)
+// Email Notification Setup (Gmail SMTP with connection pooling)
 const mailTransporter = nodemailer.createTransport({
   service: 'gmail',
+  pool: true,
+  maxConnections: 3,
+  maxMessages: 100,
   auth: {
     user: 'mykishorshinde@gmail.com',
     pass: 'fmawuuizjewkaftq',
@@ -207,7 +210,7 @@ async function sendN8nLeadAlert(booking) {
   for (const url of urls) {
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 4000);
+      const timeoutId = setTimeout(() => controller.abort(), 8000);
       const res = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
