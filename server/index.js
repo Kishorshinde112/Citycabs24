@@ -3,6 +3,7 @@ import { DatabaseSync } from 'node:sqlite';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
+import nodemailer from 'nodemailer';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -80,6 +81,115 @@ if (checkBookings.count === 0) {
   );
 }
 
+// Email Notification Setup (Gmail SMTP)
+const mailTransporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'mykishorshinde@gmail.com',
+    pass: 'fmawuuizjewkaftq',
+  },
+});
+
+async function sendLeadEmailNotification(booking) {
+  try {
+    let toEmail = 'mumbaicitycabs24@gmail.com';
+    try {
+      const emailSetting = db.prepare("SELECT value FROM settings WHERE key = 'email'").get();
+      if (emailSetting?.value) {
+        toEmail = emailSetting.value.trim();
+      }
+    } catch (e) {}
+
+    const cleanPhone = String(booking.phone || '').replace(/[^0-9]/g, '');
+    const phoneDisplay = booking.phone || 'N/A';
+    const customerName = booking.name || 'Customer';
+    const route = booking.route || 'Tour Inquiry';
+    const vehicle = booking.vehicle || 'Standard Cab';
+    const travelDate = booking.date || 'Flexible';
+    const bookingId = booking.id || 'N/A';
+    const createdAt = booking.createdAt || new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+    const htmlContent = `
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
+        <div style="background: linear-gradient(135deg, #09090b 0%, #1e1e24 100%); padding: 24px; text-align: center; border-bottom: 4px solid #f59e0b;">
+          <h1 style="color: #ffffff; margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.5px;">🚖 CityCabs<span style="color: #f59e0b;">24</span> - Nayi Booking Aayi!</h1>
+          <p style="color: #94a3b8; margin: 6px 0 0 0; font-size: 13px;">Live Lead Alert from Website</p>
+        </div>
+
+        <div style="padding: 24px 20px;">
+          <!-- Quick Call & WhatsApp Buttons -->
+          <div style="display: flex; gap: 10px; margin-bottom: 22px;">
+            <a href="tel:+91${cleanPhone}" style="flex: 1; background-color: #0f172a; color: #ffffff; text-decoration: none; padding: 14px 12px; border-radius: 12px; font-weight: 700; font-size: 14px; text-align: center; display: inline-block;">
+              📞 Call (+91 ${cleanPhone})
+            </a>
+            <a href="https://wa.me/91${cleanPhone}?text=Hello%20${encodeURIComponent(customerName)},%20regarding%20your%20CityCabs24%20booking%20${bookingId}" style="flex: 1; background-color: #10b981; color: #ffffff; text-decoration: none; padding: 14px 12px; border-radius: 12px; font-weight: 700; font-size: 14px; text-align: center; display: inline-block;">
+              💬 WhatsApp
+            </a>
+          </div>
+
+          <!-- Lead Details Table -->
+          <table style="width: 100%; border-collapse: collapse; font-size: 14px; margin-bottom: 20px;">
+            <tbody>
+              <tr style="border-bottom: 1px solid #f1f5f9;">
+                <td style="padding: 12px 8px; color: #64748b; font-weight: 600; width: 35%;">Customer Name</td>
+                <td style="padding: 12px 8px; color: #0f172a; font-weight: 800; font-size: 16px;">${customerName}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #f1f5f9;">
+                <td style="padding: 12px 8px; color: #64748b; font-weight: 600;">Phone Number</td>
+                <td style="padding: 12px 8px; color: #2563eb; font-weight: 800; font-size: 16px;">
+                  <a href="tel:+91${cleanPhone}" style="color: #2563eb; text-decoration: none;">+91 ${phoneDisplay}</a>
+                </td>
+              </tr>
+              <tr style="border-bottom: 1px solid #f1f5f9;">
+                <td style="padding: 12px 8px; color: #64748b; font-weight: 600;">Trip Route</td>
+                <td style="padding: 12px 8px; color: #0f172a; font-weight: 700;">${route}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #f1f5f9;">
+                <td style="padding: 12px 8px; color: #64748b; font-weight: 600;">Vehicle</td>
+                <td style="padding: 12px 8px; color: #0f172a; font-weight: 600;">${vehicle}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #f1f5f9;">
+                <td style="padding: 12px 8px; color: #64748b; font-weight: 600;">Travel Date</td>
+                <td style="padding: 12px 8px; color: #d97706; font-weight: 700;">📅 ${travelDate}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #f1f5f9;">
+                <td style="padding: 12px 8px; color: #64748b; font-weight: 600;">Booking ID</td>
+                <td style="padding: 12px 8px; color: #64748b; font-family: monospace;">${bookingId}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 8px; color: #64748b; font-weight: 600;">Received At</td>
+                <td style="padding: 12px 8px; color: #64748b; font-size: 12px;">${createdAt}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style="text-align: center; margin-top: 25px;">
+            <a href="https://citycabs24.com/admin" style="display: inline-block; background-color: #f59e0b; color: #000000; font-weight: 800; font-size: 13px; text-decoration: none; padding: 12px 24px; border-radius: 10px;">
+              Open Admin Dashboard ➔
+            </a>
+          </div>
+        </div>
+
+        <div style="background-color: #f8fafc; padding: 14px; text-align: center; font-size: 11px; color: #94a3b8; border-top: 1px solid #e2e8f0;">
+          CityCabs24 Live Dispatch Alert • Mumbai, Maharashtra
+        </div>
+      </div>
+    `;
+
+    const info = await mailTransporter.sendMail({
+      from: '"CityCabs24 Dispatch Alert" <mykishorshinde@gmail.com>',
+      to: toEmail,
+      subject: `🚖 [NEW BOOKING] ${customerName} - ${route} (📞 +91 ${cleanPhone})`,
+      text: `Nayi Booking Aayi!\n\nName: ${customerName}\nPhone: +91 ${phoneDisplay}\nRoute: ${route}\nVehicle: ${vehicle}\nTravel Date: ${travelDate}\nBooking ID: ${bookingId}\n\nCall: tel:+91${cleanPhone}\nWhatsApp: https://wa.me/91${cleanPhone}`,
+      html: htmlContent,
+    });
+
+    console.log(`✉️ [LEAD EMAIL SENT] Message ID: ${info.messageId} to ${toEmail}`);
+  } catch (err) {
+    console.error('❌ Failed to send lead email notification:', err.message);
+  }
+}
+
 // REST API Endpoints
 
 // 1. Settings Endpoints
@@ -155,12 +265,35 @@ app.post('/api/bookings', (req, res) => {
       stmt.run(id, name, phone, route, vehicle, date);
     }
 
+    // Send email alert asynchronously without blocking API response
+    sendLeadEmailNotification({ id, name, phone, route, vehicle, date, createdAt }).catch((e) => {
+      console.error('Async email notification error:', e.message);
+    });
+
     res.json({
       success: true,
       booking: { id, name, phone, route, vehicle, date, status: 'Pending', createdAt }
     });
   } catch (err) {
     console.error('❌ Error saving booking:', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// Test Email Endpoint
+app.post('/api/test-email', async (req, res) => {
+  try {
+    await sendLeadEmailNotification({
+      id: 'TEST-' + Math.floor(1000 + Math.random() * 9000),
+      name: 'Test Customer (Shahrukh)',
+      phone: '9769681690',
+      route: 'Mumbai Darshan (Test Alert)',
+      vehicle: 'Swift Dzire (Sedan)',
+      date: new Date().toISOString().slice(0, 10),
+      createdAt: new Date().toISOString().slice(0, 19).replace('T', ' ')
+    });
+    res.json({ success: true, message: 'Test lead email sent successfully to admin email!' });
+  } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
 });
