@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Phone, ArrowRight } from 'lucide-react';
 import useSettingsStore from '../store/settingsStore';
 import useContentStore from '../store/contentStore';
@@ -39,13 +40,13 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
 
         {/* Action Buttons */}
         <div className="pt-4 flex flex-wrap justify-center items-center gap-4">
-          <a
-            href="/mumbai-darshan"
+          <Link
+            to="/mumbai-darshan"
             className="px-7 py-3.5 rounded-xl bg-yellow-400 hover:bg-yellow-500 text-black font-extrabold text-sm shadow-xl shadow-yellow-400/20 transition transform hover:-translate-y-0.5 flex items-center gap-2"
           >
             <span>Explore Mumbai Tours</span>
             <ArrowRight className="w-4 h-4 text-black" />
-          </a>
+          </Link>
 
           <a
             href={`tel:+91${phone}`}

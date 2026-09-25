@@ -32,6 +32,7 @@ const rates = [
 export default function KonkanDarshanPage() {
   return (
     <TourDetailPage
+      slug="konkan-darshan"
       tourName="Konkan Darshan"
       subtitle="Coastal Paradise — Beaches, Forts & Seafood"
       heroImage="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80"

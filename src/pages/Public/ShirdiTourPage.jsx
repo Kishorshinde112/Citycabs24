@@ -29,6 +29,7 @@ const rates = [
 export default function ShirdiTourPage() {
   return (
     <TourDetailPage
+      slug="shirdi-tour"
       tourName="Shirdi Tour"
       subtitle="Spiritual Journey to Sai Baba's Abode"
       heroImage="https://images.unsplash.com/photo-1604946114042-dafac5b93cc4?auto=format&fit=crop&w=1920&q=80"

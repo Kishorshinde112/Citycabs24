@@ -32,6 +32,7 @@ const rates = [
 export default function LonavalaTripPage() {
   return (
     <TourDetailPage
+      slug="lonavala-trip"
       tourName="Lonavala Trip"
       subtitle="Weekend Gateway to the Sahyadri Hills"
       heroImage="https://images.unsplash.com/photo-1568824432553-9f7de742c24d?auto=format&fit=crop&w=1920&q=80"

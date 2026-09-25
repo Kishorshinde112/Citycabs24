@@ -6,15 +6,19 @@ import QuickBookModal from '../../components/QuickBookModal';
 import PrivacyModal from '../../components/PrivacyModal';
 import AutoEnquiryModal from '../../components/AutoEnquiryModal';
 import TourModal from '../../components/TourModal';
+import SEOHead from '../../components/SEOHead';
 import { Phone, Check, Sparkles, ArrowRight } from 'lucide-react';
 import useSettingsStore from '../../store/settingsStore';
 import useContentStore from '../../store/contentStore';
+import { TOURS_DATA } from '../../data/toursData';
+import { TOURS_SEO, getBreadcrumbSchema, getTouristTripSchema } from '../../utils/seoData';
 
 export default function MumbaiDarshanPage() {
   const { phone } = useSettingsStore();
   const { tours, siteImages } = useContentStore();
+  const localTour = TOURS_DATA.find(t => t.id === 'mumbai-darshan');
   const mumbaiTour = tours?.find(t => t.id === 'mumbai-darshan');
-  const heroBg = mumbaiTour?.banner || siteImages?.mumbaiHero || 'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1920&q=80';
+  const heroBg = localTour?.banner || mumbaiTour?.banner || siteImages?.mumbaiHero || 'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1920&q=80';
 
   const [bookModalOpen, setBookModalOpen] = useState(false);
   const [bookModalInitialData, setBookModalInitialData] = useState({});
@@ -22,11 +26,13 @@ export default function MumbaiDarshanPage() {
   const [autoEnquiryOpen, setAutoEnquiryOpen] = useState(false);
   const [selectedTour, setSelectedTour] = useState(null);
 
-  // Auto trigger enquiry modal after 4.5 seconds of user spending time on page
+  // Safe trigger enquiry modal once per session
   useEffect(() => {
+    if (typeof window !== 'undefined' && sessionStorage.getItem('enquiry_popup_shown')) return;
     const timer = setTimeout(() => {
       setAutoEnquiryOpen(true);
-    }, 4500);
+      if (typeof window !== 'undefined') sessionStorage.setItem('enquiry_popup_shown', 'true');
+    }, 7000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -81,8 +87,30 @@ export default function MumbaiDarshanPage() {
     { vehicle: "Crysta", h8: "₹3800", h10: "₹4500", h12: "₹5200", extra: "₹20/km\n₹200/hr" }
   ];
 
+  const seo = TOURS_SEO['mumbai-darshan'];
+  const breadcrumbs = getBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Tour Packages', url: '/tours' },
+    { name: 'Mumbai Darshan', url: '/mumbai-darshan' }
+  ]);
+  const tripSchema = getTouristTripSchema({
+    tourName: 'Mumbai Darshan Tour',
+    description: seo.description,
+    slug: 'mumbai-darshan',
+    banner: localTour?.banner || heroBg,
+    rates: ratesTable.map(r => ({ vehicle: r.vehicle, cols: [r.h8, r.h10, r.h12] })),
+    startingPrice: '₹2,499'
+  });
+
   return (
     <div className="min-h-screen bg-zinc-950 text-white font-sans flex flex-col pb-14 sm:pb-0">
+      <SEOHead
+        title={seo.title}
+        description={seo.description}
+        canonical="https://citycabs24.com/mumbai-darshan"
+        ogImage={localTour?.banner || heroBg}
+        schema={[breadcrumbs, tripSchema]}
+      />
       
       {/* Navigation */}
       <Navbar 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { 
   X, MapPin, Calendar, Clock, Car, Check, AlertCircle, 
   Phone, MessageCircle, Star, Sparkles, Shield, ChevronRight
@@ -46,7 +47,7 @@ export default function TourModal({ tour, onClose, onBookClick }) {
         <div className="relative h-64 sm:h-72 w-full bg-slate-900 overflow-hidden">
           <img
             src={tour.banner}
-            alt={tour.title}
+            alt={`${tour.title} - CityCabs24 tour package`}
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent"></div>
@@ -99,6 +100,15 @@ export default function TourModal({ tour, onClose, onBookClick }) {
             <p className="text-slate-700 text-sm sm:text-base leading-relaxed">
               {tour.shortDescription}
             </p>
+            <div className="pt-3">
+              <Link
+                to={`/${tour.slug || tour.id}`}
+                onClick={onClose}
+                className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-indigo-600 hover:text-indigo-800 transition"
+              >
+                <span>View Full Tour Page & Rate Card →</span>
+              </Link>
+            </div>
           </div>
 
           {/* Booking Packages & Duration Options */}

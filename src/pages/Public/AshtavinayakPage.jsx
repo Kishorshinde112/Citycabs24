@@ -32,6 +32,7 @@ const rates = [
 export default function AshtavinayakPage() {
   return (
     <TourDetailPage
+      slug="ashtavinayak"
       tourName="Ashtavinayak"
       subtitle="Spiritual Trail of Lord Ganesha"
       heroImage="https://images.unsplash.com/photo-1546961342-ea5f62d951f0?auto=format&fit=crop&w=1920&q=80"

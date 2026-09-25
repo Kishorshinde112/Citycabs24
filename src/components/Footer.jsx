@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Car, Phone, Mail, MapPin, MessageCircle, Heart, Shield, Sparkles } from 'lucide-react';
 import { TOURS_DATA } from '../data/toursData';
 import useSettingsStore from '../store/settingsStore';
@@ -40,14 +41,14 @@ export default function Footer({ onOpenPrivacyModal, onSelectTour }) {
               Popular Tour Packages
             </h4>
             <ul className="space-y-2 text-xs">
-              {TOURS_DATA.slice(0, 6).map((tour) => (
+              {TOURS_DATA.map((tour) => (
                 <li key={tour.id}>
-                  <button
-                    onClick={() => onSelectTour(tour)}
-                    className="text-zinc-400 hover:text-yellow-400 transition text-left"
+                  <Link
+                    to={`/${tour.slug || tour.id}`}
+                    className="text-zinc-400 hover:text-yellow-400 transition text-left block"
                   >
                     • {tour.title}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -59,15 +60,15 @@ export default function Footer({ onOpenPrivacyModal, onSelectTour }) {
               Quick Links
             </h4>
             <ul className="space-y-2 text-xs text-zinc-400">
-              <li><a href="/" className="hover:text-yellow-400 transition">Home</a></li>
-              <li><a href="/mumbai-darshan" className="hover:text-yellow-400 transition">Mumbai Darshan Cabs</a></li>
-              <li><a href="/#tours" className="hover:text-yellow-400 transition">Tour Packages</a></li>
+              <li><Link to="/" className="hover:text-yellow-400 transition">Home</Link></li>
+              <li><Link to="/mumbai-darshan" className="hover:text-yellow-400 transition">Mumbai Darshan Cabs</Link></li>
+              <li><Link to="/tours" className="hover:text-yellow-400 transition">All Tour Packages</Link></li>
               <li><a href="/#fleet" className="hover:text-yellow-400 transition">Our Cab Fleet</a></li>
               <li><a href="/#why-us" className="hover:text-yellow-400 transition">Why Choose Us</a></li>
               <li><a href="/#gallery" className="hover:text-yellow-400 transition">Tour Gallery</a></li>
               <li><a href="/#about" className="hover:text-yellow-400 transition">About Us</a></li>
               <li>
-                <button onClick={onOpenPrivacyModal} className="hover:text-yellow-400 transition">
+                <button onClick={onOpenPrivacyModal} className="hover:text-yellow-400 transition cursor-pointer">
                   Privacy Policy & Terms
                 </button>
               </li>

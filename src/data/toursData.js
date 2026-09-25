@@ -1,6 +1,7 @@
 export const TOURS_DATA = [
   {
     id: "mumbai-darshan",
+    slug: "mumbai-darshan",
     title: "Mumbai Darshan",
     category: "City Sightseeing",
     duration: "1 Day (8h/80km, 10h/100km, 12h/120km)",
@@ -46,6 +47,7 @@ export const TOURS_DATA = [
   },
   {
     id: "lonavala-trip",
+    slug: "lonavala-trip",
     title: "Lonavala & Khandala Weekend Getaway",
     category: "Hill Station",
     duration: "1 Day / 2 Days Tour",
@@ -87,6 +89,7 @@ export const TOURS_DATA = [
   },
   {
     id: "alibaug-sightseeing",
+    slug: "alibaug-sightseeing",
     title: "Alibaug Coastal Sightseeing",
     category: "Coastal & Beach",
     duration: "1 Day / 2 Days Tour",
@@ -127,6 +130,7 @@ export const TOURS_DATA = [
   },
   {
     id: "matheran-sightseeing",
+    slug: "matheran-sightseeing",
     title: "Matheran Hill Station Tour",
     category: "Hill Station",
     duration: "1 Day / 2 Days Tour",
@@ -167,6 +171,7 @@ export const TOURS_DATA = [
   },
   {
     id: "shirdi-tour",
+    slug: "shirdi-tour",
     title: "Shirdi Spiritual Pilgrimage Tour",
     category: "Spiritual & Pilgrimage",
     duration: "1 Day / 2 Days Tour",
@@ -206,6 +211,7 @@ export const TOURS_DATA = [
   },
   {
     id: "mahabaleshwar-sightseeing",
+    slug: "mahabaleshwar-sightseeing",
     title: "Mahabaleshwar & Panchgani Holiday",
     category: "Hill Station",
     duration: "2 Days / 3 Days Tour",
@@ -246,6 +252,7 @@ export const TOURS_DATA = [
   },
   {
     id: "igatpuri-tour",
+    slug: "igatpuri-tour",
     title: "Igatpuri Nature & Waterfall Tour",
     category: "Hill Station",
     duration: "1 Day / 2 Days Tour",
@@ -284,6 +291,7 @@ export const TOURS_DATA = [
   },
   {
     id: "ashtavinayak",
+    slug: "ashtavinayak",
     title: "Ashtavinayak Sacred 8 Ganpati Yatra",
     category: "Spiritual & Pilgrimage",
     duration: "3 Days / 4 Days Tour",
@@ -323,6 +331,7 @@ export const TOURS_DATA = [
   },
   {
     id: "jyotirlinga-maharashtra",
+    slug: "3-jyotirlinga-in-maharashtra",
     title: "3 Jyotirlinga in Maharashtra",
     category: "Spiritual & Pilgrimage",
     duration: "2 Days / 3 Days Tour",
@@ -361,6 +370,7 @@ export const TOURS_DATA = [
   },
   {
     id: "konkan-darshan",
+    slug: "konkan-darshan",
     title: "Grand Konkan Coastal Tour",
     category: "Coastal & Beach",
     duration: "3 Days / 4 Days Tour",

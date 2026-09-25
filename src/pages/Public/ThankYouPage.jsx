@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { CheckCircle2, Phone, MessageCircle, Home, CalendarCheck, Car, MapPin, User, Sparkles } from 'lucide-react';
 import useSettingsStore from '../../store/settingsStore';
+import SEOHead from '../../components/SEOHead';
 
 export default function ThankYouPage() {
   const location = useLocation();
@@ -30,6 +31,10 @@ export default function ThankYouPage() {
 
   return (
     <div className="min-h-screen bg-zinc-950 flex flex-col items-center justify-center px-4 py-12 relative overflow-hidden">
+      <SEOHead
+        title="Booking Confirmed | CityCabs24"
+        noindex={true}
+      />
 
       {/* Background glow */}
       <div className="absolute inset-0 pointer-events-none">

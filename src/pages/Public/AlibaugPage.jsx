@@ -32,6 +32,7 @@ const rates = [
 export default function AlibaugPage() {
   return (
     <TourDetailPage
+      slug="alibaug-sightseeing"
       tourName="Alibaug Sightseeing"
       subtitle="Coastal Charm — Beaches, Sea Forts & Seafood"
       heroImage="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80"

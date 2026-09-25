@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowRight, MapPin } from 'lucide-react';
 import useContentStore from '../store/contentStore';
 
@@ -41,27 +42,20 @@ export default function TourPackages({ onSelectTour, showMumbaiOnly = false }) {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
           {displayTours.map((tour) => {
             const badgeTag = tourBadges[tour.id] || tour.category;
-            const targetUrl = tour.id === 'mumbai-darshan' ? '/mumbai-darshan' : `/#contact`;
+            const tourSlug = tour.slug || tour.id;
 
             return (
-              <div
+              <Link
                 key={tour.id}
                 id={`tour-${tour.id}`}
-                onClick={() => {
-                  if (tour.id === 'mumbai-darshan') {
-                    window.location.href = '/mumbai-darshan';
-                  } else {
-                    onSelectTour(tour);
-                  }
-                }}
+                to={`/${tourSlug}`}
                 className="group scroll-mt-24 bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-yellow-400/50 shadow-lg transition-all duration-300 flex flex-col cursor-pointer"
               >
-                
                 {/* Tour Image Container with Badge */}
                 <div className="relative h-56 w-full overflow-hidden bg-black">
                   <img
                     src={tour.banner}
-                    alt={tour.title}
+                    alt={`${tour.title} - CityCabs24 tour package`}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
@@ -90,32 +84,17 @@ export default function TourPackages({ onSelectTour, showMumbaiOnly = false }) {
 
                   {/* Learn More Link */}
                   <div className="pt-2">
-                    {tour.id === 'mumbai-darshan' ? (
-                      <a
-                        href="/mumbai-darshan"
-                        className="inline-flex items-center gap-1.5 text-xs font-extrabold text-yellow-400 hover:text-yellow-300 group-hover:translate-x-1 transition"
-                      >
-                        <span>Learn More</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </a>
-                    ) : (
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onSelectTour(tour);
-                        }}
-                        className="inline-flex items-center gap-1.5 text-xs font-extrabold text-yellow-400 hover:text-yellow-300 group-hover:translate-x-1 transition cursor-pointer"
-                      >
-                        <span>Learn More</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </button>
-                    )}
+                    <span
+                      className="inline-flex items-center gap-1.5 text-xs font-extrabold text-yellow-400 hover:text-yellow-300 group-hover:translate-x-1 transition"
+                    >
+                      <span>Learn More</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </span>
                   </div>
 
                 </div>
 
-              </div>
+              </Link>
             );
           })}
         </div>

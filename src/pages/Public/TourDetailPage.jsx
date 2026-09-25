@@ -6,12 +6,16 @@ import QuickBookModal from '../../components/QuickBookModal';
 import PrivacyModal from '../../components/PrivacyModal';
 import AutoEnquiryModal from '../../components/AutoEnquiryModal';
 import TourModal from '../../components/TourModal';
+import SEOHead from '../../components/SEOHead';
 import { Phone, Check, Sparkles, ArrowRight } from 'lucide-react';
 import useSettingsStore from '../../store/settingsStore';
 import useContentStore from '../../store/contentStore';
+import { TOURS_DATA } from '../../data/toursData';
+import { TOURS_SEO, getBreadcrumbSchema, getTouristTripSchema } from '../../utils/seoData';
 
 export default function TourDetailPage({
   tourId,
+  slug,
   tourName,
   subtitle,
   heroImage,
@@ -26,14 +30,49 @@ export default function TourDetailPage({
   const { phone } = useSettingsStore();
   const { tours } = useContentStore();
 
-  const matchedTour = tours?.find(t =>
-    (tourId && t.id === tourId) ||
+  const localTour = TOURS_DATA.find(t =>
+    (slug && t.slug === slug) ||
+    (tourId && (t.id === tourId || t.slug === tourId)) ||
     (t.title && tourName && (
       t.title.toLowerCase().includes(tourName.toLowerCase()) ||
       tourName.toLowerCase().includes(t.title.toLowerCase())
     ))
   );
-  const displayHeroImage = matchedTour?.banner || heroImage;
+
+  const effectiveSlug = slug || localTour?.slug || localTour?.id || tourId || (tourName ? tourName.toLowerCase().replace(/[^a-z0-9]+/g, '-') : '');
+
+  const matchedTour = tours?.find(t =>
+    (tourId && (t.id === tourId || t.slug === tourId)) ||
+    (effectiveSlug && (t.id === effectiveSlug || t.slug === effectiveSlug)) ||
+    (t.title && tourName && (
+      t.title.toLowerCase().includes(tourName.toLowerCase()) ||
+      tourName.toLowerCase().includes(t.title.toLowerCase())
+    ))
+  );
+
+  // Use real local banner image as primary source, keeping Unsplash only as last-resort fallback
+  const displayHeroImage = localTour?.banner || matchedTour?.banner || heroImage;
+
+  const seo = TOURS_SEO[effectiveSlug] || {
+    title: `${tourName} Cab Service from Mumbai | CityCabs24`,
+    description: description ? `${description.slice(0, 140)}... Call +91 ${phone} for doorstep pickup.` : `Book ${tourName} cab with expert guide drivers from Mumbai. Doorstep pickup, transparent fares & 24/7 service. Call +91 ${phone}!`,
+    canonical: `https://citycabs24.com/${effectiveSlug}`,
+  };
+
+  const breadcrumbs = getBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Tour Packages', url: '/tours' },
+    { name: tourName, url: `/${effectiveSlug}` }
+  ]);
+
+  const tripSchema = getTouristTripSchema({
+    tourName,
+    description: description || seo.description,
+    slug: effectiveSlug,
+    banner: displayHeroImage,
+    rates,
+    startingPrice: localTour?.startingPrice
+  });
 
   const [bookModalOpen, setBookModalOpen] = useState(false);
   const [bookModalInitialData, setBookModalInitialData] = useState({});
@@ -42,7 +81,11 @@ export default function TourDetailPage({
   const [selectedTour, setSelectedTour] = useState(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => setAutoEnquiryOpen(true), 5000);
+    if (typeof window !== 'undefined' && sessionStorage.getItem('enquiry_popup_shown')) return;
+    const timer = setTimeout(() => {
+      setAutoEnquiryOpen(true);
+      if (typeof window !== 'undefined') sessionStorage.setItem('enquiry_popup_shown', 'true');
+    }, 7000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -53,6 +96,13 @@ export default function TourDetailPage({
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white font-sans flex flex-col pb-14 sm:pb-0">
+      <SEOHead
+        title={seo.title}
+        description={seo.description}
+        canonical={seo.canonical}
+        ogImage={displayHeroImage}
+        schema={[breadcrumbs, tripSchema]}
+      />
       <Navbar
         onOpenBookModal={() => handleOpenBookModal()}
         onSelectTour={(tour) => setSelectedTour(tour)}
@@ -60,7 +110,7 @@ export default function TourDetailPage({
       <main className="flex-1">
         {/* Hero */}
         <section className="relative h-[300px] md:h-[420px] overflow-hidden">
-          <img src={displayHeroImage} alt={tourName} className="w-full h-full object-cover" />
+          <img src={displayHeroImage} alt={`${tourName} - CityCabs24 tour package`} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-black/55 flex flex-col items-center justify-center text-center px-4 space-y-3">
             <h1 className="text-4xl sm:text-5xl font-extrabold text-white drop-shadow-lg">{tourName}</h1>
             {subtitle && <p className="text-lg sm:text-2xl text-zinc-200 font-medium max-w-2xl">{subtitle}</p>}

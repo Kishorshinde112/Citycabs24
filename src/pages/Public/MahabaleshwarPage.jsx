@@ -33,6 +33,7 @@ const rates = [
 export default function MahabaleshwarPage() {
   return (
     <TourDetailPage
+      slug="mahabaleshwar-sightseeing"
       tourName="Mahabaleshwar Sightseeing"
       subtitle="Queen of Hill Stations — Scenic Beauty & Cool Breeze"
       heroImage="https://images.unsplash.com/photo-1545158535-c3f7168c28b6?auto=format&fit=crop&w=1920&q=80"

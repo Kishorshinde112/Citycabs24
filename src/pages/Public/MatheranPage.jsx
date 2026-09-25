@@ -33,6 +33,7 @@ const rates = [
 export default function MatheranPage() {
   return (
     <TourDetailPage
+      slug="matheran-sightseeing"
       tourName="Matheran Sightseeing"
       subtitle="India's Only No-Vehicle Hill Station"
       heroImage="https://images.unsplash.com/photo-1605640840605-14ac1855827b?auto=format&fit=crop&w=1920&q=80"

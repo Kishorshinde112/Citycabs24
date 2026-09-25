@@ -29,6 +29,7 @@ const rates = [
 export default function JyotirlingaPage() {
   return (
     <TourDetailPage
+      slug="3-jyotirlinga-in-maharashtra"
       tourName="3 Jyotirlinga in Maharashtra"
       subtitle="Sacred Pilgrimage — Trimbakeshwar, Bhimashankar & Grishneshwar"
       heroImage="https://images.unsplash.com/photo-1561361058-c24cecae35ca?auto=format&fit=crop&w=1920&q=80"

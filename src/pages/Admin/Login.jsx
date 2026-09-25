@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Lock, Mail, ArrowRight, AlertCircle } from 'lucide-react';
 import logoImg from '../../assets/citycabs24-logo.png';
+import SEOHead from '../../components/SEOHead';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -28,6 +29,10 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-slate-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
+      <SEOHead
+        title="Admin Login | CityCabs24"
+        noindex={true}
+      />
       {/* Background ambient glow */}
       <div className="absolute -top-40 -left-40 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />

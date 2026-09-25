@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Agentation } from 'agentation';
 import Home from './pages/Home';
 import ToursPage from './pages/Public/ToursPage';
 import MumbaiDarshanPage from './pages/Public/MumbaiDarshanPage';
@@ -34,9 +35,12 @@ function GoogleAdsTracker() {
 }
 
 export default function App() {
+  const isDev = import.meta.env.DEV || (typeof process !== 'undefined' && process.env?.NODE_ENV === 'development');
+
   return (
-    <BrowserRouter>
-      <GoogleAdsTracker />
+    <>
+      <BrowserRouter>
+        <GoogleAdsTracker />
       <Routes>
         {/* Public Website */}
         <Route path="/" element={<Home />} />
@@ -70,5 +74,7 @@ export default function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
+    {isDev && <Agentation />}
+  </>
   );
 }

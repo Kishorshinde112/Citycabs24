@@ -34,6 +34,7 @@ const rates = [
 export default function IgatpuriTourPage() {
   return (
     <TourDetailPage
+      slug="igatpuri-tour"
       tourName="Igatpuri Tour"
       subtitle="Hills, Waterfalls & Dams"
       heroImage="https://images.unsplash.com/photo-1565043666747-69f6646db940?auto=format&fit=crop&w=1920&q=80"

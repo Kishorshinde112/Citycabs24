@@ -4,6 +4,7 @@ import { LayoutDashboard, Settings as SettingsIcon, LogOut, Car, Menu, X, Extern
 import useSettingsStore from '../../store/settingsStore';
 import logoImg from '../../assets/citycabs24-logo.png';
 import { isNotificationEnabled, setNotificationEnabled, playChimeSound, requestNotificationPermission } from '../../utils/notificationAudio';
+import SEOHead from '../../components/SEOHead';
 
 export default function AdminLayout() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -36,14 +37,14 @@ export default function AdminLayout() {
       {/* Brand Header */}
       <div className="p-5 flex items-center justify-between border-b border-slate-800">
         <Link to="/admin" className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full overflow-hidden border border-indigo-400/40 p-0.5 shadow-md bg-white flex items-center justify-center">
+          <div className="w-10 h-10 rounded-full overflow-hidden border border-amber-400/40 p-0.5 shadow-md bg-white flex items-center justify-center">
             <img src={logoImg} alt="CityCabs24 Logo" className="w-full h-full object-contain" />
           </div>
           <div>
             <div className="font-display font-black text-lg tracking-tight text-white leading-tight">
-              CityCabs<span className="text-indigo-400">24</span>
+              CityCabs<span className="text-amber-400">24</span>
             </div>
-            <div className="text-[10px] uppercase tracking-wider font-bold text-indigo-500/90">
+            <div className="text-[10px] uppercase tracking-wider font-bold text-amber-400/90">
               Admin Console
             </div>
           </div>
@@ -68,7 +69,7 @@ export default function AdminLayout() {
           className={({ isActive }) =>
             `flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
               isActive
-                ? 'bg-indigo-500 text-slate-950 shadow-md shadow-indigo-500/20'
+                ? 'bg-amber-400 text-slate-950 font-bold shadow-md shadow-amber-400/20'
                 : 'text-slate-300 hover:bg-slate-800 hover:text-white'
             }`
           }
@@ -83,7 +84,7 @@ export default function AdminLayout() {
           className={({ isActive }) =>
             `flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
               isActive
-                ? 'bg-indigo-500 text-slate-950 shadow-md shadow-indigo-500/20'
+                ? 'bg-amber-400 text-slate-950 font-bold shadow-md shadow-amber-400/20'
                 : 'text-slate-300 hover:bg-slate-800 hover:text-white'
             }`
           }
@@ -98,7 +99,7 @@ export default function AdminLayout() {
           className={({ isActive }) =>
             `flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
               isActive
-                ? 'bg-indigo-500 text-slate-950 shadow-md shadow-indigo-500/20'
+                ? 'bg-amber-400 text-slate-950 font-bold shadow-md shadow-amber-400/20'
                 : 'text-slate-300 hover:bg-slate-800 hover:text-white'
             }`
           }
@@ -106,29 +107,30 @@ export default function AdminLayout() {
           <SettingsIcon className="w-4 h-4" />
           Contact & Site Settings
         </NavLink>
+      </nav>
 
-        <div className="pt-6 pb-2 px-3 text-[10px] uppercase font-bold tracking-wider text-slate-400">
-          Public Site
-        </div>
+      {/* Bottom Area: Open Website, Support Info & Logout */}
+      <div className="p-4 border-t border-slate-800 space-y-3">
+        {/* Open Public Website Link (Repositioned to bottom) */}
         <a
           href="/"
           target="_blank"
           rel="noreferrer"
-          className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition"
+          className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold bg-slate-800/80 hover:bg-slate-800 text-slate-200 hover:text-white transition border border-slate-700/60 group shadow-sm"
         >
-          <span className="flex items-center gap-3">
-            <ExternalLink className="w-4 h-4 text-indigo-400" />
-            Open Website
+          <span className="flex items-center gap-2.5">
+            <ExternalLink className="w-4 h-4 text-amber-400 group-hover:rotate-12 transition-transform duration-200" />
+            <span>Open Public Website</span>
           </span>
-          <span className="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-slate-400">Live</span>
+          <span className="text-[10px] bg-amber-400/10 text-amber-400 border border-amber-400/30 px-2 py-0.5 rounded-full font-bold flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            Live
+          </span>
         </a>
-      </nav>
 
-      {/* Support Info & Logout */}
-      <div className="p-4 border-t border-slate-800 space-y-3">
         <div className="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-xs">
-          <div className="text-slate-400 text-[11px]">Admin Help & Support Line:</div>
-          <a href={`tel:+91${helpPhone || '8380803217'}`} className="font-bold text-indigo-400 mt-0.5 block hover:underline">
+          <div className="text-slate-400 text-[11px] font-medium">Admin Help & Support:</div>
+          <a href={`tel:+91${helpPhone || '8380803217'}`} className="font-bold text-amber-400 mt-0.5 block hover:underline">
             +91 {helpPhone || '8380803217'}
           </a>
           <a
@@ -142,7 +144,7 @@ export default function AdminLayout() {
         </div>
         <button
           onClick={handleLogout}
-          className="flex items-center justify-center gap-2.5 w-full px-3.5 py-2.5 text-red-400 hover:bg-red-500/10 hover:text-red-300 rounded-xl text-sm font-semibold transition border border-red-500/20"
+          className="flex items-center justify-center gap-2.5 w-full px-3.5 py-2.5 text-red-400 hover:bg-red-500/10 hover:text-red-300 rounded-xl text-sm font-semibold transition border border-red-500/20 cursor-pointer"
         >
           <LogOut className="w-4 h-4" />
           Sign Out
@@ -153,6 +155,10 @@ export default function AdminLayout() {
 
   return (
     <div className="flex h-screen bg-slate-100 font-sans">
+      <SEOHead
+        title="Admin Console | CityCabs24"
+        noindex={true}
+      />
       {/* Mobile Drawer Backdrop */}
       {mobileOpen && (
         <div
@@ -212,7 +218,7 @@ export default function AdminLayout() {
             </button>
 
             <div className="flex items-center gap-2.5 pl-3 border-l border-slate-200">
-              <div className="w-9 h-9 rounded-xl bg-indigo-500 text-slate-950 flex items-center justify-center font-bold text-sm shadow-sm">
+              <div className="w-9 h-9 rounded-xl bg-amber-400 text-slate-950 flex items-center justify-center font-black text-sm shadow-sm">
                 A
               </div>
               <div className="hidden sm:block text-left">

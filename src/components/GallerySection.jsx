@@ -33,7 +33,7 @@ export default function GallerySection() {
             >
               <img
                 src={item.image}
-                alt={item.title}
+                alt={`${item.title} - CityCabs24 sightseeing tour`}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 loading="lazy"
               />
@@ -59,7 +59,7 @@ export default function GallerySection() {
               <div className="max-h-[75vh] flex items-center justify-center bg-black">
                 <img
                   src={selectedImage.image}
-                  alt={selectedImage.title}
+                  alt={`${selectedImage.title} - CityCabs24 sightseeing tour`}
                   className="max-h-[75vh] w-auto object-contain"
                 />
               </div>

@@ -16,9 +16,13 @@ import FloatingActions from '../components/FloatingActions';
 import QuickBookModal from '../components/QuickBookModal';
 import PrivacyModal from '../components/PrivacyModal';
 import AutoEnquiryModal from '../components/AutoEnquiryModal';
+import SEOHead from '../components/SEOHead';
 import { TOURS_DATA } from '../data/toursData';
+import useSettingsStore from '../store/settingsStore';
+import { DEFAULT_SEO, getLocalBusinessSchema, getFaqSchema } from '../utils/seoData';
 
 export default function Home() {
+  const { phone } = useSettingsStore();
   const [selectedTour, setSelectedTour] = useState(null);
   const [bookModalOpen, setBookModalOpen] = useState(false);
   const [bookModalInitialData, setBookModalInitialData] = useState({});
@@ -41,11 +45,13 @@ export default function Home() {
     }
   }, []);
 
-  // Auto trigger enquiry modal after 5.5 seconds of user spending time on page
+  // Trigger enquiry modal once per session after user spends time on page
   useEffect(() => {
+    if (typeof window !== 'undefined' && sessionStorage.getItem('enquiry_popup_shown')) return;
     const timer = setTimeout(() => {
       setAutoEnquiryOpen(true);
-    }, 5500);
+      if (typeof window !== 'undefined') sessionStorage.setItem('enquiry_popup_shown', 'true');
+    }, 7000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -57,6 +63,13 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white font-sans flex flex-col selection:bg-yellow-400 selection:text-black pb-14 sm:pb-0">
+      <SEOHead
+        title={DEFAULT_SEO.title}
+        description={DEFAULT_SEO.description}
+        canonical="/"
+        ogImage="/logo.png"
+        schema={[getLocalBusinessSchema(phone), getFaqSchema()]}
+      />
 
       {/* Top Navigation */}
       <Navbar 

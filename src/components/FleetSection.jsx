@@ -45,7 +45,7 @@ export default function FleetSection({ onOpenBookModal }) {
                   {car.image ? (
                     <img
                       src={car.image}
-                      alt={car.name}
+                      alt={`${car.name} cab for Mumbai outstation tour - CityCabs24`}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                     />
