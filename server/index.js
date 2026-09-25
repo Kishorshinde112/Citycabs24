@@ -99,9 +99,23 @@ async function sendLeadEmailNotification(booking) {
     const customerName = booking.name || 'Customer';
     const route = booking.route || 'Tour Inquiry';
     const vehicle = booking.vehicle || 'Standard Cab';
-    const travelDate = booking.date || 'Flexible';
+    const travelDate = booking.date || booking.travelDate || 'Flexible';
     const bookingId = booking.id || 'N/A';
-    const createdAt = booking.createdAt || new Date().toISOString().slice(0, 19).replace('T', ' ');
+    let istTime;
+    try {
+      istTime = new Date().toLocaleString('en-IN', {
+        timeZone: 'Asia/Kolkata',
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+      });
+    } catch {
+      istTime = new Date().toISOString();
+    }
+    const createdAt = istTime;
 
     const htmlContent = `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
@@ -268,7 +282,7 @@ app.post('/api/bookings', (req, res) => {
     const vehicle = String(req.body.vehicle || req.body.carType || req.body.carPreference || 'Standard Cab').trim();
     const date = String(req.body.date || req.body.travelDate || req.body.pickupDate || new Date().toISOString().slice(0, 10)).trim();
     const id = req.body.id || ('BK-' + Math.floor(100000 + Math.random() * 900000));
-    const createdAt = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    const createdAt = new Date().toISOString();
 
     console.log(`📥 [NEW BOOKING RECEIVED] ID: ${id} | Name: "${name}" | Phone: "${phone}" | Route: "${route}" | Vehicle: "${vehicle}" | Date: "${date}"`);
 

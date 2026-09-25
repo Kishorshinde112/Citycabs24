@@ -31,7 +31,7 @@ const useBookingsStore = create((set, get) => ({
       vehicle: bookingData.vehicle || bookingData.carType || 'Standard Cab',
       date: bookingData.date || new Date().toISOString().slice(0, 10),
       status: 'Pending',
-      created_at: new Date().toISOString().slice(0, 19).replace('T', ' ')
+      created_at: new Date().toISOString()
     };
 
     // Optimistic UI update

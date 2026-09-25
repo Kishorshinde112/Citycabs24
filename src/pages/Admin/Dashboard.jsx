@@ -14,16 +14,54 @@ import {
   requestNotificationPermission 
 } from '../../utils/notificationAudio';
 
+// Helper function to safely parse server UTC timestamps into local Date
+function parseLeadDate(timestamp) {
+  if (!timestamp) return null;
+  let str = String(timestamp).trim();
+  if (!str) return null;
+  
+  // Convert "YYYY-MM-DD HH:mm:ss" to ISO
+  if (str.includes(' ') && !str.includes('T')) {
+    str = str.replace(' ', 'T');
+  }
+  
+  // If stored without timezone offset, treat it as UTC (append 'Z')
+  if (!str.endsWith('Z') && !/[+-]\d{2}(:\d{2})?$/.test(str)) {
+    str += 'Z';
+  }
+  
+  const d = new Date(str);
+  return isNaN(d.getTime()) ? null : d;
+}
+
+// Format full timestamp into Indian Standard Time (IST)
+function formatToIST(timestamp) {
+  const d = parseLeadDate(timestamp);
+  if (!d) return timestamp || 'Just now';
+  try {
+    return d.toLocaleString('en-IN', {
+      timeZone: 'Asia/Kolkata',
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    });
+  } catch (e) {
+    return d.toLocaleString();
+  }
+}
+
 // Helper function to calculate relative elapsed time
 function getRelativeTime(timestamp) {
-  if (!timestamp) return 'Just now';
-  const isoStr = timestamp.includes('T') ? timestamp : timestamp.replace(' ', 'T');
-  const date = new Date(isoStr);
-  if (isNaN(date.getTime())) return timestamp;
+  const date = parseLeadDate(timestamp);
+  if (!date) return 'Just now';
   
   const now = new Date();
   const diffSec = Math.floor((now - date) / 1000);
   
+  if (diffSec < 0) return 'Just now';
   if (diffSec < 45) return 'Just now';
   if (diffSec < 90) return '1 min ago';
   if (diffSec < 3600) return `${Math.floor(diffSec / 60)} mins ago`;
@@ -32,15 +70,13 @@ function getRelativeTime(timestamp) {
   if (diffSec < 172800) return 'Yesterday';
   const days = Math.floor(diffSec / 86400);
   if (days < 30) return `${days} days ago`;
-  return date.toLocaleDateString();
+  return formatToIST(timestamp);
 }
 
 // Helper to determine if lead arrived within last 45 minutes
 function isLeadRecent(timestamp) {
-  if (!timestamp) return false;
-  const isoStr = timestamp.includes('T') ? timestamp : timestamp.replace(' ', 'T');
-  const date = new Date(isoStr);
-  if (isNaN(date.getTime())) return false;
+  const date = parseLeadDate(timestamp);
+  if (!date) return false;
   const diffMinutes = (Date.now() - date.getTime()) / (1000 * 60);
   return diffMinutes >= 0 && diffMinutes <= 45;
 }
@@ -202,7 +238,7 @@ export default function Dashboard() {
       `• *Route:* ${booking.route || booking.tourName || 'Tour'}\n` +
       `• *Vehicle:* ${booking.vehicle || booking.carType || 'Standard'}\n` +
       `• *Travel Date:* ${booking.date || booking.travelDate || 'Flexible'}\n` +
-      `• *Booked:* ${booking.created_at || booking.createdAt || 'Just now'} (${getRelativeTime(booking.created_at || booking.createdAt)})\n` +
+      `• *Booked:* ${formatToIST(booking.created_at || booking.createdAt)} (${getRelativeTime(booking.created_at || booking.createdAt)})\n` +
       `• *Status:* ${booking.status || 'Pending'}`;
 
     navigator.clipboard.writeText(text);
@@ -570,9 +606,9 @@ export default function Dashboard() {
                           </span>
                         </div>
 
-                        {/* Full Timestamp */}
+                        {/* Full Timestamp in IST */}
                         <div className="text-[11px] text-slate-400 font-medium mt-0.5 font-mono">
-                          {timestamp || 'Just now'}
+                          {formatToIST(timestamp)}
                         </div>
                       </td>
 
