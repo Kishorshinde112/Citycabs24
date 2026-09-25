@@ -1,0 +1,25 @@
+{
+  "short_name": "CityCabs Admin",
+  "name": "CityCabs24 Admin Console",
+  "description": "Real-time Customer Leads, Bookings & Inquiries Manager for CityCabs24",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/admin",
+  "scope": "/",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
+  "display": "standalone",
+  "orientation": "portrait"
+}
