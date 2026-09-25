@@ -1,0 +1,101 @@
+{
+  "name": "CityCabs24 - Instant Lead Alert Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "citycabs24-lead",
+        "responseMode": "onReceived",
+        "responseData": "allEntries",
+        "options": {}
+      },
+      "id": "webhook-lead",
+      "name": "CityCabs Lead Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        220,
+        300
+      ],
+      "webhookId": "citycabs24-lead"
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst item = $input.first().json;\nconst body = item.body || item;\n\nconst cleanPhone = String(body.phone || '').replace(/[^0-9]/g, '');\nconst phoneDisplay = body.phone || 'N/A';\nconst customerName = body.name || 'Customer';\nconst route = body.route || 'Tour Inquiry';\nconst vehicle = body.vehicle || 'Standard Cab / Tour Vehicle';\nconst travelDate = body.date || 'Flexible';\nconst travelTime = body.time || '';\nconst pickup = body.pickup || '';\nconst drop = body.drop || '';\nconst passengers = body.passengers || '1';\nconst bookingId = body.id || ('BK-' + Math.floor(100000 + Math.random() * 900000));\nconst createdAt = body.createdAt || new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });\n\nconst waLink = cleanPhone ? 'https://wa.me/91' + cleanPhone + '?text=' + encodeURIComponent('Hello ' + customerName + ', thank you for contacting CityCabs24 regarding ' + route + ' (' + bookingId + '). How can we assist you?') : '';\n\nlet msg = '\ud83d\ude96 *CityCabs24 - NEW BOOKING ALERT!*\\n';\nmsg += '\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\\n';\nmsg += '\ud83d\udc64 *Customer:* ' + customerName + '\\n';\nmsg += '\ud83d\udcde *Phone:* `+91 ' + phoneDisplay + '`\\n';\nmsg += '\ud83d\udccd *Route:* ' + route + '\\n';\nmsg += '\ud83d\ude97 *Vehicle:* ' + vehicle + '\\n';\nmsg += '\ud83d\udcc5 *Travel Date:* ' + travelDate + (travelTime ? ' ' + travelTime : '') + '\\n';\nif (pickup) msg += '\ud83d\ude8f *Pickup:* ' + pickup + '\\n';\nif (drop) msg += '\ud83c\udfc1 *Drop:* ' + drop + '\\n';\nif (passengers && passengers !== '1') msg += '\ud83d\udc65 *Passengers:* ' + passengers + '\\n';\nmsg += '\ud83c\udd94 *Booking ID:* `' + bookingId + '`\\n';\nmsg += '\u23f0 *Received:* ' + createdAt + '\\n';\nmsg += '\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\\n';\nmsg += '\u26a1 *Contact customer immediately!*';\n\n// Send to Shahrukh Khan Telegram Chat ID\nconst recipientChatIds = ['8461306899'];\n\nreturn recipientChatIds.map(chatId => ({\n  json: {\n    bookingId,\n    customerName,\n    phone: phoneDisplay,\n    cleanPhone,\n    route,\n    vehicle,\n    travelDate,\n    travelTime,\n    pickup,\n    drop,\n    passengers,\n    createdAt,\n    waLink,\n    chatId,\n    telegramMessage: msg\n  }\n}));\n      "
+      },
+      "id": "format-lead",
+      "name": "Format Lead Alert",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "={{ $json.telegramMessage }}",
+        "additionalFields": {
+          "parse_mode": "Markdown",
+          "reply_markup": {
+            "inline_keyboard": [
+              [
+                {
+                  "text": "\ud83d\udcac WhatsApp Customer",
+                  "url": "={{ $json.waLink }}"
+                },
+                {
+                  "text": "\ud83c\udf10 Admin Dashboard",
+                  "url": "https://citycabs24.com/admin"
+                }
+              ]
+            ]
+          }
+        }
+      },
+      "id": "telegram-alert",
+      "name": "Send Telegram Alert",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        700,
+        300
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "OgBFIMrf75CpSLCy",
+          "name": "ai_assistant"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "CityCabs Lead Webhook": {
+      "main": [
+        [
+          {
+            "node": "Format Lead Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Lead Alert": {
+      "main": [
+        [
+          {
+            "node": "Send Telegram Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": true
+  }
+}
