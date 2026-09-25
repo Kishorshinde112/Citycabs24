@@ -45,19 +45,21 @@ export default function Home() {
     }
   }, []);
 
-  // Trigger enquiry modal once per session after user spends time on page
+  // Auto trigger enquiry modal after 5 seconds of user spending time on page
   useEffect(() => {
-    if (typeof window !== 'undefined' && sessionStorage.getItem('enquiry_popup_shown')) return;
     const timer = setTimeout(() => {
       setAutoEnquiryOpen(true);
-      if (typeof window !== 'undefined') sessionStorage.setItem('enquiry_popup_shown', 'true');
-    }, 7000);
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, []);
 
   const handleOpenBookModal = (initialData = {}) => {
-    setBookModalInitialData(initialData);
+    setBookModalInitialData({
+      dropCity: 'Mumbai Darshan',
+      tourName: 'Mumbai Darshan',
+      ...initialData
+    });
     setBookModalOpen(true);
   };
 

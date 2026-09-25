@@ -81,11 +81,7 @@ export default function TourDetailPage({
   const [selectedTour, setSelectedTour] = useState(null);
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && sessionStorage.getItem('enquiry_popup_shown')) return;
-    const timer = setTimeout(() => {
-      setAutoEnquiryOpen(true);
-      if (typeof window !== 'undefined') sessionStorage.setItem('enquiry_popup_shown', 'true');
-    }, 7000);
+    const timer = setTimeout(() => setAutoEnquiryOpen(true), 5000);
     return () => clearTimeout(timer);
   }, []);
 
