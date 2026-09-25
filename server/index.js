@@ -92,13 +92,14 @@ const mailTransporter = nodemailer.createTransport({
 
 async function sendLeadEmailNotification(booking) {
   try {
-    let toEmail = 'mumbaicitycabs24@gmail.com';
+    let recipients = ['mumbaicitycabs24@gmail.com', 'mykishorshinde@gmail.com'];
     try {
       const emailSetting = db.prepare("SELECT value FROM settings WHERE key = 'email'").get();
-      if (emailSetting?.value) {
-        toEmail = emailSetting.value.trim();
+      if (emailSetting?.value && !recipients.includes(emailSetting.value.trim())) {
+        recipients.unshift(emailSetting.value.trim());
       }
     } catch (e) {}
+    const toEmail = recipients.join(', ');
 
     const cleanPhone = String(booking.phone || '').replace(/[^0-9]/g, '');
     const phoneDisplay = booking.phone || 'N/A';
