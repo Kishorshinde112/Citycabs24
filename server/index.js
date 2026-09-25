@@ -184,6 +184,34 @@ async function sendLeadEmailNotification(booking) {
   }
 }
 
+// n8n Webhook Dispatch for instant Telegram & iOS push alerts
+async function sendN8nLeadAlert(booking) {
+  const urls = [
+    'http://n8n:5678/webhook/citycabs24-lead',
+    'https://n8n.kishorlab.dev/webhook/citycabs24-lead'
+  ];
+  for (const url of urls) {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 4000);
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(booking),
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+      if (res.ok) {
+        console.log(`⚡ [N8N LEAD DISPATCHED] Successfully delivered to ${url}`);
+        return;
+      }
+    } catch (e) {
+      // try fallback url
+    }
+  }
+  console.warn('⚠️ [N8N LEAD DISPATCH] Could not reach n8n webhook.');
+}
+
 // REST API Endpoints
 
 // 1. Settings Endpoints
@@ -264,6 +292,11 @@ app.post('/api/bookings', (req, res) => {
       console.error('Async email notification error:', e.message);
     });
 
+    // Send instant Telegram / n8n alert asynchronously
+    sendN8nLeadAlert({ id, name, phone, route, vehicle, date, createdAt }).catch((e) => {
+      console.error('Async n8n notification error:', e.message);
+    });
+
     res.json({
       success: true,
       booking: { id, name, phone, route, vehicle, date, status: 'Pending', createdAt }
@@ -274,10 +307,10 @@ app.post('/api/bookings', (req, res) => {
   }
 });
 
-// Test Email Endpoint
+// Test Email & Alert Endpoint
 app.post('/api/test-email', async (req, res) => {
   try {
-    await sendLeadEmailNotification({
+    const testPayload = {
       id: 'TEST-' + Math.floor(1000 + Math.random() * 9000),
       name: 'Test Customer (Shahrukh)',
       phone: '9769681690',
@@ -285,8 +318,10 @@ app.post('/api/test-email', async (req, res) => {
       vehicle: 'Swift Dzire (Sedan)',
       date: new Date().toISOString().slice(0, 10),
       createdAt: new Date().toISOString().slice(0, 19).replace('T', ' ')
-    });
-    res.json({ success: true, message: 'Test lead email sent successfully to admin email!' });
+    };
+    await sendLeadEmailNotification(testPayload);
+    await sendN8nLeadAlert(testPayload);
+    res.json({ success: true, message: 'Test lead alert sent to Email and Telegram!' });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
