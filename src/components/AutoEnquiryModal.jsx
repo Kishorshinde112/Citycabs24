@@ -52,7 +52,7 @@ export default function AutoEnquiryModal({ isOpen, onClose }) {
 
     addBooking(bookingPayload);
     onClose();
-    navigate('/booking-confirmed', { state: bookingPayload });
+    navigate('/enquiry-received', { state: bookingPayload });
   };
 
   return (

@@ -14,6 +14,7 @@ import KonkanDarshanPage from './pages/Public/KonkanDarshanPage';
 import LonavalaTripPage from './pages/Public/LonavalaTripPage';
 import AlibaugPage from './pages/Public/AlibaugPage';
 import ThankYouPage from './pages/Public/ThankYouPage';
+import EnquiryThankYouPage from './pages/Public/EnquiryThankYouPage';
 import ToursManager from './pages/Admin/ToursManager';
 import AdminLayout from './pages/Admin/AdminLayout';
 import Login from './pages/Admin/Login';
@@ -59,6 +60,8 @@ export default function App() {
         <Route path="/3-jyotirlinga-in-maharashtra" element={<JyotirlingaPage />} />
         <Route path="/konkan-darshan" element={<KonkanDarshanPage />} />
         <Route path="/booking-confirmed" element={<ThankYouPage />} />
+        <Route path="/enquiry-received" element={<EnquiryThankYouPage />} />
+        <Route path="/enquiry-confirmed" element={<EnquiryThankYouPage />} />
 
         {/* Admin Login */}
         <Route path="/admin/login" element={<Login />} />
