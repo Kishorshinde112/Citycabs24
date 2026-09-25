@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { CheckCircle2, Phone, MessageCircle, Home, CalendarCheck, Car, MapPin, User, Sparkles } from 'lucide-react';
 import useSettingsStore from '../../store/settingsStore';
@@ -13,6 +13,20 @@ export default function ThankYouPage() {
     booking.id || ('BK-' + Math.floor(100000 + Math.random() * 900000))
   );
   const bookingId = bookingIdRef.current;
+
+  // Track Google Ads Conversion Event
+  useEffect(() => {
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+      window.gtag('event', 'conversion', {
+        send_to: 'AW-18424689411',
+      });
+      window.gtag('event', 'generate_lead', {
+        event_category: 'Booking',
+        event_label: booking.route || 'Tour Booking',
+        transaction_id: bookingId,
+      });
+    }
+  }, [bookingId]);
 
   return (
     <div className="min-h-screen bg-zinc-950 flex flex-col items-center justify-center px-4 py-12 relative overflow-hidden">

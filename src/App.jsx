@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import ToursPage from './pages/Public/ToursPage';
 import MumbaiDarshanPage from './pages/Public/MumbaiDarshanPage';
@@ -19,9 +19,24 @@ import Login from './pages/Admin/Login';
 import Dashboard from './pages/Admin/Dashboard';
 import Settings from './pages/Admin/Settings';
 
+function GoogleAdsTracker() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+      window.gtag('config', 'AW-18424689411', {
+        page_path: location.pathname + location.search,
+      });
+    }
+  }, [location]);
+
+  return null;
+}
+
 export default function App() {
   return (
     <BrowserRouter>
+      <GoogleAdsTracker />
       <Routes>
         {/* Public Website */}
         <Route path="/" element={<Home />} />
