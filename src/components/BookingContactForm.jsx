@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   Phone, Mail, MapPin, MessageCircle, Send, CheckCircle2, 
   Clock, Shield, Sparkles, Calendar, Car 
@@ -7,6 +8,7 @@ import useSettingsStore from '../store/settingsStore';
 import useBookingsStore from '../store/bookingsStore';
 
 export default function BookingContactForm() {
+  const navigate = useNavigate();
   const { phone, email } = useSettingsStore();
   const { addBooking } = useBookingsStore();
 
@@ -27,31 +29,25 @@ export default function BookingContactForm() {
     e.preventDefault();
     setSubmitted(true);
 
-    // Save inquiry to Admin Dashboard
-    addBooking({
+    const bookingPayload = {
       name: formData.name,
       phone: formData.phone,
+      contact: formData.phone,
       route: `${formData.pickupLocation} → ${formData.destination}`,
+      tourName: formData.destination,
       vehicle: formData.carPreference,
+      carType: formData.carPreference,
+      pickupLocation: formData.pickupLocation,
       date: formData.date || new Date().toISOString().slice(0, 10),
-    });
+      travelDate: formData.date || new Date().toISOString().slice(0, 10),
+      passengers: formData.passengers,
+    };
 
-    // Also trigger WhatsApp message for instantaneous conversion
-    const text = `*🚖 CityCabs24 - Website Booking Inquiry*\n\n` +
-      `*Name:* ${formData.name}\n` +
-      `*Phone:* ${formData.phone}\n` +
-      `*Email:* ${formData.email || 'N/A'}\n` +
-      `*Pickup:* ${formData.pickupLocation}\n` +
-      `*Destination / Tour:* ${formData.destination}\n` +
-      `*Date:* ${formData.date}\n` +
-      `*Vehicle:* ${formData.carPreference}\n` +
-      `*Passengers:* ${formData.passengers}\n` +
-      `*Special Requests:* ${formData.message || 'None'}\n\n` +
-      `Please share availability and confirmed quotation.`;
+    // Save inquiry to Admin Dashboard & trigger n8n + email alert
+    addBooking(bookingPayload);
 
-    setTimeout(() => {
-      window.open(`https://wa.me/91${phone}?text=${encodeURIComponent(text)}`, '_blank');
-    }, 800);
+    // Redirect to Booking Confirmed / Thank You page (Google Ads conversion tracked)
+    navigate('/booking-confirmed', { state: bookingPayload });
   };
 
   return (

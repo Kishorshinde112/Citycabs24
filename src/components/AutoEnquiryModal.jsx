@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useBookingsStore from '../store/bookingsStore';
 import { X, CheckCircle2 } from 'lucide-react';
 
 export default function AutoEnquiryModal({ isOpen, onClose }) {
+  const navigate = useNavigate();
   const { addBooking } = useBookingsStore();
 
   const [formData, setFormData] = useState({
@@ -34,7 +36,7 @@ export default function AutoEnquiryModal({ isOpen, onClose }) {
       return;
     }
 
-    addBooking({
+    const bookingPayload = {
       name: formData.fullName,
       phone: formData.phone,
       contact: formData.phone,
@@ -46,12 +48,11 @@ export default function AutoEnquiryModal({ isOpen, onClose }) {
       carType: 'Standard Cab / Tour Vehicle',
       vehicle: 'Standard Cab / Tour Vehicle',
       pickupLocation: 'Customer Address'
-    });
+    };
 
-    setSubmitted(true);
-    setTimeout(() => {
-      onClose();
-    }, 3000);
+    addBooking(bookingPayload);
+    onClose();
+    navigate('/booking-confirmed', { state: bookingPayload });
   };
 
   return (
