@@ -59,7 +59,7 @@ export default function ThankYouPage() {
         <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-2xl mb-6 space-y-4">
           <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
             <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Booking Reference</span>
-            <span className="text-yellow-400 font-black text-base">{bookingId}</span>
+            <span id="transaction-id" className="text-yellow-400 font-black text-base">{bookingId}</span>
           </div>
 
           <div className="space-y-3">
