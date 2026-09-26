@@ -199,7 +199,7 @@ export default function AutoEnquiryModal({ isOpen, onClose }) {
               </button>
               <button
                 type="submit"
-                className="w-1/2 py-2.5 px-4 rounded-lg bg-orange-600 hover:bg-orange-700 text-white font-bold text-sm shadow-md transition text-center"
+                className="w-1/2 py-2.5 px-4 rounded-lg bg-orange-700 hover:bg-orange-800 text-white font-bold text-sm shadow-md transition text-center"
               >
                 Submit Inquiry
               </button>
