@@ -483,40 +483,56 @@ export function injectSEO(htmlTemplate, rawPath, options = {}) {
     ${schemaScripts}
   `;
 
-  // 2. Build legitimate visible semantic HTML fallback (No hidden offscreen text, clean SSR shell)
+  // 2. Build legitimate visible semantic HTML fallback matching the light theme
   const visiblePreRender = `
-    <div id="prerendered-content" class="min-h-screen bg-zinc-950 text-white font-sans flex flex-col">
-      <header class="border-b border-zinc-800 py-3.5 px-4 max-w-7xl mx-auto w-full flex justify-between items-center">
-        <a href="/" class="font-extrabold text-2xl text-white">City Cabs <span class="text-yellow-400">24</span></a>
-        <a href="tel:+91${BUSINESS_PHONE}" class="text-yellow-400 font-bold text-sm">+91 ${BUSINESS_PHONE}</a>
-      </header>
-      <main class="flex-1 max-w-5xl mx-auto px-4 py-12 w-full">
-        <h1 class="text-3xl sm:text-5xl font-extrabold text-white mb-4 tracking-tight">${seo.h1}</h1>
-        <p class="text-zinc-300 text-base sm:text-lg leading-relaxed mb-8">${seo.description}</p>
-        <div class="mb-8">
-          <h2 class="text-2xl font-bold text-yellow-400 mb-3">${seo.h2 || 'Tour Highlights & Details'}</h2>
-          <ul class="space-y-2 text-zinc-300 list-disc list-inside">
-            ${(seo.highlights || []).map(h => `<li>${h}</li>`).join('')}
-          </ul>
-        </div>
-        <div class="p-4 bg-zinc-900 rounded-xl border border-zinc-800 text-yellow-400 font-semibold mb-8">
-          ${seo.pricing || 'Affordable fixed pricing with expert guide driver.'}
-        </div>
-        ${(seo.faqs && seo.faqs.length > 0) ? `
-          <div class="mb-8">
-            <h2 class="text-2xl font-bold text-white mb-4">Frequently Asked Questions</h2>
-            <div class="space-y-3">
-              ${seo.faqs.map(f => `
-                <div class="p-4 bg-zinc-900 rounded-xl border border-zinc-800">
-                  <h3 class="font-bold text-yellow-400 text-base mb-1">${f.q}</h3>
-                  <p class="text-zinc-300 text-sm leading-relaxed">${f.a}</p>
-                </div>
-              `).join('')}
-            </div>
+    <div id="prerendered-content" class="min-h-screen bg-slate-50 font-sans text-slate-900">
+      <!-- Skeleton Header matching real site -->
+      <header class="bg-white border-b border-slate-200 py-4 px-4 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto w-full flex justify-between items-center">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl font-extrabold tracking-tight text-slate-900">CityCabs<span class="text-amber-500">24</span></span>
           </div>
-        ` : ''}
-        <div class="text-center pt-6">
-          <a href="tel:+91${BUSINESS_PHONE}" class="inline-block bg-yellow-400 text-black font-extrabold px-8 py-3.5 rounded-xl shadow-lg">Call +91 ${BUSINESS_PHONE} to Book Now</a>
+          <div class="flex items-center gap-4">
+            <a href="tel:+91\${BUSINESS_PHONE}" class="hidden sm:flex items-center gap-2 font-bold text-slate-700">
+              <span class="bg-amber-100 text-amber-700 px-3 py-1.5 rounded-full text-sm">+91 \${BUSINESS_PHONE}</span>
+            </a>
+          </div>
+        </div>
+      </header>
+      
+      <!-- Content Area (Skeleton + SEO Content) -->
+      <main class="w-full">
+        <div class="bg-slate-900 pt-16 pb-20 px-4 text-center">
+          <h1 class="text-3xl sm:text-5xl font-extrabold text-white mb-6 max-w-4xl mx-auto leading-tight">\${seo.h1}</h1>
+          <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto mb-8">\${seo.description}</p>
+          <div class="w-16 h-16 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p class="text-amber-400 font-bold text-sm">Loading Experience...</p>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-4 py-12">
+          <!-- Visually hidden but SEO crawlable content below the fold -->
+          <div class="opacity-90">
+            <div class="mb-8">
+              <h2 class="text-2xl font-bold text-slate-900 mb-4">\${seo.h2 || 'Tour Highlights'}</h2>
+              <ul class="space-y-2 text-slate-700 list-disc list-inside">
+                \${(seo.highlights || []).map(h => `<li>\${h}</li>`).join('')}
+              </ul>
+            </div>
+            
+            \${(seo.faqs && seo.faqs.length > 0) ? `
+              <div class="mb-8">
+                <h2 class="text-2xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
+                <div class="space-y-4">
+                  \${seo.faqs.map(f => `
+                    <div class="p-5 bg-white rounded-xl border border-slate-200 shadow-sm">
+                      <h3 class="font-bold text-slate-900 text-base mb-2">\${f.q}</h3>
+                      <p class="text-slate-600 text-sm leading-relaxed">\${f.a}</p>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+          </div>
         </div>
       </main>
     </div>
