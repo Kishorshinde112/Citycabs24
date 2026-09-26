@@ -429,8 +429,30 @@ app.post('/api/auth/login', (req, res) => {
   }
 });
 
-// Serve compiled static assets (index: false ensures root and routes pass to SEO handler)
+// Explicit XML & Robots endpoints for Googlebot & Search Console
 const distPath = path.join(__dirname, '../dist');
+
+app.get('/sitemap.xml', (req, res) => {
+  const sitemapPath = path.join(distPath, 'sitemap.xml');
+  if (fs.existsSync(sitemapPath)) {
+    res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, max-age=3600');
+    return res.sendFile(sitemapPath);
+  }
+  res.status(404).send('Sitemap not found');
+});
+
+app.get('/robots.txt', (req, res) => {
+  const robotsPath = path.join(distPath, 'robots.txt');
+  if (fs.existsSync(robotsPath)) {
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, max-age=3600');
+    return res.sendFile(robotsPath);
+  }
+  res.type('text/plain').send('User-agent: *\nDisallow: /admin\nSitemap: https://citycabs24.com/sitemap.xml\n');
+});
+
+// Serve compiled static assets (index: false ensures root and routes pass to SEO handler)
 app.use(express.static(distPath, { index: false }));
 
 // Cached index.html template
