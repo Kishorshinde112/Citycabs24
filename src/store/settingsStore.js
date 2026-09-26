@@ -31,9 +31,13 @@ const useSettingsStore = create((set, get) => ({
   updateSettings: async (newSettings) => {
     set((state) => ({ ...state, ...newSettings }));
     try {
+      const token = localStorage.getItem('adminToken');
       const res = await fetch('/api/settings', {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify(newSettings),
       });
       if (res.ok) {

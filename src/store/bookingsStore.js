@@ -7,7 +7,11 @@ const useBookingsStore = create((set, get) => ({
   fetchBookings: async () => {
     set({ loading: true });
     try {
-      const res = await fetch('/api/bookings');
+      const token = localStorage.getItem('adminToken');
+      if (!token) return set({ loading: false }); // Requires auth
+      const res = await fetch('/api/bookings', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
       if (res.ok) {
         const data = await res.json();
         if (data.success && Array.isArray(data.bookings)) {
@@ -79,9 +83,13 @@ const useBookingsStore = create((set, get) => ({
     }));
 
     try {
+      const token = localStorage.getItem('adminToken');
       await fetch(`/api/bookings/${id}/status`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` 
+        },
         body: JSON.stringify({ status }),
       });
     } catch (err) {
@@ -95,8 +103,10 @@ const useBookingsStore = create((set, get) => ({
     }));
 
     try {
+      const token = localStorage.getItem('adminToken');
       await fetch(`/api/bookings/${id}`, {
         method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
       });
     } catch (err) {
           console.error('Failed to delete booking on server:', err);

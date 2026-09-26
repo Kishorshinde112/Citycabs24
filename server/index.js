@@ -6,6 +6,12 @@ import { fileURLToPath } from 'url';
 import nodemailer from 'nodemailer';
 import compression from 'compression';
 import { injectSEO } from './seoConfig.js';
+import dotenv from 'dotenv';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import rateLimit from 'express-rate-limit';
+
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -14,8 +20,44 @@ const app = express();
 const PORT = process.env.PORT || 80;
 
 app.use(compression());
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use(express.json({ limit: '2mb' }));
+app.use(express.urlencoded({ limit: '2mb', extended: true }));
+
+// --- RATE LIMITERS ---
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10, // Limit each IP to 10 login requests per windowMs
+  message: { success: false, message: 'Too many login attempts, please try again later.' }
+});
+
+const bookingLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 5, // Limit each IP to 5 bookings per hour
+  message: { success: false, error: 'Too many booking requests from this IP, please try again after an hour.' }
+});
+
+const testEndpointLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 3,
+  message: { success: false, error: 'Too many test requests.' }
+});
+
+// --- AUTH MIDDLEWARE ---
+const requireAuth = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ success: false, message: 'Unauthorized: No token provided' });
+  }
+  const token = authHeader.split(' ')[1];
+  try {
+    const decoded = jwt.verify(token, process.env.SESSION_SECRET);
+    req.user = decoded;
+    next();
+  } catch (err) {
+    return res.status(403).json({ success: false, message: 'Unauthorized: Invalid or expired token' });
+  }
+};
+
 
 // 1. Canonical non-www 301 redirect for all routes
 app.use((req, res, next) => {
@@ -106,8 +148,8 @@ const mailTransporter = nodemailer.createTransport({
   maxConnections: 3,
   maxMessages: 100,
   auth: {
-    user: 'mykishorshinde@gmail.com',
-    pass: 'fmawuuizjewkaftq',
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_APP_PASSWORD,
   },
 });
 
@@ -231,7 +273,10 @@ async function sendN8nLeadAlert(booking) {
       const timeoutId = setTimeout(() => controller.abort(), 8000);
       const res = await fetch(url, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'X-CityCabs-Webhook-Secret': process.env.N8N_WEBHOOK_SECRET
+        },
         body: JSON.stringify(booking),
         signal: controller.signal
       });
@@ -263,7 +308,7 @@ app.get('/api/settings', (req, res) => {
   }
 });
 
-app.put('/api/settings', (req, res) => {
+app.put('/api/settings', requireAuth, (req, res) => {
   try {
     const { phone, helpPhone, email } = req.body;
     const updateStmt = db.prepare('INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)');
@@ -286,7 +331,7 @@ app.put('/api/settings', (req, res) => {
 });
 
 // 2. Bookings Endpoints
-app.get('/api/bookings', (req, res) => {
+app.get('/api/bookings', requireAuth, (req, res) => {
   try {
     const rows = db.prepare('SELECT * FROM bookings ORDER BY rowid DESC').all();
     res.json({ success: true, bookings: rows });
@@ -295,13 +340,24 @@ app.get('/api/bookings', (req, res) => {
   }
 });
 
-app.post('/api/bookings', (req, res) => {
+app.post('/api/bookings', bookingLimiter, (req, res) => {
   try {
     const name = String(req.body.name || req.body.fullName || 'Customer').trim();
     const phone = String(req.body.phone || req.body.contact || '').trim();
     const route = String(req.body.route || req.body.tourName || req.body.destination || req.body.drop || 'Custom Trip').trim();
     const vehicle = String(req.body.vehicle || req.body.carType || req.body.carPreference || 'Standard Cab').trim();
     const date = String(req.body.date || req.body.travelDate || req.body.pickupDate || new Date().toISOString().slice(0, 10)).trim();
+    
+    if (name.length > 100) return res.status(400).json({ success: false, error: 'Name is too long' });
+    if (route.length > 200) return res.status(400).json({ success: false, error: 'Route is too long' });
+    if (vehicle.length > 100) return res.status(400).json({ success: false, error: 'Vehicle is too long' });
+    
+    // Basic Indian phone number validation
+    const cleanPhone = phone.replace(/[^0-9]/g, '');
+    if (cleanPhone.length < 10 || cleanPhone.length > 15) {
+      return res.status(400).json({ success: false, error: 'Invalid phone number format' });
+    }
+
     const id = req.body.id || ('BK-' + Math.floor(100000 + Math.random() * 900000));
     const createdAt = new Date().toISOString();
 
@@ -343,7 +399,7 @@ app.post('/api/bookings', (req, res) => {
 });
 
 // Test Email & Alert Endpoint
-app.post('/api/test-email', async (req, res) => {
+app.post('/api/test-email', requireAuth, testEndpointLimiter, async (req, res) => {
   try {
     const testPayload = {
       id: 'TEST-' + Math.floor(1000 + Math.random() * 9000),
@@ -362,7 +418,7 @@ app.post('/api/test-email', async (req, res) => {
   }
 });
 
-app.patch('/api/bookings/:id/status', (req, res) => {
+app.patch('/api/bookings/:id/status', requireAuth, (req, res) => {
   try {
     const { id } = req.params;
     const { status } = req.body;
@@ -374,7 +430,7 @@ app.patch('/api/bookings/:id/status', (req, res) => {
   }
 });
 
-app.delete('/api/bookings/:id', (req, res) => {
+app.delete('/api/bookings/:id', requireAuth, (req, res) => {
   try {
     const { id } = req.params;
     const stmt = db.prepare('DELETE FROM bookings WHERE id = ?');
@@ -396,7 +452,7 @@ app.get('/api/tours', (req, res) => {
   }
 });
 
-app.put('/api/tours', (req, res) => {
+app.put('/api/tours', requireAuth, (req, res) => {
   try {
     const { tours } = req.body;
     if (Array.isArray(tours)) {
@@ -411,7 +467,7 @@ app.put('/api/tours', (req, res) => {
   }
 });
 
-app.put('/api/tours/:id', (req, res) => {
+app.put('/api/tours/:id', requireAuth, (req, res) => {
   try {
     const { id } = req.params;
     const tourData = req.body;
@@ -423,7 +479,7 @@ app.put('/api/tours/:id', (req, res) => {
   }
 });
 
-app.delete('/api/tours/:id', (req, res) => {
+app.delete('/api/tours/:id', requireAuth, (req, res) => {
   try {
     const { id } = req.params;
     const stmt = db.prepare('DELETE FROM tours WHERE id = ?');
@@ -435,13 +491,17 @@ app.delete('/api/tours/:id', (req, res) => {
 });
 
 // 4. Admin Authentication Endpoint
-app.post('/api/auth/login', (req, res) => {
+app.post('/api/auth/login', loginLimiter, (req, res) => {
   const { email, password } = req.body;
-  if (email?.trim().toLowerCase() === 'mumbaicitycabs24@gmail.com' && password === 'Shahrukh@123') {
-    res.json({ success: true, token: 'admin-jwt-token-citycabs24' });
-  } else {
-    res.status(401).json({ success: false, message: 'Invalid admin credentials.' });
+  if (!email || !password) return res.status(400).json({ success: false, message: 'Email and password required' });
+
+  if (email.trim().toLowerCase() === process.env.ADMIN_EMAIL) {
+    if (bcrypt.compareSync(password, process.env.ADMIN_PASSWORD_HASH)) {
+      const token = jwt.sign({ email }, process.env.SESSION_SECRET, { expiresIn: '8h' });
+      return res.json({ success: true, token });
+    }
   }
+  return res.status(401).json({ success: false, message: 'Invalid admin credentials.' });
 });
 
 // Explicit XML & Robots endpoints for Googlebot & Search Console

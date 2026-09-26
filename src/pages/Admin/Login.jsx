@@ -16,13 +16,25 @@ export default function Login() {
     setIsLoading(true);
     setError('');
 
-    // Credentials check for admin portal
-    if (email.trim().toLowerCase() === 'mumbaicitycabs24@gmail.com' && password === 'Shahrukh@123') {
-      localStorage.setItem('adminAuth', 'true');
-      localStorage.setItem('adminToken', 'dummy-token-123');
-      navigate('/admin');
-    } else {
-      setError('Invalid admin credentials. Access denied.');
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email.trim().toLowerCase(), password }),
+      });
+      const data = await response.json();
+      if (data.success && data.token) {
+        localStorage.setItem('adminAuth', 'true');
+        localStorage.setItem('adminToken', data.token);
+        navigate('/admin');
+      } else {
+        setError(data.message || 'Invalid admin credentials. Access denied.');
+      }
+    } catch (err) {
+      setError('An error occurred during login. Please try again.');
+    } finally {
       setIsLoading(false);
     }
   };

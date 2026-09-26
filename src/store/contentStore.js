@@ -86,7 +86,7 @@ const useContentStore = create(
           try {
             await fetch(`/api/tours/${tourId}`, {
               method: 'PUT',
-              headers: { 'Content-Type': 'application/json' },
+              headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` },
               body: JSON.stringify(updatedTour),
             });
           } catch (err) {
@@ -113,7 +113,7 @@ const useContentStore = create(
         try {
           await fetch(`/api/tours/${fullTour.id}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` },
             body: JSON.stringify(fullTour),
           });
         } catch (err) {
@@ -129,6 +129,7 @@ const useContentStore = create(
         try {
           await fetch(`/api/tours/${tourId}`, {
             method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` }
           });
         } catch (err) {
           console.error('Failed to delete tour on server:', err);
@@ -146,7 +147,7 @@ const useContentStore = create(
         try {
           await fetch('/api/settings', {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` },
             body: JSON.stringify({ fleet: updatedFleet }),
           });
         } catch (err) {
@@ -165,7 +166,7 @@ const useContentStore = create(
         try {
           await fetch('/api/settings', {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` },
             body: JSON.stringify({ gallery: updatedGallery }),
           });
         } catch (err) {
@@ -186,7 +187,7 @@ const useContentStore = create(
         try {
           await fetch('/api/settings', {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` },
             body: JSON.stringify({ gallery: updatedGallery }),
           });
         } catch (err) {
@@ -204,7 +205,7 @@ const useContentStore = create(
         try {
           await fetch('/api/settings', {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` },
             body: JSON.stringify({ gallery: updatedGallery }),
           });
         } catch (err) {
@@ -226,7 +227,7 @@ const useContentStore = create(
         try {
           await fetch('/api/settings', {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` },
             body: JSON.stringify({ siteImages: updatedSiteImages }),
           });
         } catch (err) {
@@ -240,7 +241,7 @@ const useContentStore = create(
         try {
           await fetch('/api/tours', {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` },
             body: JSON.stringify({ tours: TOURS_DATA }),
           });
         } catch (err) {}
@@ -251,7 +252,7 @@ const useContentStore = create(
         try {
           await fetch('/api/settings', {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` },
             body: JSON.stringify({ fleet: FLEET_DATA }),
           });
         } catch (err) {}
@@ -262,7 +263,7 @@ const useContentStore = create(
         try {
           await fetch('/api/settings', {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` },
             body: JSON.stringify({ gallery: GALLERY_DATA }),
           });
         } catch (err) {}
@@ -273,7 +274,7 @@ const useContentStore = create(
         try {
           await fetch('/api/settings', {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` },
             body: JSON.stringify({ siteImages: DEFAULT_SITE_IMAGES }),
           });
         } catch (err) {}
@@ -289,12 +290,12 @@ const useContentStore = create(
         try {
           await fetch('/api/tours', {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` },
             body: JSON.stringify({ tours: TOURS_DATA }),
           });
           await fetch('/api/settings', {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` },
             body: JSON.stringify({
               fleet: FLEET_DATA,
               gallery: GALLERY_DATA,
