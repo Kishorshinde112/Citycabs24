@@ -9,7 +9,7 @@
   - Quick enquiry form triggers `quick_enquiry_submitted` in dataLayer without duplicate primary conversion firing.
 - **Email Lead Dispatch**: Booking leads must send email notifications ONLY to Shahrukh (`mumbaicitycabs24@gmail.com`).
 
-## 2. Database & Image Asset Optimization Protocol
+## 2. Database, Asset & Font Optimization Protocol
 - **Base64 DB Migration Safety**:
   1. Take full SQLite DB backup to `backups/` before any write.
   2. Convert image to responsive WebP variants (`480w`, `768w`, `1280w`).
@@ -22,6 +22,8 @@
   - Hero (LCP) images: `loading="eager"`, `fetchpriority="high"`, with early `<link rel="preload">` in `index.html`.
 - **Logo Optimization**: Keep logo below 50KB (WebP) with explicit `width` and `height` to prevent CLS.
 
+- **Google Fonts Local Hosting**: When locally hosting Google Fonts, fetch the `fonts.googleapis.com/css2` CSS using a Chrome `User-Agent`, parse the `url(...)` targets, and download those exact WOFF2 files. Blind `wget` commands without headers often result in invalid 0-byte or 404 HTML fallback files.
+
 ## 3. Caching Invariants (Strict)
 - **Content-Hashed Assets ONLY**: `public, max-age=31536000, immutable` applies EXCLUSIVELY to fingerprinted files matching `-[A-Za-z0-9_-]{8}\.(js|css|png|jpg|webp|svg|woff2?)`.
 - **Permanent Filenames**: Assets with permanent filenames (`/assets/tours/*.webp`, `/assets/fleet/*.webp`, `logo.png`, `favicon.png`) must use `public, max-age=86400, must-revalidate`.
@@ -29,7 +31,10 @@
 
 ## 4. SEO & Routing Integrity
 - **HTTP 404 vs 200**: Unknown routes must return genuine **HTTP 404** status with `<meta name="robots" content="noindex, nofollow" />` and `NotFoundPage` (prevents Google Soft 404 indexation issues).
-- **No Hidden Deceptive Text**: Never use off-screen CSS (`opacity: 0.001; left: -9999px`) for crawlable content. All pre-rendered server markup must be legitimate, visible HTML in `#prerendered-content`.
+- **True React SSR Hydration**: Do not use hand-coded HTML shells inside `#root` overwritten by `createRoot()`, as this destroys initial paints and causes severe LCP Element Render Delay.
+  - Use `react-dom/server` (`renderToString`) for public routes and `ReactDOM.hydrateRoot()` on the client.
+  - **Deterministic Initial State**: Store API fetches (like `fetchSharedSettings`) must be strictly fenced behind `if (typeof window !== 'undefined')`. Both the Node SSR process and initial client hydration must evaluate against the exact same fallback default data to guarantee a 1:1 DOM match.
+  - Note: React Router v7 exports `StaticRouter` directly from `react-router-dom`, not `react-router-dom/server`.
 - **Visible FAQs**: Any page containing `FAQPage` JSON-LD schema must render a visible `<FaqSection />` component.
 - **Canonical Redirects**:
   - `www.citycabs24.com` -> 301 permanent redirect to `https://citycabs24.com`.
