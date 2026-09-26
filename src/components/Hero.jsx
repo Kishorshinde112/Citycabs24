@@ -28,7 +28,6 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
           className="w-full h-full object-cover opacity-40 transform scale-105"
           loading="eager"
           fetchpriority="high"
-          decoding="async"
           width="1600"
           height="900"
         />

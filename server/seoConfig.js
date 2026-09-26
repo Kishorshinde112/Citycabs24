@@ -465,7 +465,7 @@ export function injectSEO(htmlTemplate, rawPath, options = {}) {
   
   // Set SSR marker for client hydration
   if (appHtml) {
-    output = output.replace('<html lang="en">', '<html lang="en" data-ssr="true">');
+    output = output.replace(/<html lang="en"[^>]*>/is, (match) => match.replace('>', ' data-ssr="true">'));
   }
   
   output = output.replace(/<title>.*?<\/title>/is, '');

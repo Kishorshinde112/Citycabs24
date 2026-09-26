@@ -68,7 +68,7 @@ export default function AboutSection({ onOpenBookModal }) {
                 href={`https://wa.me/91${phone}?text=Hi%20CityCabs24,%20I%20would%20like%20to%20know%20more%20about%20your%20services.`}
                 target="_blank"
                 rel="noreferrer"
-                className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md transition flex items-center gap-2"
+                className="px-6 py-3 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-sm shadow-md transition flex items-center gap-2"
               >
                 <span>Chat with Tour Advisor</span>
               </a>
