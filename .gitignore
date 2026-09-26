@@ -26,3 +26,6 @@ dist-ssr
 # Database
 /data/
 *.db
+backups/
+src/assets/*-opt.png
+

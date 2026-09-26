@@ -7,18 +7,32 @@ import useContentStore from '../store/contentStore';
 export default function Hero({ onSelectTour, onOpenBookModal }) {
   const { phone } = useSettingsStore();
   const { siteImages } = useContentStore();
-  const heroImage = siteImages?.homeHero || 'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1920&q=80';
+  const isCustomHero = siteImages?.homeHero && !siteImages.homeHero.includes('images.unsplash.com');
+  const heroImage = isCustomHero ? siteImages.homeHero : '/assets/hero/mumbai-hero.webp';
 
   return (
     <div id="home" className="relative bg-slate-900 text-white min-h-[500px] sm:min-h-[580px] flex items-center justify-center overflow-hidden py-20 border-b border-slate-800">
       
-      {/* Background Image with Dark Overlay */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center opacity-40 transform scale-105"
-        style={{ 
-          backgroundImage: `url('${heroImage}')` 
-        }}
-      />
+      {/* Background Hero Image - LCP Element (Responsive WebP, Eager, High Priority) */}
+      <picture className="absolute inset-0 w-full h-full pointer-events-none">
+        {!isCustomHero && (
+          <source
+            type="image/webp"
+            srcSet="/assets/hero/mumbai-hero-480w.webp 480w, /assets/hero/mumbai-hero-768w.webp 768w, /assets/hero/mumbai-hero-1280w.webp 1280w, /assets/hero/mumbai-hero-1600w.webp 1600w"
+            sizes="100vw"
+          />
+        )}
+        <img
+          src={heroImage}
+          alt="Mumbai Sightseeing Tours with CityCabs24 Chauffeur Service"
+          className="w-full h-full object-cover opacity-40 transform scale-105"
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          width="1600"
+          height="900"
+        />
+      </picture>
       <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/70 to-slate-900/50" />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-6">

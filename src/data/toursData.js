@@ -7,7 +7,7 @@ export const TOURS_DATA = [
     duration: "1 Day (8h/80km, 10h/100km, 12h/120km)",
     tagline: "Discover the City of Dreams with Expert Local Guides",
     shortDescription: "Explore Mumbai's iconic landmarks with expert drivers who know every historic corner, scenic seaside view, and hidden culinary gem.",
-    banner: "/assets/tours/bd08021da8c244de8eafa9a4f86c4e2a30099151_yk3fsq4Dd4.png",
+    banner: "/assets/tours/mumbai-darshan-banner.webp",
     startingPrice: "₹2,499",
     rating: 4.9,
     reviewsCount: 340,

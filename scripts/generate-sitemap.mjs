@@ -33,7 +33,6 @@ for (const route of publicRoutes) {
   const loc = route.path ? `${BASE_URL}/${route.path}` : `${BASE_URL}/`;
   xmlLines.push('  <url>');
   xmlLines.push(`    <loc>${loc}</loc>`);
-  xmlLines.push(`    <lastmod>${today}</lastmod>`);
   xmlLines.push(`    <changefreq>${route.changefreq}</changefreq>`);
   xmlLines.push(`    <priority>${route.priority}</priority>`);
   xmlLines.push('  </url>');

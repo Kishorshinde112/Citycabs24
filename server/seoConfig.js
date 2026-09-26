@@ -42,7 +42,7 @@ export const ROUTES_SEO = {
     h1: 'Mumbai Darshan Cab Service & Private Sightseeing Tour',
     h2: 'Full Day Guided Sightseeing of Mumbai’s Iconic Landmarks',
     canonical: `${SITE_URL}/mumbai-darshan`,
-    ogImage: `${SITE_URL}/assets/citycabs24-logo.png`,
+    ogImage: `${SITE_URL}/assets/tours/mumbai-darshan-banner.webp`,
     highlights: [
       'Gateway of India & The Iconic Taj Mahal Palace Hotel',
       'Marine Drive, Nariman Point & Girgaon Chowpatty Viewing Deck',
@@ -95,7 +95,7 @@ export const ROUTES_SEO = {
     h1: 'Mumbai to Lonavala Cab Tour Package',
     h2: 'Day Trip & Weekend Gateway to Lonavala & Khandala',
     canonical: `${SITE_URL}/lonavala-trip`,
-    ogImage: `${SITE_URL}/logo.png`,
+    ogImage: `${SITE_URL}/assets/tours/panvel_upscaled_image_2_HOyyQs2JHJ.webp`,
     highlights: [
       'Tiger Leap Point & Sunset Point Khandala',
       'Bhushi Dam & Pavana Lake Viewpoints',
@@ -117,7 +117,7 @@ export const ROUTES_SEO = {
     h1: 'Mumbai to Alibaug Cab & Beach Sightseeing Tour',
     h2: 'Coastal Road Trip to Alibaug, Kashid & Murud Janjira',
     canonical: `${SITE_URL}/alibaug-sightseeing`,
-    ogImage: `${SITE_URL}/logo.png`,
+    ogImage: `${SITE_URL}/assets/tours/alibag_rt4bWntlkB.webp`,
     highlights: [
       'Kolaba Sea Fort & Alibaug Main Beach',
       'Kashid White Sand Beach & Watersports',
@@ -139,7 +139,7 @@ export const ROUTES_SEO = {
     h1: 'Mumbai to Matheran Private Cab Service',
     h2: 'Doorstep Pickup to Dasturi Car Park (Matheran)',
     canonical: `${SITE_URL}/matheran-sightseeing`,
-    ogImage: `${SITE_URL}/logo.png`,
+    ogImage: `${SITE_URL}/assets/tours/matheran_82596VAAMO.webp`,
     highlights: [
       'Direct Chauffeur Drop to Dasturi Naka',
       'Scenic Western Ghats Drive via Neral',
@@ -160,7 +160,7 @@ export const ROUTES_SEO = {
     h1: 'Mumbai to Shirdi Sai Baba Temple Cab Package',
     h2: 'Same-Day & Overnight Spiritual Darshan Tour via Samruddhi Mahamarg',
     canonical: `${SITE_URL}/shirdi-tour`,
-    ogImage: `${SITE_URL}/logo.png`,
+    ogImage: `${SITE_URL}/assets/tours/shirdi_p7RAPbKB9X.jpeg`,
     highlights: [
       'Fast Drive via Samruddhi Mahamarg Expressway',
       'Doorstep Pickup Anywhere in Mumbai / Navi Mumbai',
@@ -182,7 +182,7 @@ export const ROUTES_SEO = {
     h1: 'Mumbai to Mahabaleshwar & Panchgani Cab Tour',
     h2: 'Multi-Day Hill Station Holiday Package',
     canonical: `${SITE_URL}/mahabaleshwar-sightseeing`,
-    ogImage: `${SITE_URL}/logo.png`,
+    ogImage: `${SITE_URL}/assets/tours/mhabaleshwar_9KMZyI1jrD.webp`,
     highlights: [
       'Arthur’s Seat, Elephant’s Head Point & Wilson Point',
       'Venna Lake Boating & Mapro Garden Strawberry Farms',
@@ -204,7 +204,7 @@ export const ROUTES_SEO = {
     h1: 'Mumbai to Igatpuri Nature & Waterfall Tour',
     h2: 'Monsoon Waterfalls & Sahyadri Valleys by Private Cab',
     canonical: `${SITE_URL}/igatpuri-tour`,
-    ogImage: `${SITE_URL}/logo.png`,
+    ogImage: `${SITE_URL}/assets/tours/igatpuri_final_7NAxDp2jVq.jpg`,
     highlights: [
       'Bhavali Dam & Vaitarna Dam Waterfalls',
       'Global Vipassana Pagoda & Myanmar Gate Igatpuri',
@@ -226,7 +226,7 @@ export const ROUTES_SEO = {
     h1: 'Ashtavinayak 8 Ganpati Yatra Cab Package',
     h2: 'Sacred Pilgrimage to All 8 Ganesha Temples in Maharashtra',
     canonical: `${SITE_URL}/ashtavinayak`,
-    ogImage: `${SITE_URL}/logo.png`,
+    ogImage: `${SITE_URL}/assets/tours/astavinayak_final_lcm8iZIjgA.jpg`,
     highlights: [
       'Mayureshwar (Morgaon) & Siddhivinayak (Siddhatek)',
       'Ballaleshwar (Pali) & Varadavinayak (Mahad)',
@@ -248,7 +248,7 @@ export const ROUTES_SEO = {
     h1: '3 Jyotirlinga Maharashtra Cab Tour Package',
     h2: 'Sacred Shiva Darshan: Trimbakeshwar, Bhimashankar & Grishneshwar',
     canonical: `${SITE_URL}/3-jyotirlinga-in-maharashtra`,
-    ogImage: `${SITE_URL}/logo.png`,
+    ogImage: `${SITE_URL}/assets/tours/jtyotirling_qDvKgpsz20.jpg`,
     highlights: [
       'Trimbakeshwar Shiva Temple (Nashik)',
       'Bhimashankar Jyotirlinga in Sahyadri Hills',
@@ -270,7 +270,7 @@ export const ROUTES_SEO = {
     h1: 'Konkan Darshan Coastal Road Trip Cab Package',
     h2: 'Explore Pristine Beaches, Historic Sea Forts & Konkani Culture',
     canonical: `${SITE_URL}/konkan-darshan`,
-    ogImage: `${SITE_URL}/logo.png`,
+    ogImage: `${SITE_URL}/assets/tours/konkan_darshan_HkVaCpJLtu.jpg`,
     highlights: [
       'Harihareshwar, Diveagar & Shrivardhan Beaches',
       'Ganpatipule Beach & Sacred Temple',
@@ -412,9 +412,39 @@ export function buildSchemaScripts(routeData, path) {
 /**
  * Injects SEO metadata & pre-rendered crawlable content into the base template HTML
  */
-export function injectSEO(htmlTemplate, rawPath) {
+export function injectSEO(htmlTemplate, rawPath, options = {}) {
+  const { is404 = false } = options;
   const cleanPath = (rawPath || '/').split('?')[0].replace(/\/+$/, '') || '/';
   
+  // 404 Not Found Page handling
+  if (is404) {
+    let output = htmlTemplate;
+    output = output.replace(/<title>.*?<\/title>/is, '');
+    output = output.replace(/<meta name="title" content=".*?"\s*\/?>/is, '');
+    output = output.replace(/<meta name="description" content=".*?"\s*\/?>/is, '');
+    
+    const notFoundMeta = `
+    <title>404 - Page Not Found | CityCabs24</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="The page you are looking for does not exist on CityCabs24. Explore our sightseeing tours and cab services." />
+    `;
+    output = output.replace('</head>', `${notFoundMeta}\n  </head>`);
+    
+    const notFoundShell = `
+    <div id="prerendered-content" class="min-h-screen bg-zinc-950 text-white font-sans flex flex-col items-center justify-center py-20 px-4 text-center">
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-3">404 - Page Not Found</h1>
+      <p class="text-zinc-400 text-base max-w-md mx-auto mb-8">We couldn't find the page you were looking for. Explore our popular tour packages below.</p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="/tours" class="px-6 py-3 rounded-xl bg-yellow-400 text-black font-extrabold text-sm">Explore Tour Packages</a>
+        <a href="/" class="px-6 py-3 rounded-xl bg-zinc-900 text-white border border-zinc-700 text-sm font-bold">Back to Home</a>
+        <a href="tel:+91${BUSINESS_PHONE}" class="px-6 py-3 rounded-xl bg-zinc-900 text-yellow-400 border border-yellow-400/40 text-sm font-bold">Call +91 ${BUSINESS_PHONE}</a>
+      </div>
+    </div>
+    `;
+    output = output.replace('<div id="root"></div>', `<div id="root">${notFoundShell}</div>`);
+    return output;
+  }
+
   // Non-indexable pages (Admin, Confirmation, etc.)
   if (cleanPath.startsWith('/admin') || cleanPath === '/booking-confirmed' || cleanPath === '/enquiry-received' || cleanPath === '/enquiry-confirmed') {
     return htmlTemplate.replace(
@@ -453,19 +483,42 @@ export function injectSEO(htmlTemplate, rawPath) {
     ${schemaScripts}
   `;
 
-  // 2. Build semantic crawlable HTML fallback for crawlers that do not run JavaScript
-  const crawlableFallback = `
-    <div id="ssr-crawlable-content" style="opacity: 0.001; pointer-events: none; position: absolute; left: -9999px; top: -9999px;">
-      <h1>${seo.h1}</h1>
-      <p>${seo.description}</p>
-      <h2>${seo.h2 || 'Tour Highlights & Details'}</h2>
-      <ul>
-        ${(seo.highlights || []).map(h => `<li>${h}</li>`).join('')}
-      </ul>
-      <p><strong>Package Rates:</strong> ${seo.pricing || 'Affordable fixed pricing with expert guide driver.'}</p>
-      <h2>Frequently Asked Questions</h2>
-      ${(seo.faqs || []).map(f => `<div><h3>${f.q}</h3><p>${f.a}</p></div>`).join('')}
-      <p>Book directly or call CityCabs24 24/7 Helpline: +91-${BUSINESS_PHONE}</p>
+  // 2. Build legitimate visible semantic HTML fallback (No hidden offscreen text, clean SSR shell)
+  const visiblePreRender = `
+    <div id="prerendered-content" class="min-h-screen bg-zinc-950 text-white font-sans flex flex-col">
+      <header class="border-b border-zinc-800 py-3.5 px-4 max-w-7xl mx-auto w-full flex justify-between items-center">
+        <a href="/" class="font-extrabold text-2xl text-white">City Cabs <span class="text-yellow-400">24</span></a>
+        <a href="tel:+91${BUSINESS_PHONE}" class="text-yellow-400 font-bold text-sm">+91 ${BUSINESS_PHONE}</a>
+      </header>
+      <main class="flex-1 max-w-5xl mx-auto px-4 py-12 w-full">
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-white mb-4 tracking-tight">${seo.h1}</h1>
+        <p class="text-zinc-300 text-base sm:text-lg leading-relaxed mb-8">${seo.description}</p>
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-yellow-400 mb-3">${seo.h2 || 'Tour Highlights & Details'}</h2>
+          <ul class="space-y-2 text-zinc-300 list-disc list-inside">
+            ${(seo.highlights || []).map(h => `<li>${h}</li>`).join('')}
+          </ul>
+        </div>
+        <div class="p-4 bg-zinc-900 rounded-xl border border-zinc-800 text-yellow-400 font-semibold mb-8">
+          ${seo.pricing || 'Affordable fixed pricing with expert guide driver.'}
+        </div>
+        ${(seo.faqs && seo.faqs.length > 0) ? `
+          <div class="mb-8">
+            <h2 class="text-2xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+            <div class="space-y-3">
+              ${seo.faqs.map(f => `
+                <div class="p-4 bg-zinc-900 rounded-xl border border-zinc-800">
+                  <h3 class="font-bold text-yellow-400 text-base mb-1">${f.q}</h3>
+                  <p class="text-zinc-300 text-sm leading-relaxed">${f.a}</p>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        ` : ''}
+        <div class="text-center pt-6">
+          <a href="tel:+91${BUSINESS_PHONE}" class="inline-block bg-yellow-400 text-black font-extrabold px-8 py-3.5 rounded-xl shadow-lg">Call +91 ${BUSINESS_PHONE} to Book Now</a>
+        </div>
+      </main>
     </div>
   `;
 
@@ -478,8 +531,8 @@ export function injectSEO(htmlTemplate, rawPath) {
   // Inject new tags before </head>
   output = output.replace('</head>', `${metaTags}\n  </head>`);
 
-  // Inject crawlable fallback inside <div id="root">
-  output = output.replace('<div id="root"></div>', `<div id="root">${crawlableFallback}</div>`);
+  // Inject visible pre-rendered shell inside <div id="root">
+  output = output.replace('<div id="root"></div>', `<div id="root">${visiblePreRender}</div>`);
 
   return output;
 }

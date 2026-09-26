@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Car, Phone, Mail, MapPin, MessageCircle, Heart, Shield, Sparkles } from 'lucide-react';
 import { TOURS_DATA } from '../data/toursData';
 import useSettingsStore from '../store/settingsStore';
-import logoImg from '../assets/citycabs24-logo.png';
+import logoImg from '../assets/citycabs24-logo.webp';
 
 export default function Footer({ onOpenPrivacyModal, onSelectTour }) {
   const { phone, email } = useSettingsStore();
@@ -18,7 +18,7 @@ export default function Footer({ onOpenPrivacyModal, onSelectTour }) {
           <div className="lg:col-span-4 space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full overflow-hidden border border-yellow-400/40 bg-white flex items-center justify-center p-0.5 shadow-md">
-                <img src={logoImg} alt="CityCabs24 Logo" className="w-full h-full object-contain" />
+                <img src={logoImg} alt="CityCabs24 Logo" width="48" height="48" className="w-full h-full object-contain" />
               </div>
               <span className="font-display font-black text-2xl tracking-tight text-white">
                 CityCabs<span className="text-yellow-400">24</span>
@@ -37,9 +37,9 @@ export default function Footer({ onOpenPrivacyModal, onSelectTour }) {
 
           {/* Popular Tours Col */}
           <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-yellow-400">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-yellow-400">
               Popular Tour Packages
-            </h4>
+            </h3>
             <ul className="space-y-2 text-xs">
               {TOURS_DATA.map((tour) => (
                 <li key={tour.id}>
@@ -56,9 +56,9 @@ export default function Footer({ onOpenPrivacyModal, onSelectTour }) {
 
           {/* Quick Links Col */}
           <div className="lg:col-span-2 space-y-3">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-yellow-400">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-yellow-400">
               Quick Links
-            </h4>
+            </h3>
             <ul className="space-y-2 text-xs text-zinc-400">
               <li><Link to="/" className="hover:text-yellow-400 transition">Home</Link></li>
               <li><Link to="/mumbai-darshan" className="hover:text-yellow-400 transition">Mumbai Darshan Cabs</Link></li>
@@ -77,9 +77,9 @@ export default function Footer({ onOpenPrivacyModal, onSelectTour }) {
 
           {/* Contact Col */}
           <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-yellow-400">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-yellow-400">
               24/7 Booking Desk
-            </h4>
+            </h3>
             
             <div className="space-y-2.5 text-xs text-zinc-400">
               <div className="flex items-center gap-2">
@@ -119,7 +119,7 @@ export default function Footer({ onOpenPrivacyModal, onSelectTour }) {
         </div>
 
         {/* Bottom Strip */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-400">
           <p>© {new Date().getFullYear()} CityCabs24. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <button onClick={onOpenPrivacyModal} className="hover:text-zinc-300 transition">

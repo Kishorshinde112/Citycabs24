@@ -13,7 +13,8 @@ export const FLEET_DATA = [
     fuelType: "CNG / Petrol",
     ratePerKm: "₹11 / km",
     localFullDay: "₹2,199 / 8hr 80km",
-    image: "/assets/wagonr-Ct1Y7D7H.jpg",
+    image: "/assets/fleet/wagonr.webp",
+    image480: "/assets/fleet/wagonr-480w.webp",
     features: [
       "Clean & Sanitized Interiors",
       "Tall Boy Design with High Headroom",
@@ -36,7 +37,8 @@ export const FLEET_DATA = [
     fuelType: "CNG / Petrol",
     ratePerKm: "₹12 / km",
     localFullDay: "₹2,499 / 8hr 80km",
-    image: "/assets/dzire-CAMjcjsT.jpg",
+    image: "/assets/fleet/dzire.webp",
+    image480: "/assets/fleet/dzire-480w.webp",
     features: [
       "Smooth Highway Suspension",
       "Spacious Legroom & Reclining Seats",
@@ -59,7 +61,8 @@ export const FLEET_DATA = [
     fuelType: "CNG / Petrol",
     ratePerKm: "₹15 / km",
     localFullDay: "₹3,499 / 8hr 80km",
-    image: "/assets/ertiga-Bq9MdWD-.jpg",
+    image: "/assets/fleet/ertiga.webp",
+    image480: "/assets/fleet/ertiga-480w.webp",
     features: [
       "Roof AC Vents for all rows",
       "Generous Shoulder & Legroom",
@@ -82,7 +85,8 @@ export const FLEET_DATA = [
     fuelType: "Petrol / Diesel",
     ratePerKm: "₹17 / km",
     localFullDay: "₹3,899 / 8hr 80km",
-    image: "/assets/carens-CBBO8xCr.jpg",
+    image: "/assets/fleet/carens.webp",
+    image480: "/assets/fleet/carens-480w.webp",
     features: [
       "Executive Aircraft-style Cabin",
       "One-Touch Tumble 2nd Row Seats",
@@ -105,7 +109,8 @@ export const FLEET_DATA = [
     fuelType: "Diesel",
     ratePerKm: "₹19 / km",
     localFullDay: "₹4,499 / 8hr 80km",
-    image: "/assets/innova-B7xv-cs5.jpg",
+    image: "/assets/fleet/innova.webp",
+    image480: "/assets/fleet/innova-480w.webp",
     features: [
       "Unmatched Highway Ride Stability & Safety",
       "Captain Seats with Armrests",

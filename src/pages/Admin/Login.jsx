@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Lock, Mail, ArrowRight, AlertCircle } from 'lucide-react';
-import logoImg from '../../assets/citycabs24-logo.png';
+import logoImg from '../../assets/citycabs24-logo.webp';
 import SEOHead from '../../components/SEOHead';
 
 export default function Login() {

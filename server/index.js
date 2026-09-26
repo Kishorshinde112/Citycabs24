@@ -17,6 +17,21 @@ app.use(compression());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
+// 1. Canonical non-www 301 redirect for all routes
+app.use((req, res, next) => {
+  const host = req.headers.host || '';
+  if (host.startsWith('www.')) {
+    const nonWwwHost = host.replace(/^www\./, '');
+    return res.redirect(301, `https://${nonWwwHost}${req.originalUrl}`);
+  }
+  next();
+});
+
+// 2. 301 Redirect legacy URL to canonical
+app.get('/mumbai-darshan-cab-service', (req, res) => {
+  return res.redirect(301, '/mumbai-darshan');
+});
+
 // Ensure data directory exists
 const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, '../data');
 if (!fs.existsSync(DATA_DIR)) {
@@ -452,8 +467,53 @@ app.get('/robots.txt', (req, res) => {
   res.type('text/plain').send('User-agent: *\nDisallow: /admin\nSitemap: https://citycabs24.com/sitemap.xml\n');
 });
 
-// Serve compiled static assets (index: false ensures root and routes pass to SEO handler)
-app.use(express.static(distPath, { index: false }));
+// List of recognized public & admin routes
+const VALID_ROUTES = new Set([
+  '/',
+  '/tours',
+  '/mumbai-darshan',
+  '/lonavala-trip',
+  '/alibaug-sightseeing',
+  '/matheran-sightseeing',
+  '/shirdi-tour',
+  '/mahabaleshwar-sightseeing',
+  '/igatpuri-tour',
+  '/ashtavinayak',
+  '/3-jyotirlinga-in-maharashtra',
+  '/konkan-darshan',
+  '/booking-confirmed',
+  '/enquiry-received',
+  '/enquiry-confirmed',
+  '/admin',
+  '/admin/login',
+  '/admin/settings',
+  '/admin/tours',
+]);
+
+// Serve compiled static assets with granular, safe caching headers
+app.use(express.static(distPath, {
+  index: false,
+  dotfiles: 'allow',
+  setHeaders: (res, filePath) => {
+    const filename = path.basename(filePath);
+    const relPath = path.relative(distPath, filePath).replace(/\\/g, '/');
+    const isPermanentStatic = relPath.startsWith('assets/tours/') || relPath.startsWith('assets/fleet/') || relPath.startsWith('assets/hero/') || relPath.startsWith('.well-known/');
+
+    // Vite fingerprinted assets match: [name]-[hash8].[ext]
+    const isHashed = !isPermanentStatic && /-[A-Za-z0-9_-]{8}\.(js|css|png|jpg|jpeg|webp|svg|woff2?)$/.test(filename);
+    
+    if (isHashed) {
+      // Content-hashed assets: 1-year immutable caching
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    } else if (/\.(html)$/.test(filename)) {
+      // HTML files: always revalidate
+      res.setHeader('Cache-Control', 'no-cache, must-revalidate');
+    } else {
+      // Non-hashed assets (e.g. tour banners, fleet images, logo, favicon, manifest): 1 day with revalidation
+      res.setHeader('Cache-Control', 'public, max-age=86400, must-revalidate');
+    }
+  }
+}));
 
 // Cached index.html template
 let cachedTemplate = null;
@@ -468,14 +528,26 @@ function getIndexTemplate() {
   return cachedTemplate;
 }
 
-// Catch-all route to serve dynamic SEO-injected HTML
+// Catch-all route to serve dynamic SEO-injected HTML or genuine HTTP 404
 app.use((req, res) => {
+  const cleanPath = (req.path || '/').split('?')[0].replace(/\/+$/, '') || '/';
   const template = getIndexTemplate();
   if (!template) {
     return res.sendFile(path.join(distPath, 'index.html'));
   }
-  const finalHtml = injectSEO(template, req.path);
+
+  // If path is not a valid route, return genuine HTTP 404
+  if (!VALID_ROUTES.has(cleanPath)) {
+    const notFoundHtml = injectSEO(template, cleanPath, { is404: true });
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-cache, must-revalidate');
+    return res.status(404).send(notFoundHtml);
+  }
+
+  // Valid route: return HTTP 200 with server-rendered SEO
+  const finalHtml = injectSEO(template, cleanPath);
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-cache, must-revalidate');
   res.send(finalHtml);
 });
 

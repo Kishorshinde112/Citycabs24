@@ -15,6 +15,7 @@ import LonavalaTripPage from './pages/Public/LonavalaTripPage';
 import AlibaugPage from './pages/Public/AlibaugPage';
 import ThankYouPage from './pages/Public/ThankYouPage';
 import EnquiryThankYouPage from './pages/Public/EnquiryThankYouPage';
+import NotFoundPage from './pages/Public/NotFoundPage';
 import ToursManager from './pages/Admin/ToursManager';
 import AdminLayout from './pages/Admin/AdminLayout';
 import Login from './pages/Admin/Login';
@@ -73,8 +74,8 @@ export default function App() {
           <Route path="tours" element={<ToursManager />} />
         </Route>
 
-        {/* Catch-all fallback */}
-        <Route path="*" element={<Navigate to="/" replace />} />
+        {/* Catch-all fallback 404 */}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
     {isDev && <Agentation />}

@@ -105,6 +105,9 @@ export default function Home() {
         {/* About Us */}
         <AboutSection onOpenBookModal={() => handleOpenBookModal()} />
 
+        {/* Frequently Asked Questions (Matches FAQPage Schema) */}
+        <FaqSection />
+
         {/* Direct Booking & Inquiry Contact Form */}
         <BookingContactForm />
       </main>

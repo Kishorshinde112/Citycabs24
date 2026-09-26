@@ -183,9 +183,12 @@ export default function BookingContactForm() {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-zinc-300 mb-1">Your Full Name *</label>
+                    <label htmlFor="contact-form-name" className="block text-xs font-bold text-zinc-300 mb-1">Your Full Name *</label>
                     <input
+                      id="contact-form-name"
+                      name="name"
                       type="text"
+                      autoComplete="name"
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -195,9 +198,12 @@ export default function BookingContactForm() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-zinc-300 mb-1">Mobile / WhatsApp Number *</label>
+                    <label htmlFor="contact-form-phone" className="block text-xs font-bold text-zinc-300 mb-1">Mobile / WhatsApp Number *</label>
                     <input
+                      id="contact-form-phone"
+                      name="phone"
                       type="tel"
+                      autoComplete="tel"
                       required
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -209,8 +215,10 @@ export default function BookingContactForm() {
 
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-zinc-300 mb-1">Pickup City / Landmark *</label>
+                    <label htmlFor="contact-form-pickup" className="block text-xs font-bold text-zinc-300 mb-1">Pickup City / Landmark *</label>
                     <input
+                      id="contact-form-pickup"
+                      name="pickupLocation"
                       type="text"
                       required
                       value={formData.pickupLocation}
@@ -221,8 +229,10 @@ export default function BookingContactForm() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-zinc-300 mb-1">Drop Destination / Tour Name *</label>
+                    <label htmlFor="contact-form-destination" className="block text-xs font-bold text-zinc-300 mb-1">Drop Destination / Tour Name *</label>
                     <input
+                      id="contact-form-destination"
+                      name="destination"
                       type="text"
                       required
                       value={formData.destination}
@@ -235,8 +245,10 @@ export default function BookingContactForm() {
 
                 <div className="grid sm:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-zinc-300 mb-1">Travel Date *</label>
+                    <label htmlFor="contact-form-date" className="block text-xs font-bold text-zinc-300 mb-1">Travel Date *</label>
                     <input
+                      id="contact-form-date"
+                      name="date"
                       type="date"
                       required
                       value={formData.date}
@@ -246,8 +258,10 @@ export default function BookingContactForm() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-zinc-300 mb-1">Vehicle Preference</label>
+                    <label htmlFor="contact-form-car" className="block text-xs font-bold text-zinc-300 mb-1">Vehicle Preference</label>
                     <select
+                      id="contact-form-car"
+                      name="carPreference"
                       value={formData.carPreference}
                       onChange={(e) => setFormData({ ...formData, carPreference: e.target.value })}
                       className="w-full px-3 py-2.5 rounded-xl border border-zinc-700 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 text-xs sm:text-sm outline-none bg-zinc-950 text-white transition cursor-pointer"
@@ -262,8 +276,10 @@ export default function BookingContactForm() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-zinc-300 mb-1">Passengers</label>
+                    <label htmlFor="contact-form-passengers" className="block text-xs font-bold text-zinc-300 mb-1">Passengers</label>
                     <input
+                      id="contact-form-passengers"
+                      name="passengers"
                       type="number"
                       min="1"
                       max="30"
@@ -275,8 +291,10 @@ export default function BookingContactForm() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-zinc-300 mb-1">Special Requirements / Notes (Optional)</label>
+                  <label htmlFor="contact-form-message" className="block text-xs font-bold text-zinc-300 mb-1">Special Requirements / Notes (Optional)</label>
                   <textarea
+                    id="contact-form-message"
+                    name="message"
                     rows="3"
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}

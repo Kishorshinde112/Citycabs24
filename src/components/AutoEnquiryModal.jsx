@@ -106,11 +106,13 @@ export default function AutoEnquiryModal({ isOpen, onClose }) {
 
             {/* Destination Dropdown */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label htmlFor="ae-dest" className="block text-xs font-bold text-slate-700 mb-1">
                 Destination <span className="text-rose-500">*</span>
               </label>
               <div className="relative">
                 <select
+                  id="ae-dest"
+                  name="destination"
                   value={formData.destination}
                   onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
                   className="w-full px-3.5 py-2.5 text-sm bg-white rounded-lg border border-slate-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-100 outline-none transition-all appearance-none cursor-pointer font-medium text-slate-800"
@@ -136,11 +138,14 @@ export default function AutoEnquiryModal({ isOpen, onClose }) {
 
             {/* Full Name Field */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label htmlFor="ae-name" className="block text-xs font-bold text-slate-700 mb-1">
                 Full Name <span className="text-rose-500">*</span>
               </label>
               <input
+                id="ae-name"
+                name="fullName"
                 type="text"
+                autoComplete="name"
                 required
                 placeholder="Enter your full name"
                 value={formData.fullName}
@@ -151,11 +156,14 @@ export default function AutoEnquiryModal({ isOpen, onClose }) {
 
             {/* Phone Number Field */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label htmlFor="ae-phone" className="block text-xs font-bold text-slate-700 mb-1">
                 Phone Number <span className="text-rose-500">*</span>
               </label>
               <input
+                id="ae-phone"
+                name="phone"
                 type="tel"
+                autoComplete="tel"
                 required
                 placeholder="Enter your phone number"
                 value={formData.phone}
@@ -166,10 +174,12 @@ export default function AutoEnquiryModal({ isOpen, onClose }) {
 
             {/* Travel Date Field */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label htmlFor="ae-date" className="block text-xs font-bold text-slate-700 mb-1">
                 Travel Date <span className="text-rose-500">*</span>
               </label>
               <input
+                id="ae-date"
+                name="travelDate"
                 type="date"
                 required
                 value={formData.travelDate}

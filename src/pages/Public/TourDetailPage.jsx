@@ -106,7 +106,16 @@ export default function TourDetailPage({
       <main className="flex-1">
         {/* Hero */}
         <section className="relative h-[300px] md:h-[420px] overflow-hidden">
-          <img src={displayHeroImage} alt={`${tourName} - CityCabs24 tour package`} className="w-full h-full object-cover" />
+          <img
+            src={displayHeroImage}
+            alt={`${tourName} - CityCabs24 tour package`}
+            className="w-full h-full object-cover"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            width="1280"
+            height="420"
+          />
           <div className="absolute inset-0 bg-black/55 flex flex-col items-center justify-center text-center px-4 space-y-3">
             <h1 className="text-4xl sm:text-5xl font-extrabold text-white drop-shadow-lg">{tourName}</h1>
             {subtitle && <p className="text-lg sm:text-2xl text-zinc-200 font-medium max-w-2xl">{subtitle}</p>}

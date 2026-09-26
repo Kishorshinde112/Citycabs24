@@ -179,10 +179,12 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
             <div className="space-y-4">
               {/* Pickup */}
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
+                <label htmlFor="qb-pickup" className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
                   <MapPin className="w-3.5 h-3.5 text-amber-500" /> Pickup Location *
                 </label>
                 <input
+                  id="qb-pickup"
+                  name="pickup"
                   type="text"
                   placeholder="e.g. Dadar, Andheri, Thane, Navi Mumbai..."
                   value={formData.pickup}
@@ -193,11 +195,13 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
 
               {/* Destination dropdown */}
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
+                <label htmlFor="qb-drop" className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
                   <MapPin className="w-3.5 h-3.5 text-slate-700" /> Destination / Tour Package *
                 </label>
                 <div className="relative">
                   <select
+                    id="qb-drop"
+                    name="drop"
                     value={formData.drop}
                     onChange={e => update('drop', e.target.value)}
                     className={inputCls + ' pr-10 cursor-pointer'}
@@ -217,10 +221,12 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
 
               {/* Travel Date */}
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
+                <label htmlFor="qb-date" className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
                   <Calendar className="w-3.5 h-3.5 text-amber-500" /> Travel Date *
                 </label>
                 <input
+                  id="qb-date"
+                  name="date"
                   type="date"
                   min={TODAY}
                   value={formData.date}
@@ -294,11 +300,14 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
 
               {/* Name */}
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
+                <label htmlFor="qb-name" className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
                   <Users className="w-3.5 h-3.5 text-amber-500" /> Your Full Name *
                 </label>
                 <input
+                  id="qb-name"
+                  name="name"
                   type="text"
+                  autoComplete="name"
                   placeholder="Enter your full name"
                   value={formData.name}
                   onChange={e => update('name', e.target.value)}
@@ -309,13 +318,16 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
 
               {/* Phone */}
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
+                <label htmlFor="qb-phone" className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
                   <Phone className="w-3.5 h-3.5 text-amber-500" /> Mobile Number *
                 </label>
                 <div className="relative">
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-bold text-slate-500">+91</span>
                   <input
+                    id="qb-phone"
+                    name="phone"
                     type="tel"
+                    autoComplete="tel"
                     maxLength={10}
                     placeholder="10-digit mobile number"
                     value={formData.contact}

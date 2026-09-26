@@ -34,7 +34,21 @@ export default function ToursPage() {
         schema={[breadcrumbs]}
       />
       <Navbar onOpenBookModal={() => handleOpenBookModal()} />
-      <main className="flex-1 pt-12">
+      <main className="flex-1">
+        {/* Visible Page Header with H1 */}
+        <section className="bg-zinc-950 border-b border-zinc-800 py-12 px-4 text-center">
+          <div className="max-w-4xl mx-auto space-y-3">
+            <span className="text-yellow-400 font-semibold text-xs tracking-wider uppercase">
+              Custom Sightseeing & Outstation Cabs
+            </span>
+            <h1 className="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
+              Maharashtra Cab & Sightseeing Tour Packages
+            </h1>
+            <p className="text-zinc-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+              Explore Mumbai, hill stations, and spiritual pilgrimage circuits with our sanitized AC fleet and experienced local driver-guides.
+            </p>
+          </div>
+        </section>
         <TourPackages onSelectTour={(tour) => setSelectedTour(tour)} />
       </main>
       <Footer

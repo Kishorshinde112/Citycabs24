@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, Outlet, Navigate, useNavigate, Link } from 'react-router-dom';
 import { LayoutDashboard, Settings as SettingsIcon, LogOut, Car, Menu, X, ExternalLink, Shield, Compass, Image as ImageIcon, Bell, BellOff } from 'lucide-react';
 import useSettingsStore from '../../store/settingsStore';
-import logoImg from '../../assets/citycabs24-logo.png';
+import logoImg from '../../assets/citycabs24-logo.webp';
 import { isNotificationEnabled, setNotificationEnabled, playChimeSound, requestNotificationPermission } from '../../utils/notificationAudio';
 import SEOHead from '../../components/SEOHead';
 

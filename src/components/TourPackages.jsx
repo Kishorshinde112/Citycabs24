@@ -53,12 +53,34 @@ export default function TourPackages({ onSelectTour, showMumbaiOnly = false }) {
               >
                 {/* Tour Image Container with Badge */}
                 <div className="relative h-56 w-full overflow-hidden bg-black">
-                  <img
-                    src={tour.banner}
-                    alt={`${tour.title} - CityCabs24 tour package`}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
+                  {tour.banner && tour.banner.startsWith('/assets/tours/') ? (
+                    <picture>
+                      <source
+                        type="image/webp"
+                        srcSet={`${tour.banner.replace(/\.[^.]+$/, '')}-480w.webp 480w, ${tour.banner.replace(/\.[^.]+$/, '')}-768w.webp 768w`}
+                        sizes="(max-width: 640px) 480px, (max-width: 1024px) 380px, 420px"
+                      />
+                      <img
+                        src={tour.banner}
+                        alt={`${tour.title} - CityCabs24 tour package`}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                        decoding="async"
+                        width="768"
+                        height="432"
+                      />
+                    </picture>
+                  ) : (
+                    <img
+                      src={tour.banner}
+                      alt={`${tour.title} - CityCabs24 tour package`}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                      decoding="async"
+                      width="768"
+                      height="432"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
 
                   {/* Top Left Badge Tag */}
