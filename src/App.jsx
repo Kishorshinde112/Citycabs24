@@ -51,7 +51,7 @@ export default function App() {
 
   return (
     <>
-      <BrowserRouter>
+      
         <GoogleAdsTracker />
         <Suspense fallback={null}>
           <Routes>
@@ -89,7 +89,7 @@ export default function App() {
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
-      </BrowserRouter>
+      
       {isDev && <Agentation />}
     </>
   );

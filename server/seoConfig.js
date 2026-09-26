@@ -413,7 +413,7 @@ export function buildSchemaScripts(routeData, path) {
  * Injects SEO metadata & pre-rendered crawlable content into the base template HTML
  */
 export function injectSEO(htmlTemplate, rawPath, options = {}) {
-  const { is404 = false } = options;
+  const { is404 = false, ssrHtml = '' } = options;
   const cleanPath = (rawPath || '/').split('?')[0].replace(/\/+$/, '') || '/';
   
   // 404 Not Found Page handling
@@ -424,33 +424,15 @@ export function injectSEO(htmlTemplate, rawPath, options = {}) {
     output = output.replace(/<meta name="description" content=".*?"\s*\/?>/is, '');
     
     const notFoundMeta = `
-    <title>404 - Page Not Found | CityCabs24</title>
-    <meta name="robots" content="noindex, nofollow" />
-    <meta name="description" content="The page you are looking for does not exist on CityCabs24. Explore our sightseeing tours and cab services." />
+      <title>404 - Page Not Found | CityCabs24</title>
+      <meta name="description" content="The page you are looking for does not exist." />
+      <meta name="robots" content="noindex, nofollow" />
     `;
-    output = output.replace('</head>', `${notFoundMeta}\n  </head>`);
+    const notFoundShell = `<div class="min-h-screen flex items-center justify-center bg-zinc-950 text-white"><h1 class="text-3xl font-bold">404 - Page Not Found</h1></div>`;
     
-    const notFoundShell = `
-    <div id="prerendered-content" class="min-h-screen bg-zinc-950 text-white font-sans flex flex-col items-center justify-center py-20 px-4 text-center">
-      <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-3">404 - Page Not Found</h1>
-      <p class="text-zinc-400 text-base max-w-md mx-auto mb-8">We couldn't find the page you were looking for. Explore our popular tour packages below.</p>
-      <div class="flex flex-wrap gap-4 justify-center">
-        <a href="/tours" class="px-6 py-3 rounded-xl bg-yellow-400 text-black font-extrabold text-sm">Explore Tour Packages</a>
-        <a href="/" class="px-6 py-3 rounded-xl bg-zinc-900 text-white border border-zinc-700 text-sm font-bold">Back to Home</a>
-        <a href="tel:+91${BUSINESS_PHONE}" class="px-6 py-3 rounded-xl bg-zinc-900 text-yellow-400 border border-yellow-400/40 text-sm font-bold">Call +91 ${BUSINESS_PHONE}</a>
-      </div>
-    </div>
-    `;
+    output = output.replace('</head>', `${notFoundMeta}\n  </head>`);
     output = output.replace('<div id="root"></div>', `<div id="root">${notFoundShell}</div>`);
     return output;
-  }
-
-  // Non-indexable pages (Admin, Confirmation, etc.)
-  if (cleanPath.startsWith('/admin') || cleanPath === '/booking-confirmed' || cleanPath === '/enquiry-received' || cleanPath === '/enquiry-confirmed') {
-    return htmlTemplate.replace(
-      '</head>',
-      '  <meta name="robots" content="noindex, nofollow" />\n  </head>'
-    );
   }
 
   const seo = ROUTES_SEO[cleanPath] || ROUTES_SEO['/'];
@@ -463,143 +445,34 @@ export function injectSEO(htmlTemplate, rawPath, options = {}) {
     <meta name="title" content="${seo.title}" />
     <meta name="description" content="${seo.description}" />
     <link rel="canonical" href="${seo.canonical}" />
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="CityCabs24" />
-    <meta property="og:url" content="${seo.canonical}" />
     <meta property="og:title" content="${seo.title}" />
     <meta property="og:description" content="${seo.description}" />
+    <meta property="og:url" content="${seo.canonical}" />
     <meta property="og:image" content="${seo.ogImage}" />
-
-    <!-- Twitter -->
+    <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="${seo.canonical}" />
     <meta name="twitter:title" content="${seo.title}" />
     <meta name="twitter:description" content="${seo.description}" />
     <meta name="twitter:image" content="${seo.ogImage}" />
-
-    <!-- Structured Data (JSON-LD) -->
     ${schemaScripts}
   `;
 
-  // 2. Build legitimate visible semantic HTML fallback matching the light theme
-  const visiblePreRender = `
-    <div id="prerendered-content" class="min-h-screen font-sans">
-      <!-- EXACT Match of Navbar -->
-      <div class="bg-black text-yellow-400 text-xs py-2 px-4 border-b border-yellow-500/20 hidden md:block font-bold">
-        <div class="max-w-7xl mx-auto flex justify-between items-center font-medium">
-          <span class="text-zinc-300">Available 24/7 for your convenience</span>
-          <div class="flex items-center space-x-4">
-            <a href="tel:+91${BUSINESS_PHONE}" class="hover:text-yellow-300 flex items-center gap-1">
-              <span class="text-zinc-700">|</span>
-              +91 ${BUSINESS_PHONE}
-            </a>
-          </div>
-        </div>
-      </div>
-      <header class="sticky top-0 z-50 transition-all duration-300 bg-zinc-950 border-b border-zinc-800 text-white py-3.5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="flex justify-between items-center">
-            <div class="flex items-center gap-2">
-              <a href="/" class="flex items-center gap-2.5 group">
-                <img src="/assets/citycabs24-logo-80w.webp" alt="CityCabs24 Logo" class="h-10 sm:h-12 w-auto object-contain drop-shadow-[0_0_8px_rgba(250,204,21,0.4)]" />
-                <div class="flex flex-col">
-                  <span class="font-extrabold text-xl sm:text-2xl tracking-tight text-white group-hover:text-amber-400 transition-colors">
-                    CityCabs<span class="text-amber-500">24</span>
-                  </span>
-                  <span class="text-[10px] sm:text-xs font-semibold text-zinc-400 uppercase tracking-widest hidden sm:block">Mumbai Darshan & Outstation</span>
-                </div>
-              </a>
-            </div>
-            <div class="hidden md:flex items-center gap-5">
-              <a href="/tours" class="text-sm font-semibold text-zinc-300 hover:text-white transition">Tour Packages</a>
-              <a href="tel:+91${BUSINESS_PHONE}" class="flex items-center gap-2 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-black font-extrabold text-sm rounded-xl transition">
-                <span>+91 ${BUSINESS_PHONE}</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </header>
-      
-      <!-- EXACT Match of Hero -->
-      <main class="w-full">
-        <div id="home" class="relative bg-slate-900 text-white min-h-[500px] sm:min-h-[580px] flex items-center justify-center overflow-hidden py-20 border-b border-slate-800">
-          <picture class="absolute inset-0 w-full h-full pointer-events-none">
-            <source media="(max-width: 639px)" type="image/webp" srcset="/assets/hero/mumbai-hero-480w.webp" />
-            <source media="(max-width: 1024px)" type="image/webp" srcset="/assets/hero/mumbai-hero-768w.webp" />
-            <source media="(min-width: 1025px)" type="image/webp" srcset="/assets/hero/mumbai-hero-1280w.webp 1280w, /assets/hero/mumbai-hero-1600w.webp 1600w" sizes="100vw" />
-            <img src="/assets/hero/mumbai-hero.webp" alt="Mumbai Darshan Cab Service" class="w-full h-full object-cover opacity-40 transform scale-105" loading="eager" fetchpriority="high" width="1600" height="900">
-          </picture>
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/70 to-slate-900/50"></div>
-          
-          <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-6">
-            <div class="text-amber-400 font-serif italic text-lg sm:text-2xl tracking-wide font-normal">
-              Discover the City of Dreams
-            </div>
-            <h1 class="text-4xl sm:text-6xl font-display font-extrabold tracking-tight text-white leading-tight">
-              ${seo.h1}
-            </h1>
-            <p class="text-slate-200 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed">
-              ${seo.description}
-            </p>
-            <div class="pt-4 flex flex-wrap justify-center items-center gap-4">
-              <a href="/mumbai-darshan" class="px-7 py-3.5 rounded-xl bg-yellow-400 text-black font-extrabold text-sm shadow-xl shadow-yellow-400/20 flex items-center gap-2">
-                <span>Explore Tours</span>
-              </a>
-              <a href="tel:+91${BUSINESS_PHONE}" class="px-7 py-3.5 rounded-xl bg-zinc-900/90 text-white font-bold text-sm border border-yellow-400/40 backdrop-blur-md flex items-center gap-2">
-                <span>Call Now</span>
-              </a>
-            </div>
-            <div class="flex justify-center items-center gap-2 pt-8">
-              <span class="w-8 h-2 rounded-full bg-yellow-400 shadow-[0_0_10px_rgba(250,204,21,0.5)]"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-white/40"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-white/40"></span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- SEO Semantic Content below fold -->
-        <div class="bg-slate-50 text-slate-900 max-w-7xl mx-auto px-4 py-12">
-          <!-- Visually hidden but SEO crawlable content below the fold -->
-          <div class="opacity-90">
-            <div class="mb-8">
-              <h2 class="text-2xl font-bold text-slate-900 mb-4">${seo.h2 || 'Tour Highlights'}</h2>
-              <ul class="space-y-2 text-slate-700 list-disc list-inside">
-                ${(seo.highlights || []).map(h => `<li>${h}</li>`).join('')}
-              </ul>
-            </div>
-            
-            ${(seo.faqs && seo.faqs.length > 0) ? `
-              <div class="mb-8">
-                <h2 class="text-2xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
-                <div class="space-y-4">
-                  ${seo.faqs.map(f => `
-                    <div class="p-5 bg-white rounded-xl border border-slate-200 shadow-sm">
-                      <h3 class="font-bold text-slate-900 text-base mb-2">${f.q}</h3>
-                      <p class="text-slate-600 text-sm leading-relaxed">${f.a}</p>
-                    </div>
-                  `).join('')}
-                </div>
-              </div>
-            ` : ''}
-          </div>
-        </div>
-      </main>
-    </div>
-  `;
-
-  // Replace existing title and primary meta in template
+  // 2. We no longer use a handwritten DOM shell. We use true React SSR HTML.
+  const appHtml = ssrHtml || '';
+  
+  // 3. Inject into template
   let output = htmlTemplate;
+  
+  // Set SSR marker for client hydration
+  if (appHtml) {
+    output = output.replace('<html lang="en">', '<html lang="en" data-ssr="true">');
+  }
+  
   output = output.replace(/<title>.*?<\/title>/is, '');
   output = output.replace(/<meta name="title" content=".*?"\s*\/?>/is, '');
   output = output.replace(/<meta name="description" content=".*?"\s*\/?>/is, '');
-  
-  // Inject new tags before </head>
   output = output.replace('</head>', `${metaTags}\n  </head>`);
-
-  // Inject visible pre-rendered shell inside <div id="root">
-  output = output.replace('<div id="root"></div>', `<div id="root">${visiblePreRender}</div>`);
-
+  output = output.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`);
+  
   return output;
 }

@@ -589,7 +589,7 @@ function getIndexTemplate() {
 }
 
 // Catch-all route to serve dynamic SEO-injected HTML or genuine HTTP 404
-app.use((req, res) => {
+app.use(async (req, res) => {
   const cleanPath = (req.path || '/').split('?')[0].replace(/\/+$/, '') || '/';
   const template = getIndexTemplate();
   if (!template) {
@@ -604,8 +604,21 @@ app.use((req, res) => {
     return res.status(404).send(notFoundHtml);
   }
 
-  // Valid route: return HTTP 200 with server-rendered SEO
-  const finalHtml = injectSEO(template, cleanPath);
+  // Try SSR for valid routes
+  let ssrHtml = '';
+  try {
+    const serverEntryPath = path.join(__dirname, '../dist/server/entry-server.js');
+    if (fs.existsSync(serverEntryPath)) {
+      const { render } = await import('file://' + serverEntryPath);
+      const { html, helmet } = render(req.url);
+      ssrHtml = html;
+    }
+  } catch (e) {
+    console.error('SSR Error:', e);
+  }
+
+  // Valid route: return HTTP 200 with server-rendered SEO and React SSR
+  const finalHtml = injectSEO(template, cleanPath, { ssrHtml });
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Cache-Control', 'no-cache, must-revalidate');
   res.send(finalHtml);

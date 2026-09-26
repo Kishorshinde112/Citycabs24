@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/generate-sitemap.mjs && vite build",
+    "build": "node scripts/generate-sitemap.mjs && vite build && vite build --ssr src/entry-server.jsx --outDir dist/server",
     "preview": "vite preview",
     "server": "PORT=3001 node server/index.js",
     "start": "PORT=3001 node server/index.js"

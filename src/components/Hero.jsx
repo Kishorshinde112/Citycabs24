@@ -27,7 +27,7 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
           alt="Mumbai Sightseeing Tours with CityCabs24 Chauffeur Service"
           className="w-full h-full object-cover opacity-40 transform scale-105"
           loading="eager"
-          fetchPriority="high"
+          fetchpriority="high"
           decoding="async"
           width="1600"
           height="900"
