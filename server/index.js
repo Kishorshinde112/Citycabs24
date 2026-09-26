@@ -4,6 +4,8 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import nodemailer from 'nodemailer';
+import compression from 'compression';
+import { injectSEO } from './seoConfig.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -11,6 +13,7 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 80;
 
+app.use(compression());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
@@ -426,13 +429,32 @@ app.post('/api/auth/login', (req, res) => {
   }
 });
 
-// Serve compiled static assets
+// Serve compiled static assets (index: false ensures root and routes pass to SEO handler)
 const distPath = path.join(__dirname, '../dist');
-app.use(express.static(distPath));
+app.use(express.static(distPath, { index: false }));
 
-// Catch-all route to serve SPA index.html
+// Cached index.html template
+let cachedTemplate = null;
+function getIndexTemplate() {
+  if (!cachedTemplate || process.env.NODE_ENV !== 'production') {
+    try {
+      cachedTemplate = fs.readFileSync(path.join(distPath, 'index.html'), 'utf-8');
+    } catch (e) {
+      console.error('Failed to load dist/index.html:', e);
+    }
+  }
+  return cachedTemplate;
+}
+
+// Catch-all route to serve dynamic SEO-injected HTML
 app.use((req, res) => {
-  res.sendFile(path.join(distPath, 'index.html'));
+  const template = getIndexTemplate();
+  if (!template) {
+    return res.sendFile(path.join(distPath, 'index.html'));
+  }
+  const finalHtml = injectSEO(template, req.path);
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.send(finalHtml);
 });
 
 app.listen(PORT, '0.0.0.0', () => {

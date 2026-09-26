@@ -26,13 +26,11 @@ export default function MumbaiDarshanPage() {
   const [autoEnquiryOpen, setAutoEnquiryOpen] = useState(false);
   const [selectedTour, setSelectedTour] = useState(null);
 
-  // Safe trigger enquiry modal once per session
+  // Auto trigger enquiry modal after 5 seconds of user spending time on page
   useEffect(() => {
-    if (typeof window !== 'undefined' && sessionStorage.getItem('enquiry_popup_shown')) return;
     const timer = setTimeout(() => {
       setAutoEnquiryOpen(true);
-      if (typeof window !== 'undefined') sessionStorage.setItem('enquiry_popup_shown', 'true');
-    }, 7000);
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, []);
