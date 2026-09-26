@@ -485,48 +485,97 @@ export function injectSEO(htmlTemplate, rawPath, options = {}) {
 
   // 2. Build legitimate visible semantic HTML fallback matching the light theme
   const visiblePreRender = `
-    <div id="prerendered-content" class="min-h-screen bg-slate-50 font-sans text-slate-900">
-      <!-- Skeleton Header matching real site -->
-      <header class="bg-white border-b border-slate-200 py-4 px-4 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto w-full flex justify-between items-center">
-          <div class="flex items-center gap-2">
-            <span class="text-2xl font-extrabold tracking-tight text-slate-900">CityCabs<span class="text-amber-500">24</span></span>
-          </div>
-          <div class="flex items-center gap-4">
-            <a href="tel:+91\${BUSINESS_PHONE}" class="hidden sm:flex items-center gap-2 font-bold text-slate-700">
-              <span class="bg-amber-100 text-amber-700 px-3 py-1.5 rounded-full text-sm">+91 \${BUSINESS_PHONE}</span>
+    <div id="prerendered-content" class="min-h-screen font-sans">
+      <!-- EXACT Match of Navbar -->
+      <div class="bg-black text-yellow-400 text-xs py-2 px-4 border-b border-yellow-500/20 hidden md:block font-bold">
+        <div class="max-w-7xl mx-auto flex justify-between items-center font-medium">
+          <span class="text-zinc-300">Available 24/7 for your convenience</span>
+          <div class="flex items-center space-x-4">
+            <a href="tel:+91${BUSINESS_PHONE}" class="hover:text-yellow-300 flex items-center gap-1">
+              <span class="text-zinc-700">|</span>
+              +91 ${BUSINESS_PHONE}
             </a>
+          </div>
+        </div>
+      </div>
+      <header class="sticky top-0 z-50 transition-all duration-300 bg-zinc-950 border-b border-zinc-800 text-white py-3.5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between items-center">
+            <div class="flex items-center gap-2">
+              <a href="/" class="flex items-center gap-2.5 group">
+                <img src="/assets/citycabs24-logo.webp" alt="CityCabs24 Logo" class="h-10 sm:h-12 w-auto object-contain drop-shadow-[0_0_8px_rgba(250,204,21,0.4)]" />
+                <div class="flex flex-col">
+                  <span class="font-extrabold text-xl sm:text-2xl tracking-tight text-white group-hover:text-amber-400 transition-colors">
+                    CityCabs<span class="text-amber-500">24</span>
+                  </span>
+                  <span class="text-[10px] sm:text-xs font-semibold text-zinc-400 uppercase tracking-widest hidden sm:block">Mumbai Darshan & Outstation</span>
+                </div>
+              </a>
+            </div>
+            <div class="hidden md:flex items-center gap-5">
+              <a href="/tours" class="text-sm font-semibold text-zinc-300 hover:text-white transition">Tour Packages</a>
+              <a href="tel:+91${BUSINESS_PHONE}" class="flex items-center gap-2 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-black font-extrabold text-sm rounded-xl transition">
+                <span>+91 ${BUSINESS_PHONE}</span>
+              </a>
+            </div>
           </div>
         </div>
       </header>
       
-      <!-- Content Area (Skeleton + SEO Content) -->
+      <!-- EXACT Match of Hero -->
       <main class="w-full">
-        <div class="bg-slate-900 pt-16 pb-20 px-4 text-center">
-          <h1 class="text-3xl sm:text-5xl font-extrabold text-white mb-6 max-w-4xl mx-auto leading-tight">\${seo.h1}</h1>
-          <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto mb-8">\${seo.description}</p>
-          <div class="w-16 h-16 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p class="text-amber-400 font-bold text-sm">Loading Experience...</p>
+        <div id="home" class="relative bg-slate-900 text-white min-h-[500px] sm:min-h-[580px] flex items-center justify-center overflow-hidden py-20 border-b border-slate-800">
+          <picture class="absolute inset-0 w-full h-full pointer-events-none">
+            <source type="image/webp" srcset="/assets/hero/mumbai-hero-480w.webp 480w, /assets/hero/mumbai-hero-768w.webp 768w, /assets/hero/mumbai-hero-1280w.webp 1280w, /assets/hero/mumbai-hero-1600w.webp 1600w" sizes="100vw">
+            <img src="/assets/hero/mumbai-hero.webp" alt="${seo.h1}" class="w-full h-full object-cover opacity-40 transform scale-105" loading="eager" fetchpriority="high" width="1600" height="900">
+          </picture>
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/70 to-slate-900/50"></div>
+          
+          <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-6">
+            <div class="text-amber-400 font-serif italic text-lg sm:text-2xl tracking-wide font-normal">
+              Discover the City of Dreams
+            </div>
+            <h1 class="text-4xl sm:text-6xl font-display font-extrabold tracking-tight text-white leading-tight">
+              ${seo.h1}
+            </h1>
+            <p class="text-slate-200 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed">
+              ${seo.description}
+            </p>
+            <div class="pt-4 flex flex-wrap justify-center items-center gap-4">
+              <a href="/mumbai-darshan" class="px-7 py-3.5 rounded-xl bg-yellow-400 text-black font-extrabold text-sm shadow-xl shadow-yellow-400/20 flex items-center gap-2">
+                <span>Explore Tours</span>
+              </a>
+              <a href="tel:+91${BUSINESS_PHONE}" class="px-7 py-3.5 rounded-xl bg-zinc-900/90 text-white font-bold text-sm border border-yellow-400/40 backdrop-blur-md flex items-center gap-2">
+                <span>Call Now</span>
+              </a>
+            </div>
+            <div class="flex justify-center items-center gap-2 pt-8">
+              <span class="w-8 h-2 rounded-full bg-yellow-400 shadow-[0_0_10px_rgba(250,204,21,0.5)]"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-white/40"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-white/40"></span>
+            </div>
+          </div>
         </div>
         
-        <div class="max-w-4xl mx-auto px-4 py-12">
+        <!-- SEO Semantic Content below fold -->
+        <div class="bg-slate-50 text-slate-900 max-w-7xl mx-auto px-4 py-12">
           <!-- Visually hidden but SEO crawlable content below the fold -->
           <div class="opacity-90">
             <div class="mb-8">
-              <h2 class="text-2xl font-bold text-slate-900 mb-4">\${seo.h2 || 'Tour Highlights'}</h2>
+              <h2 class="text-2xl font-bold text-slate-900 mb-4">${seo.h2 || 'Tour Highlights'}</h2>
               <ul class="space-y-2 text-slate-700 list-disc list-inside">
-                \${(seo.highlights || []).map(h => `<li>\${h}</li>`).join('')}
+                ${(seo.highlights || []).map(h => `<li>${h}</li>`).join('')}
               </ul>
             </div>
             
-            \${(seo.faqs && seo.faqs.length > 0) ? `
+            ${(seo.faqs && seo.faqs.length > 0) ? `
               <div class="mb-8">
                 <h2 class="text-2xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
                 <div class="space-y-4">
-                  \${seo.faqs.map(f => `
+                  ${seo.faqs.map(f => `
                     <div class="p-5 bg-white rounded-xl border border-slate-200 shadow-sm">
-                      <h3 class="font-bold text-slate-900 text-base mb-2">\${f.q}</h3>
-                      <p class="text-slate-600 text-sm leading-relaxed">\${f.a}</p>
+                      <h3 class="font-bold text-slate-900 text-base mb-2">${f.q}</h3>
+                      <p class="text-slate-600 text-sm leading-relaxed">${f.a}</p>
                     </div>
                   `).join('')}
                 </div>

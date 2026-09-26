@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-route
 import { Agentation } from 'agentation';
 
 // Lazy loaded components
-const Home = lazy(() => import('./pages/Home'));
+import Home from './pages/Home';
 const ToursPage = lazy(() => import('./pages/Public/ToursPage'));
 const MumbaiDarshanPage = lazy(() => import('./pages/Public/MumbaiDarshanPage'));
 const ShirdiTourPage = lazy(() => import('./pages/Public/ShirdiTourPage'));
@@ -53,7 +53,7 @@ export default function App() {
     <>
       <BrowserRouter>
         <GoogleAdsTracker />
-        <Suspense fallback={<PageLoader />}>
+        <Suspense fallback={null}>
           <Routes>
             {/* Public Website */}
             <Route path="/" element={<Home />} />
