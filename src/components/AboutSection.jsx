@@ -31,7 +31,7 @@ export default function AboutSection({ onOpenBookModal }) {
                   1
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-white">Drivers Who Love Storytelling & Guiding</h4>
+                  <h3 className="text-sm font-bold text-white">Drivers Who Love Storytelling & Guiding</h3>
                   <p className="text-xs text-zinc-400 mt-0.5">
                     Our chauffeurs are certified local guides who know every historic spot, temple tradition, and local market secret.
                   </p>
@@ -43,7 +43,7 @@ export default function AboutSection({ onOpenBookModal }) {
                   2
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-white">No App Downloads or Surge Traps</h4>
+                  <h3 className="text-sm font-bold text-white">No App Downloads or Surge Traps</h3>
                   <p className="text-xs text-zinc-400 mt-0.5">
                     Book instantly on WhatsApp or phone call in under 60 seconds. Fixed, transparent rates with zero surge pricing during peak hours.
                   </p>
@@ -55,7 +55,7 @@ export default function AboutSection({ onOpenBookModal }) {
                   3
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-white">100% Guaranteed Punctuality</h4>
+                  <h3 className="text-sm font-bold text-white">100% Guaranteed Punctuality</h3>
                   <p className="text-xs text-zinc-400 mt-0.5">
                     Doorstep pickup with real-time driver coordination. We arrive 15 minutes before scheduled time so you start your journey relaxed.
                   </p>

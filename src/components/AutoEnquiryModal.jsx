@@ -70,7 +70,7 @@ export default function AutoEnquiryModal({ isOpen, onClose }) {
         {/* Close (X) Icon */}
         <button
           onClick={onClose}
-          className="absolute top-3.5 right-3.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 p-1.5 rounded-full transition"
+          className="absolute top-3.5 right-3.5 text-slate-600 hover:text-slate-600 hover:bg-slate-100 p-1.5 rounded-full transition"
           aria-label="Close modal"
         >
           <X className="w-5 h-5" />
@@ -128,7 +128,7 @@ export default function AutoEnquiryModal({ isOpen, onClose }) {
                   <option value="3 Jyotirlinga in Maharashtra">3 Jyotirlinga in Maharashtra</option>
                   <option value="Konkan Darshan">Konkan Darshan</option>
                 </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400">
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-600">
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
                     <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                   </svg>

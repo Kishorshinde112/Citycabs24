@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Lock, Mail, ArrowRight, AlertCircle } from 'lucide-react';
-import logoImg from '../../assets/citycabs24-logo.webp';
 import SEOHead from '../../components/SEOHead';
 
 export default function Login() {
@@ -54,7 +53,7 @@ export default function Login() {
         <div className="text-center">
           <Link to="/" className="inline-flex items-center gap-3 group mb-4">
             <div className="w-14 h-14 rounded-full overflow-hidden border border-indigo-500/40 p-0.5 shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform bg-white flex items-center justify-center">
-              <img src={logoImg} alt="CityCabs24 Logo" className="w-full h-full object-contain" />
+              <img src="/assets/citycabs24-logo.webp" alt="CityCabs24 Logo" className="w-full h-full object-contain" />
             </div>
             <div className="text-left">
               <span className="font-display font-black text-2xl tracking-tight text-white">

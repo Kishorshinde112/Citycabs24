@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { NavLink, Outlet, Navigate, useNavigate, Link } from 'react-router-dom';
 import { LayoutDashboard, Settings as SettingsIcon, LogOut, Car, Menu, X, ExternalLink, Shield, Compass, Image as ImageIcon, Bell, BellOff } from 'lucide-react';
 import useSettingsStore from '../../store/settingsStore';
-import logoImg from '../../assets/citycabs24-logo.webp';
 import { isNotificationEnabled, setNotificationEnabled, playChimeSound, requestNotificationPermission } from '../../utils/notificationAudio';
 import SEOHead from '../../components/SEOHead';
 
@@ -38,7 +37,7 @@ export default function AdminLayout() {
       <div className="p-5 flex items-center justify-between border-b border-slate-800">
         <Link to="/admin" className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full overflow-hidden border border-amber-400/40 p-0.5 shadow-md bg-white flex items-center justify-center">
-            <img src={logoImg} alt="CityCabs24 Logo" className="w-full h-full object-contain" />
+            <img src="/assets/citycabs24-logo.webp" alt="CityCabs24 Logo" className="w-full h-full object-contain" />
           </div>
           <div>
             <div className="font-display font-black text-lg tracking-tight text-white leading-tight">

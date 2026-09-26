@@ -16,11 +16,11 @@ export default function Hero({ onSelectTour, onOpenBookModal }) {
       {/* Background Hero Image - LCP Element (Responsive WebP, Eager, High Priority) */}
       <picture className="absolute inset-0 w-full h-full pointer-events-none">
         {!isCustomHero && (
-          <source
-            type="image/webp"
-            srcSet="/assets/hero/mumbai-hero-480w.webp 480w, /assets/hero/mumbai-hero-768w.webp 768w, /assets/hero/mumbai-hero-1280w.webp 1280w, /assets/hero/mumbai-hero-1600w.webp 1600w"
-            sizes="100vw"
-          />
+          <>
+            <source media="(max-width: 639px)" srcSet="/assets/hero/mumbai-hero-480w.webp" type="image/webp" />
+            <source media="(max-width: 1024px)" srcSet="/assets/hero/mumbai-hero-768w.webp" type="image/webp" />
+            <source media="(min-width: 1025px)" srcSet="/assets/hero/mumbai-hero-1280w.webp 1280w, /assets/hero/mumbai-hero-1600w.webp 1600w" sizes="100vw" type="image/webp" />
+          </>
         )}
         <img
           src={heroImage}

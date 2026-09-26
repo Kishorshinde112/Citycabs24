@@ -43,12 +43,20 @@ export default function FleetSection({ onOpenBookModal }) {
                 {/* Car Image Display Container (Full Edge-to-Edge Fill) */}
                 <div className="aspect-[16/9] w-full rounded-2xl overflow-hidden bg-zinc-950 border border-zinc-800 mb-4 relative flex items-center justify-center shadow-inner">
                   {car.image ? (
-                    <picture>
+                                        <picture>
                       {car.image480 && (
                         <source
+                          media="(max-width: 639px)"
+                          type="image/webp"
+                          srcSet={car.image480}
+                        />
+                      )}
+                      {car.image480 && (
+                        <source
+                          media="(min-width: 640px)"
                           type="image/webp"
                           srcSet={`${car.image480} 480w, ${car.image} 768w`}
-                          sizes="(max-width: 640px) 480px, 768px"
+                          sizes="(max-width: 1024px) 50vw, 25vw"
                         />
                       )}
                       <img
@@ -62,7 +70,7 @@ export default function FleetSection({ onOpenBookModal }) {
                       />
                     </picture>
                   ) : (
-                    <div className="w-full h-full bg-zinc-950 flex flex-col items-center justify-center text-zinc-500 p-4 text-center border border-dashed border-zinc-800">
+                    <div className="w-full h-full bg-zinc-950 flex flex-col items-center justify-center text-zinc-400 p-4 text-center border border-dashed border-zinc-800">
                       <Users className="w-12 h-12 text-yellow-400 mb-1.5" />
                       <span className="font-extrabold text-sm text-zinc-200">{car.name}</span>
                       <span className="text-xs text-zinc-400 mt-0.5">13 - 26 Seater AC Group Vehicle</span>
@@ -86,7 +94,7 @@ export default function FleetSection({ onOpenBookModal }) {
               {/* Pricing Breakdown & Single Action Button */}
               <div className="mt-5 pt-4 border-t border-zinc-800/80 flex items-center justify-between gap-3">
                 <div>
-                  <span className="text-[10px] text-zinc-500 uppercase font-bold block">Local (8h/80km)</span>
+                  <span className="text-[10px] text-zinc-400 uppercase font-bold block">Local (8h/80km)</span>
                   <span className="text-sm font-black text-white">{car.localFullDay.split('/')[0]}</span>
                 </div>
 

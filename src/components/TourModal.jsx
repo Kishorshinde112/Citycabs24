@@ -94,7 +94,7 @@ export default function TourModal({ tour, onClose, onBookClick }) {
 
           {/* Description */}
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400 mb-2">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-600 mb-2">
               About This Tour
             </h3>
             <p className="text-slate-700 text-sm sm:text-base leading-relaxed">
@@ -114,14 +114,14 @@ export default function TourModal({ tour, onClose, onBookClick }) {
           {/* Booking Packages & Duration Options */}
           {tour.bookingPackages && (
             <div>
-              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400 mb-3">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-600 mb-3">
                 Package Duration Options
               </h3>
               <div className="grid sm:grid-cols-3 gap-2.5">
                 {tour.bookingPackages.map((pkg, idx) => (
                   <div key={idx} className="bg-slate-50 border border-slate-200 p-3 rounded-2xl text-center">
                     <div className="text-xs font-bold text-slate-800">{pkg.name}</div>
-                    <div className="text-xs text-slate-500 mt-0.5">{pkg.duration}</div>
+                    <div className="text-xs text-slate-600 mt-0.5">{pkg.duration}</div>
                     <div className="text-indigo-600 font-black text-sm mt-1">{pkg.price}</div>
                   </div>
                 ))}
@@ -131,7 +131,7 @@ export default function TourModal({ tour, onClose, onBookClick }) {
 
           {/* Key Sightseeing Attractions */}
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-600 mb-3 flex items-center gap-1.5">
               <MapPin className="w-4 h-4 text-emerald-600" />
               Key Attractions & Sightseeing Spots
             </h3>
@@ -180,7 +180,7 @@ export default function TourModal({ tour, onClose, onBookClick }) {
 
           {/* Vehicle Options */}
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400 mb-2 flex items-center gap-1.5">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-600 mb-2 flex items-center gap-1.5">
               <Car className="w-4 h-4 text-indigo-500" />
               Available Vehicles for This Tour
             </h3>
@@ -208,9 +208,9 @@ export default function TourModal({ tour, onClose, onBookClick }) {
         {/* Modal Footer CTAs */}
         <div className="p-4 sm:p-6 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div>
-            <span className="text-xs text-slate-500">Starting from</span>
+            <span className="text-xs text-slate-600">Starting from</span>
             <div className="text-2xl font-black text-slate-900 font-display">
-              {tour.startingPrice} <span className="text-xs font-normal text-slate-500">/ package</span>
+              {tour.startingPrice} <span className="text-xs font-normal text-slate-600">/ package</span>
             </div>
           </div>
 

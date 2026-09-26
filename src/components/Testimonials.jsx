@@ -55,7 +55,7 @@ export default function Testimonials() {
 
               {/* Author Info */}
               <div className="mt-6 pt-4 border-t border-zinc-800">
-                <h4 className="text-sm font-bold text-white leading-snug">{rev.name}</h4>
+                <h3 className="text-sm font-bold text-white leading-snug">{rev.name}</h3>
                 <p className="text-[11px] text-zinc-400 mt-0.5">{rev.location} • {rev.date}</p>
               </div>
 

@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { fetchSharedSettings } from './settingsStore';
 import { persist } from 'zustand/middleware';
 import { TOURS_DATA } from '../data/toursData';
 import { FLEET_DATA } from '../data/fleetData';
@@ -32,9 +33,8 @@ const useContentStore = create(
         }
 
         try {
-          const resSettings = await fetch('/api/settings');
-          if (resSettings.ok) {
-            const data = await resSettings.json();
+          const data = await fetchSharedSettings();
+          if (data) {
             if (data.success && data.settings) {
               if (data.settings.fleet) {
                 try {

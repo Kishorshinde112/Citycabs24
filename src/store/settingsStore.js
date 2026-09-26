@@ -1,5 +1,20 @@
 import { create } from 'zustand';
 
+
+let sharedSettingsPromise = null;
+export const fetchSharedSettings = () => {
+  if (!sharedSettingsPromise) {
+    sharedSettingsPromise = fetch('/api/settings').then(res => {
+      if (!res.ok) throw new Error('Network response was not ok');
+      return res.json();
+    }).catch(err => {
+      sharedSettingsPromise = null;
+      throw err;
+    });
+  }
+  return sharedSettingsPromise;
+};
+
 const DEFAULT_SETTINGS = {
   phone: '9833309061',
   helpPhone: '8380803217',
@@ -12,9 +27,8 @@ const useSettingsStore = create((set, get) => ({
 
   fetchSettings: async () => {
     try {
-      const res = await fetch('/api/settings');
-      if (res.ok) {
-        const data = await res.json();
+      const data = await fetchSharedSettings();
+      if (data) {
         if (data.success && data.settings) {
           set({
             phone: data.settings.phone || DEFAULT_SETTINGS.phone,
@@ -40,8 +54,7 @@ const useSettingsStore = create((set, get) => ({
         },
         body: JSON.stringify(newSettings),
       });
-      if (res.ok) {
-        const data = await res.json();
+      if (data) {
         if (data.success && data.settings) {
           set({
             phone: data.settings.phone,

@@ -67,7 +67,7 @@ export default function GallerySection() {
               <div className="p-4 bg-slate-900 flex items-center justify-between text-white border-t border-slate-800">
                 <div>
                   <span className="text-xs text-sky-400 font-bold block">{selectedImage.category}</span>
-                  <h4 className="text-base font-bold">{selectedImage.title}</h4>
+                  <h3 className="text-base font-bold">{selectedImage.title}</h3>
                 </div>
                 <button
                   onClick={() => setSelectedImage(null)}

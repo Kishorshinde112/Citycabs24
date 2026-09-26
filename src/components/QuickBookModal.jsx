@@ -147,10 +147,10 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-black border-2 transition-all
                         ${done   ? 'bg-yellow-400 border-yellow-400 text-black'  : ''}
                         ${active ? 'bg-yellow-400 border-yellow-400 text-black scale-110 shadow-md shadow-yellow-400/30' : ''}
-                        ${!done && !active ? 'bg-white border-slate-200 text-slate-400' : ''}`}>
+                        ${!done && !active ? 'bg-white border-slate-200 text-slate-600' : ''}`}>
                         {done ? <CheckCircle2 className="w-4 h-4" /> : num}
                       </div>
-                      <span className={`text-[9px] font-bold mt-1 uppercase tracking-wide ${active ? 'text-slate-900' : 'text-slate-400'}`}>
+                      <span className={`text-[9px] font-bold mt-1 uppercase tracking-wide ${active ? 'text-slate-900' : 'text-slate-600'}`}>
                         {label}
                       </span>
                     </div>
@@ -215,7 +215,7 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
                       </optgroup>
                     ))}
                   </select>
-                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 pointer-events-none" />
                 </div>
               </div>
 
@@ -248,7 +248,7 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
           {/* ── STEP 2 ── */}
           {step === 2 && (
             <div className="space-y-4">
-              <p className="text-xs text-slate-500 font-medium">Select your preferred cab type for <span className="text-slate-900 font-bold">{formData.drop}</span></p>
+              <p className="text-xs text-slate-600 font-medium">Select your preferred cab type for <span className="text-slate-900 font-bold">{formData.drop}</span></p>
               <div className="space-y-2">
                 {VEHICLES.map(v => {
                   const selected = formData.carType === v.id;
@@ -261,11 +261,11 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
                     >
                       <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0
                         ${selected ? 'bg-yellow-400' : 'bg-slate-100'}`}>
-                        <Car className={`w-5 h-5 ${selected ? 'text-black' : 'text-slate-400'}`} />
+                        <Car className={`w-5 h-5 ${selected ? 'text-black' : 'text-slate-600'}`} />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className={`font-bold text-sm ${selected ? 'text-slate-900' : 'text-slate-700'}`}>{v.label}</div>
-                        <div className="text-xs text-slate-500 truncate">{v.sub}</div>
+                        <div className="text-xs text-slate-600 truncate">{v.sub}</div>
                       </div>
                       {selected && <CheckCircle2 className="w-5 h-5 text-yellow-500 shrink-0" />}
                     </div>
@@ -292,10 +292,10 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
               {/* Booking summary */}
               <div className="bg-slate-50 border border-slate-100 rounded-xl p-4 text-xs space-y-1.5">
                 <div className="font-bold text-slate-600 text-[11px] uppercase tracking-wide mb-2">Booking Summary</div>
-                <div className="flex justify-between"><span className="text-slate-500">Pickup</span><span className="font-bold text-slate-800 text-right max-w-[60%] truncate">{formData.pickup}</span></div>
-                <div className="flex justify-between"><span className="text-slate-500">Tour / Destination</span><span className="font-bold text-slate-800">{formData.drop}</span></div>
-                <div className="flex justify-between"><span className="text-slate-500">Date</span><span className="font-bold text-slate-800">{formData.date}</span></div>
-                <div className="flex justify-between"><span className="text-slate-500">Vehicle</span><span className="font-bold text-slate-800">{VEHICLES.find(v => v.id === formData.carType)?.label}</span></div>
+                <div className="flex justify-between"><span className="text-slate-600">Pickup</span><span className="font-bold text-slate-800 text-right max-w-[60%] truncate">{formData.pickup}</span></div>
+                <div className="flex justify-between"><span className="text-slate-600">Tour / Destination</span><span className="font-bold text-slate-800">{formData.drop}</span></div>
+                <div className="flex justify-between"><span className="text-slate-600">Date</span><span className="font-bold text-slate-800">{formData.date}</span></div>
+                <div className="flex justify-between"><span className="text-slate-600">Vehicle</span><span className="font-bold text-slate-800">{VEHICLES.find(v => v.id === formData.carType)?.label}</span></div>
               </div>
 
               {/* Name */}
@@ -322,7 +322,7 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
                   <Phone className="w-3.5 h-3.5 text-amber-500" /> Mobile Number *
                 </label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-bold text-slate-500">+91</span>
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-bold text-slate-600">+91</span>
                   <input
                     id="qb-phone"
                     name="phone"
@@ -335,7 +335,7 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
                     className={inputCls + ' pl-12'}
                   />
                 </div>
-                <p className="text-[10px] text-slate-400 mt-1">We'll call this number to confirm your booking</p>
+                <p className="text-[10px] text-slate-600 mt-1">We'll call this number to confirm your booking</p>
               </div>
 
               <div className="flex gap-3 pt-1">
@@ -356,7 +356,7 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
                   )}
                 </button>
               </div>
-              <p className="text-center text-[10px] text-slate-400">By submitting, you agree to our terms of service.</p>
+              <p className="text-center text-[10px] text-slate-600">By submitting, you agree to our terms of service.</p>
             </div>
           )}
 
@@ -364,7 +364,7 @@ export default function QuickBookModal({ isOpen, onClose, initialData = {} }) {
 
         {/* ─── Footer ─── */}
         <div className="px-6 pb-5 pt-2 border-t border-slate-100 text-center">
-          <a href={`tel:+91${phone}`} className="text-xs font-bold text-slate-500 hover:text-amber-600 transition">
+          <a href={`tel:+91${phone}`} className="text-xs font-bold text-slate-600 hover:text-amber-600 transition">
             📞 Or call directly: +91 {phone}
           </a>
         </div>

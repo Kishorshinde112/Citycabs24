@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Phone, MessageCircle, Menu, X, ChevronDown, Sparkles } from 'lucide-react';
 import useSettingsStore from '../store/settingsStore';
-import logoImg from '../assets/citycabs24-logo.webp';
 
 export default function Navbar({ onOpenBookModal, onSelectTour }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -68,7 +67,7 @@ export default function Navbar({ onOpenBookModal, onSelectTour }) {
             {/* Brand Logo */}
             <a href="/" className="flex items-center gap-2.5">
               <div className="w-10 h-10 rounded-full overflow-hidden border border-yellow-400/40 shadow-sm bg-white flex items-center justify-center p-0.5">
-                <img src={logoImg} alt="CityCabs24 Logo" width="40" height="40" className="w-full h-full object-contain" />
+                <img src="/assets/citycabs24-logo-80w.webp" srcSet="/assets/citycabs24-logo-80w.webp 80w, /assets/citycabs24-logo.webp 512w" sizes="40px" alt="CityCabs24 Logo" width="40" height="40" className="w-full h-full object-contain" />
               </div>
               <div>
                 <span className="font-display font-extrabold text-2xl tracking-tight text-white">

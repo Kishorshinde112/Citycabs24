@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Car, Phone, Mail, MapPin, MessageCircle, Heart, Shield, Sparkles } from 'lucide-react';
 import { TOURS_DATA } from '../data/toursData';
 import useSettingsStore from '../store/settingsStore';
-import logoImg from '../assets/citycabs24-logo.webp';
 
 export default function Footer({ onOpenPrivacyModal, onSelectTour }) {
   const { phone, email } = useSettingsStore();
@@ -18,7 +17,7 @@ export default function Footer({ onOpenPrivacyModal, onSelectTour }) {
           <div className="lg:col-span-4 space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full overflow-hidden border border-yellow-400/40 bg-white flex items-center justify-center p-0.5 shadow-md">
-                <img src={logoImg} alt="CityCabs24 Logo" width="48" height="48" className="w-full h-full object-contain" />
+                <img src="/assets/citycabs24-logo-80w.webp" srcSet="/assets/citycabs24-logo-80w.webp 80w, /assets/citycabs24-logo.webp 512w" sizes="48px" alt="CityCabs24 Logo" width="48" height="48" loading="lazy" className="w-full h-full object-contain" />
               </div>
               <span className="font-display font-black text-2xl tracking-tight text-white">
                 CityCabs<span className="text-yellow-400">24</span>

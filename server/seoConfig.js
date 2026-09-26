@@ -503,7 +503,7 @@ export function injectSEO(htmlTemplate, rawPath, options = {}) {
           <div class="flex justify-between items-center">
             <div class="flex items-center gap-2">
               <a href="/" class="flex items-center gap-2.5 group">
-                <img src="/assets/citycabs24-logo.webp" alt="CityCabs24 Logo" class="h-10 sm:h-12 w-auto object-contain drop-shadow-[0_0_8px_rgba(250,204,21,0.4)]" />
+                <img src="/assets/citycabs24-logo-80w.webp" alt="CityCabs24 Logo" class="h-10 sm:h-12 w-auto object-contain drop-shadow-[0_0_8px_rgba(250,204,21,0.4)]" />
                 <div class="flex flex-col">
                   <span class="font-extrabold text-xl sm:text-2xl tracking-tight text-white group-hover:text-amber-400 transition-colors">
                     CityCabs<span class="text-amber-500">24</span>

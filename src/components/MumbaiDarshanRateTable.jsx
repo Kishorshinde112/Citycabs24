@@ -208,7 +208,7 @@ export default function MumbaiDarshanRateTable({ onOpenBookModal }) {
                                     </span>
                                   )}
                                 </div>
-                                <div className="text-[11px] text-slate-500">
+                                <div className="text-[11px] text-slate-400">
                                   {car.category} • {car.seating}
                                 </div>
                               </div>

@@ -62,6 +62,8 @@ export default function TourPackages({ onSelectTour, showMumbaiOnly = false }) {
                       />
                       <img
                         src={tour.banner}
+                        srcSet={`${tour.banner.replace(/\.[^.]+$/, '')}-480w.webp 480w, ${tour.banner.replace(/\.[^.]+$/, '')}-768w.webp 768w`}
+                        sizes="(max-width: 639px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         alt={`${tour.title} - CityCabs24 tour package`}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         loading="lazy"
@@ -72,8 +74,10 @@ export default function TourPackages({ onSelectTour, showMumbaiOnly = false }) {
                     </picture>
                   ) : (
                     <img
-                      src={tour.banner}
-                      alt={`${tour.title} - CityCabs24 tour package`}
+                        src={tour.banner}
+                        srcSet={`${tour.banner.replace(/\.[^.]+$/, '')}-480w.webp 480w, ${tour.banner.replace(/\.[^.]+$/, '')}-768w.webp 768w`}
+                        sizes="(max-width: 639px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        alt={`${tour.title} - CityCabs24 tour package`}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                       decoding="async"
