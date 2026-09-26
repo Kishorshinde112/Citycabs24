@@ -526,8 +526,10 @@ export function injectSEO(htmlTemplate, rawPath, options = {}) {
       <main class="w-full">
         <div id="home" class="relative bg-slate-900 text-white min-h-[500px] sm:min-h-[580px] flex items-center justify-center overflow-hidden py-20 border-b border-slate-800">
           <picture class="absolute inset-0 w-full h-full pointer-events-none">
-            <source type="image/webp" srcset="/assets/hero/mumbai-hero-480w.webp 480w, /assets/hero/mumbai-hero-768w.webp 768w, /assets/hero/mumbai-hero-1280w.webp 1280w, /assets/hero/mumbai-hero-1600w.webp 1600w" sizes="100vw">
-            <img src="/assets/hero/mumbai-hero.webp" alt="${seo.h1}" class="w-full h-full object-cover opacity-40 transform scale-105" loading="eager" fetchpriority="high" width="1600" height="900">
+            <source media="(max-width: 639px)" type="image/webp" srcset="/assets/hero/mumbai-hero-480w.webp" />
+            <source media="(max-width: 1024px)" type="image/webp" srcset="/assets/hero/mumbai-hero-768w.webp" />
+            <source media="(min-width: 1025px)" type="image/webp" srcset="/assets/hero/mumbai-hero-1280w.webp 1280w, /assets/hero/mumbai-hero-1600w.webp 1600w" sizes="100vw" />
+            <img src="/assets/hero/mumbai-hero.webp" alt="Mumbai Darshan Cab Service" class="w-full h-full object-cover opacity-40 transform scale-105" loading="eager" fetchpriority="high" width="1600" height="900">
           </picture>
           <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/70 to-slate-900/50"></div>
           
