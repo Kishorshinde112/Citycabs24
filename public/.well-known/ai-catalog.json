@@ -1,0 +1,14 @@
+{
+  "name": "CityCabs24",
+  "version": "1.0",
+  "description": "Private cab booking and guided sightseeing tours across Mumbai and Maharashtra.",
+  "homepage": "https://citycabs24.com",
+  "contact": {
+    "telephone": "+91-9833309061",
+    "email": "mumbaicitycabs24@gmail.com"
+  },
+  "endpoints": {
+    "publicTours": "https://citycabs24.com/api/tours"
+  },
+  "documentation": "https://citycabs24.com/llms.txt"
+}

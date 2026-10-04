@@ -1,0 +1,96 @@
+{
+  "$schema": "https://specs.ard.dev/v1/schema.json",
+  "name": "CityCabs24",
+  "description": "Premium private cab and sightseeing chauffeur service across Mumbai and Maharashtra, India. Specialized in Mumbai Darshan, hill stations, and spiritual pilgrimage tours.",
+  "url": "https://citycabs24.com",
+  "contact": {
+    "phone": "+91-9833309061",
+    "email": "mumbaicitycabs24@gmail.com",
+    "whatsapp": "https://wa.me/919833309061"
+  },
+  "capabilities": [
+    "sightseeing-tours",
+    "outstation-cabs",
+    "airport-transfers",
+    "pilgrimage-yatras"
+  ],
+  "services": [
+    {
+      "name": "Mumbai Darshan",
+      "url": "https://citycabs24.com/mumbai-darshan",
+      "duration": "1 Day (8h-12h)",
+      "startingRateINR": 2499,
+      "description": "Full-day guided city sightseeing covering Gateway of India, Marine Drive, Siddhivinayak, and Bandra."
+    },
+    {
+      "name": "Lonavala & Khandala Weekend Getaway",
+      "url": "https://citycabs24.com/lonavala-trip",
+      "duration": "1-2 Days",
+      "startingRateINR": 3200,
+      "description": "Scenic Western Ghats road trip to Tiger Point, Bhushi Dam, and Karla Caves."
+    },
+    {
+      "name": "Alibaug Sightseeing",
+      "url": "https://citycabs24.com/alibaug-sightseeing",
+      "duration": "1-2 Days",
+      "startingRateINR": 4000,
+      "description": "Coastal beaches, Kolaba Fort, and Murud Janjira sea fortress."
+    },
+    {
+      "name": "Matheran Hill Station",
+      "url": "https://citycabs24.com/matheran-sightseeing",
+      "duration": "1-2 Days",
+      "startingRateINR": 3000,
+      "description": "Drop and round-trip service to Dasturi Naka for vehicle-free hill station exploration."
+    },
+    {
+      "name": "Shirdi Sai Baba Temple Tour",
+      "url": "https://citycabs24.com/shirdi-tour",
+      "duration": "1-2 Days",
+      "startingRateINR": 8000,
+      "description": "Express pilgrimage via Samruddhi Mahamarg with doorstep pickup."
+    },
+    {
+      "name": "Mahabaleshwar & Panchgani",
+      "url": "https://citycabs24.com/mahabaleshwar-sightseeing",
+      "duration": "2-3 Days",
+      "startingRateINR": 8500,
+      "description": "Multi-day holiday package covering Arthur's Seat, Venna Lake, and strawberry farms."
+    },
+    {
+      "name": "Igatpuri Waterfall Tour",
+      "url": "https://citycabs24.com/igatpuri-tour",
+      "duration": "1 Day",
+      "startingRateINR": 3500,
+      "description": "Sahyadri monsoon valleys, Bhavali Dam, and Vipassana Pagoda."
+    },
+    {
+      "name": "Ashtavinayak Yatra",
+      "url": "https://citycabs24.com/ashtavinayak",
+      "duration": "2-3 Days",
+      "description": "Complete pilgrimage to all 8 sacred Ganesha temples in Maharashtra."
+    },
+    {
+      "name": "3 Jyotirlinga Tour",
+      "url": "https://citycabs24.com/3-jyotirlinga-in-maharashtra",
+      "duration": "3 Days",
+      "description": "Sacred Shiva circuit covering Trimbakeshwar, Bhimashankar, and Grishneshwar."
+    },
+    {
+      "name": "Konkan Darshan",
+      "url": "https://citycabs24.com/konkan-darshan",
+      "duration": "4-7 Days",
+      "description": "Coastal Maharashtra road trip covering beaches, sea forts, and local culture."
+    }
+  ],
+  "publicResources": [
+    {
+      "type": "sitemap",
+      "url": "https://citycabs24.com/sitemap.xml"
+    },
+    {
+      "type": "llms-txt",
+      "url": "https://citycabs24.com/llms.txt"
+    }
+  ]
+}
