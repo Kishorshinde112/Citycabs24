@@ -4,7 +4,7 @@ This document outlines the requirements and structure needed to build a real bac
 
 ## 1. Authentication
 
-The admin panel currently uses a hardcoded login (`mumbaicitycabs24@gmail.com` / `Shahrukh@123`).
+The admin panel uses secure authentication via Payload CMS credentials (configured via environment or securely seeded).
 
 **Required Backend Endpoints:**
 - `POST /api/auth/login`

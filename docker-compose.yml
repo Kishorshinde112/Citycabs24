@@ -7,11 +7,16 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+    environment:
+      - HOSTNAME=0.0.0.0
     volumes:
       - ./data:/app/data
+      - ./public/media:/app/public/media
     networks:
       - dokploy-network
       - coolify
+    ports:
+      - "3000:3000"
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=dokploy-network"

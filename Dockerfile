@@ -1,26 +1,34 @@
-# Build Stage
-FROM node:22-alpine AS builder
+# Dockerfile for Next.js + Payload CMS
+FROM node:22-bookworm-slim AS base
+
+# Install dependencies only when needed
+FROM base AS deps
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
+COPY package*.json .npmrc* ./
+RUN npm ci --legacy-peer-deps
+
+# Rebuild the source code only when needed
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
 
-# Production Stage
-FROM node:22-alpine
+# Production image, copy all the files and run next
+FROM base AS runner
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm install --omit=dev
+ENV NODE_ENV production
+ENV PORT 3000
+ENV HOSTNAME "0.0.0.0"
 
-# Copy compiled frontend dist and server code
-COPY --from=builder /app/dist ./dist
-COPY server ./server
-COPY public ./public
+RUN mkdir -p /app/data /app/public/media
 
-ENV NODE_ENV=production
-ENV PORT=80
-ENV DATA_DIR=/app/data
+# Copy Next.js standalone output and static files
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 
-EXPOSE 80
-CMD ["node", "server/index.js"]
+# Expose port and start
+EXPOSE 3000
+CMD ["node", "server.js"]

@@ -1,0 +1,668 @@
+/* ==========================================================================
+   CityCabs24 Payload CMS Admin Theme
+   Compact, Data-First, Table-First Operational Interface
+   ========================================================================== */
+
+:root {
+  /* Core Palette Tokens */
+  --admin-bg: #F3F5F7;
+  --admin-panel: #FFFFFF;
+  --admin-field-bg: #EEF1F4;
+  --admin-border: #E2E8F0;
+  --admin-border-subtle: #EDF2F7;
+  --admin-text: #1E293B;
+  --admin-muted: #64748B;
+  --admin-accent: #EAB308;
+  --admin-accent-hover: #CA8A04;
+  --admin-accent-light: #FEF08A;
+  --admin-success: #10B981;
+  --admin-success-light: #ECFDF5;
+  --admin-warning: #F59E0B;
+  --admin-warning-light: #FFFBEB;
+  --admin-danger: #EF4444;
+  --admin-danger-light: #FEF2F2;
+  --admin-info: #3B82F6;
+  --admin-info-light: #EFF6FF;
+
+  /* Dimensions */
+  --admin-rail-width: 48px;
+  --admin-panel-width: 192px;
+  --admin-sidebar-total: 240px;
+  --admin-drawer-width: min(640px, 45vw);
+  --admin-row-height: 44px;
+
+  /* Payload CMS CSS Variables Overrides */
+  --theme-bg: var(--admin-bg);
+  --theme-elevation-0: #FFFFFF;
+  --theme-elevation-50: #FFFFFF;
+  --theme-elevation-100: #F8FAFC;
+  --theme-elevation-150: #F1F5F9;
+  --theme-elevation-200: #E2E8F0;
+  --theme-elevation-300: #CBD5E1;
+  --theme-elevation-400: #94A3B8;
+  --theme-elevation-500: #64748B;
+  --theme-elevation-800: #1E293B;
+  --theme-elevation-900: #0F172A;
+  --theme-elevation-1000: #020617;
+  --theme-text: #1E293B;
+  --theme-input-bg: var(--admin-field-bg);
+  --color-base-0: #FFFFFF;
+  --color-base-50: #F8FAFC;
+  --color-base-100: #F1F5F9;
+  --color-base-150: #EEF1F4;
+  --color-base-200: #E2E8F0;
+  --color-base-300: #CBD5E1;
+  --color-base-500: #64748B;
+  --color-base-800: #1E293B;
+  --color-base-1000: #0F172A;
+}
+
+@tailwind utilities;
+
+/* ==========================================================================
+   Global App Layout & Backgrounds
+   ========================================================================== */
+
+body, 
+.template-default, 
+.template-default__wrap,
+.dashboard,
+.collection-list,
+.document-edit {
+  background-color: var(--admin-bg) !important;
+  color: var(--admin-text) !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+.template-default {
+  display: flex !important;
+  flex-direction: row !important;
+}
+
+.template-default__wrap {
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+  overflow-y: auto !important;
+}
+
+/* Reduce oversized typography */
+h1, .h1 { font-size: 1.5rem !important; font-weight: 600 !important; color: var(--admin-text) !important; }
+h2, .h2 { font-size: 1.25rem !important; font-weight: 600 !important; color: var(--admin-text) !important; }
+h3, .h3 { font-size: 1.1rem !important; font-weight: 600 !important; color: var(--admin-text) !important; }
+
+/* ==========================================================================
+   Header Bar
+   ========================================================================== */
+
+.app-header {
+  background: var(--admin-panel) !important;
+  border-bottom: 1px solid var(--admin-border) !important;
+  height: 52px !important;
+  min-height: 52px !important;
+  padding: 0 1.25rem !important;
+  box-shadow: none !important;
+}
+
+.step-nav {
+  font-size: 0.8125rem !important;
+  color: var(--admin-muted) !important;
+}
+
+/* ==========================================================================
+   Left Navigation Layout (Custom Two-Tier)
+   ========================================================================== */
+
+.admin-two-tier-nav {
+  display: flex;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-right: 1px solid var(--admin-border);
+  background: var(--admin-panel);
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.admin-nav-rail {
+  width: var(--admin-rail-width);
+  background: #0F172A; /* Slate 900 for high-contrast professional icon rail */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 0;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.admin-nav-rail__logo {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: var(--admin-accent);
+  color: #0F172A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 13px;
+  margin-bottom: 12px;
+  text-decoration: none;
+}
+
+.admin-nav-rail__item {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94A3B8;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.admin-nav-rail__item:hover,
+.admin-nav-rail__item--active {
+  background: rgba(255, 255, 255, 0.12);
+  color: #F8FAFC;
+}
+
+.admin-nav-rail__item--active {
+  color: var(--admin-accent);
+}
+
+.admin-nav-rail__bottom {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.admin-nav-panel {
+  width: var(--admin-panel-width);
+  background: var(--admin-panel);
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--admin-border);
+  overflow-y: auto;
+}
+
+.admin-nav-panel__header {
+  padding: 14px 16px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--admin-muted);
+  border-bottom: 1px solid var(--admin-border-subtle);
+}
+
+.admin-nav-panel__links {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  gap: 2px;
+}
+
+.admin-nav-panel__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--admin-text);
+  text-decoration: none;
+  transition: background-color 0.12s ease;
+}
+
+.admin-nav-panel__link:hover {
+  background-color: var(--admin-field-bg);
+  color: var(--admin-text);
+}
+
+.admin-nav-panel__link--active {
+  background-color: #FEF9C3 !important; /* Soft yellow highlight */
+  color: #854D0E !important;
+  font-weight: 600;
+}
+
+.admin-nav-panel__badge {
+  background: #E2E8F0;
+  color: #475569;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 999px;
+}
+
+/* Hide Payload default sidebar if custom nav mounted */
+.template-default > .nav:not(.admin-two-tier-nav) {
+  display: none !important;
+}
+
+/* ==========================================================================
+   Data Tables: Compact, Dense, Sticky Header
+   ========================================================================== */
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px !important;
+  background: var(--admin-panel) !important;
+  border: 1px solid var(--admin-border) !important;
+  border-radius: 6px !important;
+  overflow: hidden;
+}
+
+.table th,
+.table thead tr th {
+  background: #F8FAFC !important;
+  color: var(--admin-muted) !important;
+  font-weight: 600 !important;
+  font-size: 11px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  padding: 10px 14px !important;
+  height: 38px !important;
+  border-bottom: 1px solid var(--admin-border) !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 10 !important;
+  white-space: nowrap;
+}
+
+.table tbody tr {
+  height: var(--admin-row-height) !important;
+  max-height: var(--admin-row-height) !important;
+  border-bottom: 1px solid var(--admin-border-subtle) !important;
+  transition: background-color 0.1s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #F8FAFC !important;
+  cursor: pointer;
+}
+
+.table td,
+.table tbody tr td {
+  padding: 6px 14px !important;
+  color: var(--admin-text) !important;
+  font-size: 13px !important;
+  border-bottom: 1px solid var(--admin-border-subtle) !important;
+  vertical-align: middle !important;
+  white-space: nowrap;
+}
+
+/* Horizontal scroll wrapper for wide data tables */
+.collection-list__wrap,
+.table-scroll-container {
+  overflow-x: auto !important;
+  border-radius: 6px;
+}
+
+/* ==========================================================================
+   Status Pills & Operational Badges
+   ========================================================================== */
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: capitalize;
+  line-height: 1.2;
+}
+
+.status-pill--pending {
+  background: #FEF3C7;
+  color: #B45309;
+}
+
+.status-pill--in_progress,
+.status-pill--in-progress {
+  background: #DBEAFE;
+  color: #1D4ED8;
+}
+
+.status-pill--confirmed {
+  background: #D1FAE5;
+  color: #047857;
+}
+
+.status-pill--completed {
+  background: #E2E8F0;
+  color: #334155;
+}
+
+.status-pill--cancelled {
+  background: #FEE2E2;
+  color: #B91C1C;
+}
+
+.lead-type-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.lead-type-badge--booking {
+  background: #DBEAFE;
+  color: #1E40AF;
+}
+
+.lead-type-badge--quick_enquiry {
+  background: #F3E8FF;
+  color: #6B21A8;
+}
+
+/* Action buttons on table cells */
+.table-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-weight: 500;
+  border-radius: 4px;
+  border: 1px solid var(--admin-border);
+  background: #FFFFFF;
+  color: var(--admin-text);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.12s ease;
+}
+
+.table-action-btn:hover {
+  background: var(--admin-field-bg);
+  border-color: #CBD5E1;
+}
+
+/* ==========================================================================
+   Right-Side Edit Drawer Engine
+   ========================================================================== */
+
+.drawer {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  z-index: 1000 !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  pointer-events: none;
+}
+
+.drawer--is-open {
+  pointer-events: auto;
+}
+
+.drawer__blur-bg {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: rgba(15, 23, 42, 0.35) !important; /* Subtle dark backdrop overlay */
+  backdrop-filter: blur(2px) !important;
+  opacity: 0;
+  transition: opacity 0.2s ease !important;
+}
+
+.drawer--is-open .drawer__blur-bg {
+  opacity: 1 !important;
+}
+
+.drawer__content {
+  position: relative !important;
+  z-index: 2 !important;
+  width: var(--admin-drawer-width) !important;
+  min-width: 480px !important;
+  max-width: 720px !important;
+  height: 100vh !important;
+  background: var(--admin-panel) !important;
+  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.12) !important;
+  border-left: 1px solid var(--admin-border) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  transform: translateX(100%) !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  overflow: hidden !important;
+}
+
+/* Adaptive drawer widths for simple records (Fleet, Bookings, Gallery, Testimonials, FAQs) */
+.drawer__content,
+.admin-record-drawer--bookings .drawer__content,
+.admin-record-drawer--faqs .drawer__content,
+.admin-record-drawer--testimonials .drawer__content,
+.admin-record-drawer--fleet .drawer__content,
+.admin-record-drawer--gallery .drawer__content {
+  width: min(700px, 92vw) !important;
+  max-width: 720px !important;
+  min-width: 480px !important;
+}
+
+.drawer--is-open .drawer__content {
+  transform: translateX(0) !important;
+}
+
+.drawer-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 14px 20px !important;
+  background: #FFFFFF !important;
+  border-bottom: 1px solid var(--admin-border) !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 10 !important;
+  flex-shrink: 0;
+}
+
+.drawer-header__title {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: var(--admin-text) !important;
+  margin: 0 !important;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.drawer-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.drawer-body {
+  flex: 1 1 auto !important;
+  overflow-y: auto !important;
+  padding: 20px !important;
+  background: #FFFFFF;
+}
+
+.drawer-footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 14px 20px !important;
+  background: #FFFFFF !important;
+  border-top: 1px solid var(--admin-border) !important;
+  position: sticky !important;
+  bottom: 0 !important;
+  z-index: 10 !important;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Form Fields & Controls inside Drawer
+   ========================================================================== */
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+textarea,
+select,
+.field-type select {
+  background-color: var(--admin-field-bg) !important;
+  border: 1px solid var(--admin-border) !important;
+  border-radius: 5px !important;
+  color: var(--admin-text) !important;
+  font-size: 13px !important;
+  padding: 7px 10px !important;
+  transition: border-color 0.15s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #3B82F6 !important;
+  outline: none !important;
+  background-color: #FFFFFF !important;
+}
+
+.field-label {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: var(--admin-muted) !important;
+  margin-bottom: 4px !important;
+}
+
+/* Compact Buttons */
+button.btn,
+.btn {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 7px 14px !important;
+  border-radius: 5px !important;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.btn--primary,
+button[type="submit"]:not(.btn--secondary) {
+  background: var(--admin-accent) !important;
+  color: #0F172A !important;
+  border: 1px solid #CA8A04 !important;
+}
+
+.btn--primary:hover,
+button[type="submit"]:not(.btn--secondary):hover {
+  background: var(--admin-accent-hover) !important;
+  color: #FFFFFF !important;
+}
+
+.btn--secondary {
+  background: #FFFFFF !important;
+  color: var(--admin-text) !important;
+  border: 1px solid var(--admin-border) !important;
+}
+
+.btn--secondary:hover {
+  background: var(--admin-field-bg) !important;
+}
+
+/* ==========================================================================
+   Responsive Viewports
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  :root {
+    --admin-drawer-width: 75vw;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --admin-drawer-width: 100vw;
+  }
+
+  .admin-two-tier-nav {
+    position: fixed;
+    left: -240px;
+    transition: left 0.25s ease;
+  }
+
+  .admin-two-tier-nav--mobile-open {
+    left: 0;
+  }
+
+  .drawer__content {
+    min-width: 100vw !important;
+    max-width: 100vw !important;
+  }
+}
+
+/* ==========================================================================
+   Block Editor UX & Collapsible Styling
+   ========================================================================== */
+
+.blocks-field .collapsible,
+.array-field .collapsible {
+  background: #FFFFFF !important;
+  border: 1px solid var(--admin-border) !important;
+  border-radius: 6px !important;
+  margin-bottom: 10px !important;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02) !important;
+}
+
+.collapsible__header {
+  background: #F8FAFC !important;
+  padding: 10px 14px !important;
+  border-bottom: 1px solid var(--admin-border-subtle) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: var(--admin-text) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  cursor: pointer !important;
+}
+
+.collapsible__header:hover {
+  background: #F1F5F9 !important;
+}
+
+.collapsible__content {
+  padding: 14px !important;
+  background: #FFFFFF !important;
+}
+
+/* Lexical editor compact spacing */
+.lexical {
+  border: 1px solid var(--admin-border) !important;
+  border-radius: 6px !important;
+  background: #FFFFFF !important;
+}
+
+.lexical__editor {
+  min-height: 120px !important;
+  padding: 12px !important;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+}
+
+.lexical-toolbar {
+  background: #F8FAFC !important;
+  border-bottom: 1px solid var(--admin-border) !important;
+  padding: 4px 8px !important;
+}

@@ -1,3 +1,8 @@
 User-agent: *
+Allow: /
 Disallow: /admin
+Disallow: /booking-confirmed
+Disallow: /enquiry-received
+Disallow: /enquiry-confirmed
+
 Sitemap: https://citycabs24.com/sitemap.xml
