@@ -18,9 +18,9 @@ RUN npm run build
 FROM base AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
-ENV PORT 3000
-ENV HOSTNAME "0.0.0.0"
+ENV NODE_ENV=production
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
 RUN mkdir -p /app/data /app/public/media
 
@@ -28,6 +28,8 @@ RUN mkdir -p /app/data /app/public/media
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
+
+RUN npm install @libsql/linux-arm64-gnu --legacy-peer-deps --no-save
 
 # Expose port and start
 EXPOSE 3000

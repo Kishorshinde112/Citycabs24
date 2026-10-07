@@ -9,7 +9,8 @@ const dirname = path.dirname(filename)
 
 // Dynamic imports to bypass TS checks for legacy JS files
 const loadLegacyData = async () => {
-  const { TOURS_DATA } = await import('../../src_legacy/data/toursData.js')
+  // @ts-ignore
+  const { TOURS_DATA } = await import('../data/toursData.js')
   return { TOURS_DATA }
 }
 

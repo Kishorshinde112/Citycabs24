@@ -32,10 +32,10 @@ out/
 !.env.example
 
 # Database & Backups
-data/
-data/*
-!data/.gitkeep
-backups/
+/data/
+/data/*
+!/data/.gitkeep
+/backups/
 *.db
 *.sqlite
 
