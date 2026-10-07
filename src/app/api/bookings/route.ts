@@ -50,6 +50,13 @@ export async function POST(request: Request) {
 export async function GET(request: Request) {
   try {
     const payload = await getPayload({ config: configPromise })
+
+    // Auth guard: only authenticated admins can list bookings
+    const { user } = await payload.auth({ headers: request.headers as any })
+    if (!user) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 })
+    }
+
     const { searchParams } = new URL(request.url)
     const limit = Number(searchParams.get('limit')) || 100
     const page = Number(searchParams.get('page')) || 1
