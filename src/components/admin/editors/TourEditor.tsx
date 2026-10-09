@@ -594,13 +594,13 @@ export const TourEditor: React.FC<any> = (props) => {
                 }
                 handleSave()
               }}
-              disabled={saving || !isDirty}
+              disabled={saving}
               className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg text-xs font-bold shadow-2xs transition cursor-pointer ${
                 saveSuccess
                   ? 'bg-emerald-600 text-white'
                   : isDirty
-                  ? 'bg-yellow-400 hover:bg-yellow-500 text-slate-950'
-                  : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                  ? 'bg-yellow-400 hover:bg-yellow-500 text-slate-950 ring-2 ring-yellow-400/50'
+                  : 'bg-slate-900 hover:bg-slate-800 text-white'
               }`}
             >
               {saveSuccess ? (
@@ -610,13 +610,13 @@ export const TourEditor: React.FC<any> = (props) => {
                 </>
               ) : saving ? (
                 <>
-                  <div className="w-3.5 h-3.5 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />
+                  <div className="w-3.5 h-3.5 border-2 border-current border-t-transparent rounded-full animate-spin" />
                   <span>Saving...</span>
                 </>
               ) : (
                 <>
                   <Save className="w-3.5 h-3.5" />
-                  <span>Save Changes</span>
+                  <span>{isDirty ? 'Save Changes' : 'Save'}</span>
                 </>
               )}
             </button>
@@ -1299,10 +1299,15 @@ export const TourEditor: React.FC<any> = (props) => {
       {/* ───────────────────────────────────────────────────────────
           STICKY BOTTOM ACTIONS FOOTER
       ─────────────────────────────────────────────────────────── */}
-      <footer className="fixed bottom-0 inset-x-0 z-20 bg-white/95 backdrop-blur-md border-t border-slate-200 py-3 px-4 sm:px-8 shadow-lg">
+      <footer className="fixed bottom-0 right-0 left-0 md:left-[240px] z-20 bg-white/95 backdrop-blur-md border-t border-slate-200 py-3 px-4 sm:px-8 shadow-lg">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="text-xs text-slate-500">
-            {isDirty ? (
+            {saveSuccess ? (
+              <span className="text-emerald-600 font-bold flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5" />
+                Changes saved successfully!
+              </span>
+            ) : isDirty ? (
               <span className="text-amber-600 font-semibold flex items-center gap-1.5">
                 <AlertCircle className="w-3.5 h-3.5" />
                 You have unsaved changes in this Tour
@@ -1339,14 +1344,16 @@ export const TourEditor: React.FC<any> = (props) => {
                 }
                 handleSave()
               }}
-              disabled={saving || !isDirty}
+              disabled={saving}
               className={`px-5 py-2 rounded-lg text-xs font-bold transition cursor-pointer shadow-sm ${
-                isDirty
-                  ? 'bg-yellow-400 hover:bg-yellow-500 text-slate-950 font-black'
-                  : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                saveSuccess
+                  ? 'bg-emerald-600 text-white font-black'
+                  : isDirty
+                  ? 'bg-yellow-400 hover:bg-yellow-500 text-slate-950 font-black ring-2 ring-yellow-400/50'
+                  : 'bg-slate-900 hover:bg-slate-800 text-white font-semibold'
               }`}
             >
-              {saving ? 'Saving...' : 'Save Changes'}
+              {saveSuccess ? 'Saved' : saving ? 'Saving...' : isDirty ? 'Save Changes' : 'Save'}
             </button>
           </div>
         </div>

@@ -77,9 +77,9 @@ export const DashboardView: React.FC = () => {
             CityCabs24 CMS & Lead Management Portal
           </p>
         </div>
-        <div style={{ display: 'flex', gap: '8px' }}>
+        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
           <Link
-            href="/admin/collections/tours/create"
+            href="/admin/collections/tours"
             className="table-action-btn"
             style={{
               padding: '6px 12px',
@@ -90,7 +90,7 @@ export const DashboardView: React.FC = () => {
               color: '#854D0E',
             }}
           >
-            <Plus size={14} /> New Tour Package
+            Tour Packages (10)
           </Link>
           <Link
             href="/admin/collections/pages"
@@ -373,9 +373,11 @@ export const DashboardView: React.FC = () => {
                             color: '#1E40AF',
                             backgroundColor: '#EFF6FF',
                             borderColor: '#BFDBFE',
+                            whiteSpace: 'nowrap',
+                            padding: '4px 10px',
                           }}
                         >
-                          Edit in Drawer
+                          Open Lead
                         </Link>
                       </td>
                     </tr>

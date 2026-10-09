@@ -47,25 +47,43 @@ export default function Navbar({ onOpenBookModal, onSelectTour = () => {} }: { o
     { name: 'Mahabaleshwar Sightseeing', id: 'mahabaleshwar-sightseeing', href: '/mahabaleshwar-sightseeing' },
     { name: 'Igatpuri Tour', id: 'igatpuri-tour', href: '/igatpuri-tour' },
     { name: 'Ashtavinayak', id: 'ashtavinayak', href: '/ashtavinayak' },
-    { name: '3 Jyotirlinga in Maharashtra', id: 'jyotirlinga-maharashtra', href: '/3-jyotirlinga-in-maharashtra' },
+    { name: '3 Jyotirlinga in Maharashtra', id: '3-jyotirlinga-in-maharashtra', href: '/3-jyotirlinga-in-maharashtra' },
     { name: 'Konkan Darshan', id: 'konkan-darshan', href: '/konkan-darshan' },
   ];
 
   const tourOptions = useMemo(() => {
+    // Baseline: guarantee all 10 tours are always present
+    const map = new Map();
+    defaultTourOptions.forEach((opt, idx) => {
+      map.set(opt.href, { ...opt, displayOrder: idx + 1 });
+    });
+
+    // Merge store/CMS tours if available
     if (Array.isArray(tours) && tours.length > 0) {
-      const sorted = [...tours].sort((a, b) => {
-        const orderA = typeof a.displayOrder === 'number' ? a.displayOrder : (Number(a.displayOrder) || 100);
-        const orderB = typeof b.displayOrder === 'number' ? b.displayOrder : (Number(b.displayOrder) || 100);
-        if (orderA !== orderB) return orderA - orderB;
-        return (Number(a.id) || 0) - (Number(b.id) || 0);
+      tours.forEach((t) => {
+        const slug = t.slug || t.id;
+        if (slug) {
+          const href = `/${slug}`;
+          const existing = map.get(href) || {};
+          const order = typeof t.displayOrder === 'number' ? t.displayOrder : (Number(t.displayOrder) || existing.displayOrder || 100);
+          map.set(href, {
+            name: t.title || t.name || existing.name || slug,
+            id: slug,
+            href,
+            displayOrder: order,
+          });
+        }
       });
-      return sorted.map((t) => ({
-        name: t.title || t.name,
-        id: t.slug || t.id,
-        href: `/${t.slug || t.id}`,
-      }));
     }
-    return defaultTourOptions;
+
+    const list = Array.from(map.values());
+    list.sort((a, b) => {
+      const orderA = typeof a.displayOrder === 'number' ? a.displayOrder : 100;
+      const orderB = typeof b.displayOrder === 'number' ? b.displayOrder : 100;
+      if (orderA !== orderB) return orderA - orderB;
+      return a.name.localeCompare(b.name);
+    });
+    return list;
   }, [tours]);
 
   const handleTourClick = (e, item) => {

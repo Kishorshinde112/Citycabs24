@@ -59,7 +59,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
-        
+
+        {/* Umami Analytics */}
+        <Script
+          defer
+          src="https://analytics.kishorlab.dev/script.js"
+          data-website-id="ef7050a7-d39c-46f4-be2b-227b21627d90"
+          strategy="afterInteractive"
+        />
+
         <BookingModalProvider>
           <EnquiryModalProvider>
             <Navbar />

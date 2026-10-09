@@ -404,7 +404,14 @@ const useContentStore = create(
       }
     }),
     {
-      name: 'site-content-v6',
+      name: 'site-content-v8',
+      migrate: (persistedState: any) => {
+        if (!persistedState || !Array.isArray(persistedState.tours) || persistedState.tours.length < 10) {
+          return { ...persistedState, tours: TOURS_DATA };
+        }
+        return persistedState;
+      },
+      version: 8,
     }
   )
 );
